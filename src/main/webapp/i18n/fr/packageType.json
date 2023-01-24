@@ -1,0 +1,27 @@
+{
+  "meinAperoApp": {
+    "packageType": {
+      "home": {
+        "title": "PackageTypes",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Package Type",
+        "createOrEditLabel": "Créer ou éditer un Package Type",
+        "notFound": "Aucun Package Type trouvé"
+      },
+      "created": "Un nouveau Package Type a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Package Type avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Package Type avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Êtes-vous certain de vouloir supprimer le Package Type {{ id }} ?"
+      },
+      "detail": {
+        "title": "Package Type"
+      },
+      "id": "ID",
+      "name": "Name",
+      "description": "Description",
+      "price": "Price",
+      "packageTemplate": "Package Template"
+    }
+  }
+}

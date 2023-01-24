@@ -17,6 +17,8 @@ import { hasAnyAuthority } from 'app/shared/auth/private-route';
 import ErrorBoundary from 'app/shared/error/error-boundary';
 import { AUTHORITIES } from 'app/config/constants';
 import AppRoutes from 'app/routes';
+import { getEntities as getPackageTemplates } from './entities/package-template/package-template.reducer';
+import { getEntities as getPackageTypes } from './entities/package-type/package-type.reducer';
 
 const baseHref = document.querySelector('base').getAttribute('href').replace(/\/$/, '');
 
@@ -26,6 +28,8 @@ export const App = () => {
   useEffect(() => {
     dispatch(getSession());
     dispatch(getProfile());
+    dispatch(getPackageTemplates({}));
+    dispatch(getPackageTypes({}));
   }, []);
 
   const currentLocale = useAppSelector(state => state.locale.currentLocale);
@@ -51,11 +55,10 @@ export const App = () => {
           />
         </ErrorBoundary>
         <div className="container-fluid view-container" id="app-view-container">
-          <Card className="jh-card">
-            <ErrorBoundary>
-              <AppRoutes />
-            </ErrorBoundary>
-          </Card>
+          <ErrorBoundary>
+            <AppRoutes />
+          </ErrorBoundary>
+
           <Footer />
         </div>
       </div>

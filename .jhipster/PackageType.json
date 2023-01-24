@@ -1,0 +1,38 @@
+{
+  "applications": "*",
+  "changelogDate": "20230124144028",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "package_type",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "price",
+      "fieldType": "BigDecimal",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "PackageType",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityField": "name",
+      "otherEntityName": "packageTemplate",
+      "ownerSide": true,
+      "relationshipName": "packageTemplate",
+      "relationshipType": "one-to-one"
+    }
+  ],
+  "service": "serviceClass"
+}

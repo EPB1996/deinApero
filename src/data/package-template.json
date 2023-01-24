@@ -1,0 +1,26 @@
+[
+  {
+    "_id": {
+      "$oid": "63cff899056acc2c5aa673ee"
+    },
+    "name": "Package Template 1",
+    "product": [],
+    "_class": "ch.meinapero.domain.PackageTemplate"
+  },
+  {
+    "_id": {
+      "$oid": "63d006d9056acc2c5aa673f2"
+    },
+    "name": "Package Template 2",
+    "product": [],
+    "_class": "ch.meinapero.domain.PackageTemplate"
+  },
+  {
+    "_id": {
+      "$oid": "63d006e1056acc2c5aa673f3"
+    },
+    "name": "Package Template 3",
+    "product": [],
+    "_class": "ch.meinapero.domain.PackageTemplate"
+  }
+]

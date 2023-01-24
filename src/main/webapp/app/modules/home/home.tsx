@@ -3,7 +3,7 @@ import './home.scss';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Translate } from 'react-jhipster';
-import { Row, Col, Alert } from 'reactstrap';
+import { Row, Col, Alert, Button } from 'reactstrap';
 
 import { useAppSelector } from 'app/config/store';
 
@@ -16,6 +16,11 @@ export const Home = () => {
         <span className="hipster rounded" />
       </Col>
       <Col md="9">
+        <Button>
+          <Link to="/order" className="alert-link">
+            ORDER
+          </Link>
+        </Button>
         <h2>
           <Translate contentKey="home.title">Welcome, Java Hipster!</Translate>
         </h2>
