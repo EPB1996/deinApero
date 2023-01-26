@@ -29,7 +29,7 @@ export const CustomerInfoSlice = createSlice({
   name: 'customerInfo',
   initialState,
   reducers: {
-    addCustomerInfo: (state, data) => {
+    addCustomerInfo(state, data) {
       return data.payload as CustomerInfoObject;
     },
   },

@@ -17,7 +17,7 @@ export const Home = () => {
       </Col>
       <Col md="9">
         <Button>
-          <Link to="/order" className="alert-link">
+          <Link to="/productOrder" className="alert-link">
             ORDER
           </Link>
         </Button>

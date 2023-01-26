@@ -59,7 +59,7 @@ export const App = () => {
             <AppRoutes />
           </ErrorBoundary>
 
-          <Footer />
+          {/*  <Footer /> */}
         </div>
       </div>
     </BrowserRouter>
