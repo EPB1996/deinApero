@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './productSelection.scss';
+import './product.scss';
 import { Button, Card, CardBody, CardFooter, CardImg, CardSubtitle, CardText, CardTitle } from 'reactstrap';
 import { useAppDispatch } from 'app/config/store';
 import { addProduct, removeProduct } from './product.reducer';

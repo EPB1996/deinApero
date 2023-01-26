@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Col, Row } from 'reactstrap';
 import { useAppSelector } from 'app/config/store';
 import { IProduct } from 'app/shared/model/product.model';
-import ProductItem from './productItem';
+import ProductItem from './product/productItem';
 import Carousel from 'react-multi-carousel';
 
 const ProductSelection = () => {

@@ -2,42 +2,7 @@
   padding: 20px 0 20px 20px !important;
 }
  */
-.hidden {
-  display: none;
-  padding: 20px 0 20px 20px !important;
-}
-
-.show {
-  display: block;
-  padding: 20px 0 20px 20px !important;
-}
 
 .productItem {
   padding: 20px 0 20px 20px !important;
-}
-
-.productRibbon {
-  background-color: rgba(6, 120, 28, 0.5);
-  left: -5em;
-  -moz-transform: rotate(-45deg);
-  -ms-transform: rotate(-45deg);
-  -o-transform: rotate(-45deg);
-  -webkit-transform: rotate(-45deg);
-  transform: rotate(-45deg);
-  overflow: hidden;
-  position: absolute;
-  top: 20px;
-  white-space: nowrap;
-  width: 15em;
-  pointer-events: none;
-  opacity: 0.75;
-  span {
-    color: #fff;
-    display: block;
-    font-weight: 400;
-    text-align: center;
-    text-decoration: none;
-    text-shadow: 0 0 5px #444;
-    pointer-events: none;
-  }
 }
