@@ -9,6 +9,7 @@ import CustomerInfo from '../customerInfo/customerInfo';
 import PackageSelection from '../packageSelection/packageSelection';
 import ProductSelection from '../productSelection/productSelection';
 import { nextStep, setStep } from './stepper.reducer';
+import Overview from '../overview/overview';
 
 const OrderStepper = () => {
   const dispatch = useAppDispatch();
@@ -49,7 +50,7 @@ const OrderStepper = () => {
       case 2:
         return <ProductSelection></ProductSelection>;
       case 3:
-        return <>OverView Component</>;
+        return <Overview></Overview>;
       default:
         return 'Something went wrong';
     }
@@ -58,7 +59,7 @@ const OrderStepper = () => {
   return (
     <>
       <Slide direction="down" duration={1000}>
-        <Stepper style={{ height: '100px' }} activeStep={activeStep}>
+        <Stepper activeStep={activeStep}>
           <Step
             label="Contact Information"
             onClick={() => {

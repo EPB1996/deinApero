@@ -16,14 +16,15 @@ const PackageItem = props => {
   };
 
   return (
-    <Card color="light" outline style={{ width: '100%', height: '100%', padding: '0', overflow: 'hidden' }}>
-      <CardBody>
-        <div className={packageType === selectedPackageType ? 'productRibbon show' : 'productRibbon hidden'}>
-          <Slide direction="down" duration={1500}>
-            <span>Selected</span>
-          </Slide>
+    <Card color="light" outline style={{ position: 'relative', width: '100%', height: '100%', padding: '0' }}>
+      {packageType === selectedPackageType && (
+        <div className="ribbon ribbon-orange ">
+          <div className="banner">
+            <div className="text">Selected</div>
+          </div>
         </div>
-
+      )}
+      <CardBody>
         <CardTitle tag="h5">{packageType.name}</CardTitle>
         <CardSubtitle className="mb-2 text-muted" tag="h6">
           Package Subtitle

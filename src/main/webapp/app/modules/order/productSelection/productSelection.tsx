@@ -65,7 +65,7 @@ const ProductSelection = () => {
               <Slide direction="right" duration={1500} cascade>
                 {/* <Carousel partialVisible responsive={responsive} itemClass="productItem"> */}
                 <Row>
-                  {productsByCategory[open].map((product, index) => (
+                  {productsByCategory[open].map((product: IProduct, index) => (
                     <Col key={index} sm={6} md={4} lg={3} className={'productItem'}>
                       <ProductItem product={product}></ProductItem>
                     </Col>
@@ -79,7 +79,7 @@ const ProductSelection = () => {
               <Slide direction="right" duration={1500} cascade>
                 {/*  <Carousel partialVisible responsive={responsive} itemClass="productItem"> */}
                 <Row>
-                  {productsByCategory[open].map((product, index) => (
+                  {productsByCategory[open].map((product: IProduct, index) => (
                     <Col key={index} xs="auto" sm="auto" md="auto" className={'productItem'}>
                       <ProductItem product={product}></ProductItem>
                     </Col>
