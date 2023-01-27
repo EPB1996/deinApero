@@ -3,6 +3,7 @@ import './product.scss';
 import { Button, Card, CardBody, CardFooter, CardImg, CardSubtitle, CardText, CardTitle } from 'reactstrap';
 import { useAppDispatch } from 'app/config/store';
 import { addProduct, removeProduct } from './product.reducer';
+import { Slide } from 'react-awesome-reveal';
 const ProductItem = props => {
   const dispatch = useAppDispatch();
   const { name, description, prize, productSize, image } = props.product;
@@ -20,11 +21,11 @@ const ProductItem = props => {
   };
 
   return (
-    <Card style={{ width: '100%', height: '100%', padding: '0', overflow: 'hidden' }}>
+    <Card color="light" outline style={{ width: '100%', overflow: 'hidden' }}>
       <div className={className}>
         <span>Added</span>
       </div>
-      <CardImg alt="Card image cap" src="https://picsum.photos/256/186" top width="100%" />
+      <CardImg alt="Card image cap" src="https://picsum.photos/256/186" top width="50%" />
 
       <CardBody>
         <CardTitle tag="h5">{name}</CardTitle>

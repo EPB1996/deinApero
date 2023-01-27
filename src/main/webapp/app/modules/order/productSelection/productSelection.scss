@@ -1,8 +1,16 @@
-/* .productItem {
-  padding: 20px 0 20px 20px !important;
-}
- */
-
 .productItem {
-  padding: 20px 0 20px 20px !important;
+  display: flex;
+}
+
+#carousel.show {
+  visibility: 1;
+}
+
+#carousel.hidden {
+  opacity: 0;
+}
+
+#carousel {
+  opacity: 1;
+  transition: opacity 6s;
 }
