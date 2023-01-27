@@ -41,26 +41,14 @@ const PackageSelection = () => {
   return (
     <div>
       <Row className="justify-content-center">
-        <Col md="10">
-          <h2 id="meinaperoApp.customer.home.createOrEditLabel" data-cy="CustomerCreateUpdateHeading">
-            Select your Package
-          </h2>
-        </Col>
-      </Row>
-      <Row className="justify-content-center">
-        <Col md="10">
+        <Col style={{ display: 'flex', justifyContent: 'center' }}>
           {packageTypeList && packageTypeList.length > 0 ? (
-            <div style={{ display: 'flex' }} className="justify-content-center">
+            <div style={{ display: 'flex' }}>
               <Zoom direction="up" duration={1500} cascade style={{ padding: '5px' }}>
                 {packages}
               </Zoom>
             </div>
           ) : (
-            /*    <Carousel partialVisible responsive={responsive} itemClass="packageItem">
-                {packageTypeList && packageTypeList.length > 0
-                  ? packageTypeList.map((packageType, i) => <PackageItem key={i} packageType={packageType}></PackageItem>)
-                  : []}
-              </Carousel> */
             !packageTypeList && (
               <div className="alert alert-warning">
                 <Translate contentKey="meinaperoApp.productCategory.home.notFound">No Product Categories found</Translate>

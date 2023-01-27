@@ -5,6 +5,7 @@
 @import '~bootswatch/dist/quartz/bootswatch';
 body {
   margin: 0;
+  height: 100vh;
 }
 
 a {
@@ -24,6 +25,7 @@ a {
 
 .app-container {
   box-sizing: border-box;
+  height: 100vh;
   .view-container {
     width: 100%;
     height: calc(100% - 40px);
@@ -35,9 +37,9 @@ a {
     }
     .view-routes {
       height: 100%;
-      > div {
+      /*  > div {
         height: 100%;
-      }
+      } */
     }
   }
 }

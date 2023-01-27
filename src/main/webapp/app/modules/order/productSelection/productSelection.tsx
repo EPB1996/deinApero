@@ -50,20 +50,13 @@ const ProductSelection = () => {
             <Row>
               <div>
                 {Object.keys(productsByCategory).map((productKey, i) => (
-                  <Button key={i} onClick={() => toggle(productKey)} style={{ width: '100%' }}>
-                    {productKey}
-                  </Button>
+                  <Slide key={i} direction="left" duration={1500} cascade>
+                    <Button onClick={() => toggle(productKey)} style={{ width: '100%' }}>
+                      {productKey}
+                    </Button>
+                  </Slide>
                 ))}
               </div>
-
-              <Button
-                style={{ width: '100%' }}
-                onClick={() => {
-                  handleNext;
-                }}
-              >
-                Next
-              </Button>
             </Row>
           </Col>
 

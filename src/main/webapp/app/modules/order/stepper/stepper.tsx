@@ -1,5 +1,7 @@
+import './stepper.scss';
 import getStore, { useAppDispatch, useAppSelector } from 'app/config/store';
 import React, { useEffect, useState } from 'react';
+import { Slide } from 'react-awesome-reveal';
 import { Step, Stepper } from 'react-form-stepper';
 import { toast } from 'react-toastify';
 import { Button } from 'reactstrap';
@@ -55,42 +57,47 @@ const OrderStepper = () => {
 
   return (
     <>
-      <Stepper activeStep={activeStep}>
-        <Step
-          label="Contact Information"
-          onClick={() => {
-            handleSetStep(0);
-          }}
-        />
-        <Step
-          label="Package Selection"
-          onClick={() => {
-            handleSetStep(1);
-          }}
-        />
-        <Step
-          label="Product Selection"
-          onClick={() => {
-            handleSetStep(2);
-          }}
-        />
-        <Step
-          label="Overview"
-          onClick={() => {
-            handleSetStep(3);
-          }}
-        />
-      </Stepper>
+      <Slide direction="down" duration={1000}>
+        <Stepper style={{ height: '100px' }} activeStep={activeStep}>
+          <Step
+            label="Contact Information"
+            onClick={() => {
+              handleSetStep(0);
+            }}
+          />
+          <Step
+            label="Package Selection"
+            onClick={() => {
+              handleSetStep(1);
+            }}
+          />
+          <Step
+            label="Product Selection"
+            onClick={() => {
+              handleSetStep(2);
+            }}
+          />
+          <Step
+            label="Overview"
+            onClick={() => {
+              handleSetStep(3);
+            }}
+          />
+        </Stepper>
+      </Slide>
+      <div style={{ height: '15px' }}></div>
 
       {renderStep(activeStep)}
-      <Button
-        className="nextButton"
-        onClick={() => {
-          handleNext();
-        }}
-      >
-        {'-->'}
-      </Button>
+      <Slide className="nextButtonContainer" direction="up" duration={1500}>
+        <Button
+          className="nextButton"
+          onClick={() => {
+            handleNext();
+          }}
+        >
+          {'Next'}
+        </Button>
+      </Slide>
     </>
   );
 };
