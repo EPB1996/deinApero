@@ -5,14 +5,17 @@ import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { nextStep } from '../../stepper/stepper.reducer';
 import { addPackageType } from './package.reducer';
 import { Slide, Zoom } from 'react-awesome-reveal';
+import { reset } from '../../productSelection/product/product.reducer';
+
 const PackageItem = props => {
   const dispatch = useAppDispatch();
-  const { packageType } = props;
+  const { packageType, disabled = false } = props;
 
   const selectedPackageType = useAppSelector(state => state.packageReducer.packageType);
 
   const handlePackageSelecction = () => {
     dispatch(addPackageType(packageType));
+    dispatch(reset());
   };
 
   return (
@@ -31,11 +34,13 @@ const PackageItem = props => {
         </CardSubtitle>
         <CardText>This is a package description</CardText>
       </CardBody>
-      <CardFooter>
-        <Button className="packageButton" onClick={handlePackageSelecction}>
-          Select
-        </Button>
-      </CardFooter>
+      {!disabled && (
+        <CardFooter>
+          <Button className="packageButton" onClick={handlePackageSelecction}>
+            Select
+          </Button>
+        </CardFooter>
+      )}
     </Card>
   );
 };

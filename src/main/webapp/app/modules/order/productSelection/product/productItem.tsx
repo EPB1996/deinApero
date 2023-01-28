@@ -6,9 +6,10 @@ import { addProduct, removeProduct } from './product.reducer';
 import { Slide } from 'react-awesome-reveal';
 import { IProduct } from 'app/shared/model/product.model';
 import { update } from 'lodash';
-const ProductItem = ({ product }) => {
-  const dispatch = useAppDispatch();
+const ProductItem = props => {
+  const { product, disabled = false } = props;
   const { name, description, price, productSize, image } = product;
+  const dispatch = useAppDispatch();
 
   const addedProducts = useAppSelector(state => state.products[product.productCategory.name]);
 
@@ -22,7 +23,7 @@ const ProductItem = ({ product }) => {
 
   return (
     <Card outline style={{ position: 'relative', padding: 0, width: '100%' }}>
-      {addedProducts && addedProducts.includes(product.id) && (
+      {addedProducts && addedProducts.includes(product) && (
         <div className="ribbon ribbon-orange ribbon-small ">
           <div className="banner">
             <div className="text">Added</div>
@@ -38,15 +39,17 @@ const ProductItem = ({ product }) => {
         </CardSubtitle>
         <CardText>{description}</CardText>
       </CardBody>
-      <CardFooter>
-        <Row>
-          {addedProducts && !addedProducts.includes(product.id) ? (
-            <Button onClick={handleAddProduct}>Add</Button>
-          ) : (
-            <Button onClick={handleRemoveProduct}>Remove</Button>
-          )}
-        </Row>
-      </CardFooter>
+      {!disabled && (
+        <CardFooter>
+          <Row>
+            {addedProducts && !addedProducts.includes(product) ? (
+              <Button onClick={handleAddProduct}>Add</Button>
+            ) : (
+              <Button onClick={handleRemoveProduct}>Remove</Button>
+            )}
+          </Row>
+        </CardFooter>
+      )}
     </Card>
   );
 };

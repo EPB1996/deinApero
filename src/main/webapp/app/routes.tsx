@@ -17,6 +17,7 @@ import { AUTHORITIES } from 'app/config/constants';
 import getStore from './config/store';
 import { combineReducers } from 'redux';
 import Order from './modules/order/order';
+import Overview from './modules/order/overview/overview';
 
 const loading = <div>loading ...</div>;
 
@@ -34,7 +35,7 @@ const AppRoutes = () => {
   return (
     <div className="view-routes">
       <ErrorBoundaryRoutes>
-        <Route index element={<Home />} />
+        <Route index element={<Overview />} />
         <Route path="productOrder" element={<Order />} />
         <Route path="login" element={<Login />} />
         <Route path="logout" element={<Logout />} />

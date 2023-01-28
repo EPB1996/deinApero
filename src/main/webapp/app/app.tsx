@@ -19,6 +19,7 @@ import { AUTHORITIES } from 'app/config/constants';
 import AppRoutes from 'app/routes';
 import { getEntities as getPackageTemplates } from './entities/package-template/package-template.reducer';
 import { getEntities as getPackageTypes } from './entities/package-type/package-type.reducer';
+import { getEntities as getPackageCategories } from './entities/product-category/product-category.reducer';
 
 const baseHref = document.querySelector('base').getAttribute('href').replace(/\/$/, '');
 
@@ -30,6 +31,7 @@ export const App = () => {
     dispatch(getProfile());
     dispatch(getPackageTemplates({}));
     dispatch(getPackageTypes({}));
+    dispatch(getPackageCategories({}));
   }, []);
 
   const currentLocale = useAppSelector(state => state.locale.currentLocale);
