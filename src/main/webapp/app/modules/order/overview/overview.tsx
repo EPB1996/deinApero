@@ -3,7 +3,7 @@ import { useAppSelector } from 'app/config/store';
 import { IProductCategory } from 'app/shared/model/product-category.model';
 import { IProduct } from 'app/shared/model/product.model';
 import React from 'react';
-import { Zoom } from 'react-awesome-reveal';
+import { Slide, Zoom } from 'react-awesome-reveal';
 import { Card, CardBody, Col, ListGroup, ListGroupItem, Row } from 'reactstrap';
 import PackageItem from '../packageSelection/package/packageItem';
 import ProductItem from '../productSelection/product/productItem';
@@ -41,41 +41,47 @@ const Overview = () => {
   return (
     <>
       <Row md={2} sm={1} xs={1}>
-        <Col>
-          <h2>Customer Information</h2>
-          <Card>
-            <CustomerInfo></CustomerInfo>
-          </Card>
-        </Col>
-        <Col>
-          <h2>Selection</h2>
-          <Card>
-            <PackageItem packageType={packageType} disabled></PackageItem>
-            {productCategories.map((category, i) => (
-              <div key={i}>
-                <h2>{category}</h2>
-                {/*  <div className="productContainer">
+        <Slide direction="left" duration={1000}>
+          <Col>
+            <h2>Customer Information</h2>
+            <Card>
+              <CustomerInfo></CustomerInfo>
+            </Card>
+          </Col>
+        </Slide>
+        <Slide direction="right" duration={1000}>
+          <Col>
+            <h2>Selection</h2>
+            <Card>
+              <Slide triggerOnce duration={1500} delay={1000} direction={'right'}>
+                <PackageItem packageType={packageType} disabled></PackageItem>
+              </Slide>
+              {productCategories.map((category, i) => (
+                <div key={i}>
+                  <h2>{category}</h2>
+                  {/*  <div className="productContainer">
               {productsByCategory[category.name].map((product: IProduct, index) => (
                 <OverviewProduct key product={product}></OverviewProduct>
               ))}
             </div> */}
-                <Carousel responsive={responsive} itemClass="itemClass">
-                  {productsByCategory[category].map((product: IProduct, index) => (
-                    <Zoom triggerOnce key={index} duration={1500} direction={'up'}>
-                      <ProductItem product={product} disabled></ProductItem>
-                    </Zoom>
-                  ))}
-                </Carousel>
+                  <Slide triggerOnce delay={1500} duration={1500} direction={'right'}>
+                    <Carousel responsive={responsive} itemClass="itemClass">
+                      {productsByCategory[category].map((product: IProduct, index) => (
+                        <ProductItem key={index} product={product} disabled></ProductItem>
+                      ))}
+                    </Carousel>
+                  </Slide>
 
-                {/*  {productsByCategory[category].map((product: IProduct, index) => (
+                  {/*  {productsByCategory[category].map((product: IProduct, index) => (
                   <div key={index} style={{ display: 'flex' }}>
                     <h5>{product.name}</h5>
                   </div>
                 ))} */}
-              </div>
-            ))}
-          </Card>
-        </Col>
+                </div>
+              ))}
+            </Card>
+          </Col>
+        </Slide>
       </Row>
     </>
   );

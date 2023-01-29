@@ -32,10 +32,15 @@ export const CustomerInfoSlice = createSlice({
     addCustomerInfo(state, data) {
       return data.payload as CustomerInfoObject;
     },
+    addNaming(state, data) {
+      state.firstName = data.payload.firstName;
+      state.lastName = data.payload.lastName;
+      state.gender = data.payload.gender;
+    },
   },
 });
 
-export const { addCustomerInfo } = CustomerInfoSlice.actions;
+export const { addCustomerInfo, addNaming } = CustomerInfoSlice.actions;
 
 // Reducer
 export default CustomerInfoSlice.reducer;
