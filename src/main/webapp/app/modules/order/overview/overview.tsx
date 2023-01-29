@@ -9,6 +9,7 @@ import PackageItem from '../packageSelection/package/packageItem';
 import ProductItem from '../productSelection/product/productItem';
 import OverviewProduct from './overviewItem/overviewProduct';
 import Carousel from 'react-multi-carousel';
+import CustomerInfo from '../customerInfo/customerInfo';
 
 const responsive = {
   superLargeDesktop: {
@@ -34,39 +35,59 @@ const Overview = () => {
   const packageType = useAppSelector(state => state.packageReducer.packageType);
   const productsByCategory = useAppSelector(state => state.products);
 
-  const productCategories = useAppSelector(state => state.productCategory.entities);
+  /* const productCategories = useAppSelector(state => state.productCategory.entities); */
+  const productCategories = ['Wein', 'Kaviar'];
 
   return (
     <>
-      <Row>
-        <PackageItem packageType={packageType} disabled></PackageItem>
-      </Row>
       <Row md={2} sm={1} xs={1}>
-        {productCategories.map((category: IProductCategory, i) => (
-          <div key={i}>
-            <h2>{category.name}</h2>
-            {/*  <div className="productContainer">
+        <Col>
+          <h2>Customer Information</h2>
+          <Card>
+            <CustomerInfo></CustomerInfo>
+          </Card>
+        </Col>
+        <Col>
+          <h2>Selection</h2>
+          <Card>
+            <PackageItem packageType={packageType} disabled></PackageItem>
+            {productCategories.map((category, i) => (
+              <div key={i}>
+                <h2>{category}</h2>
+                {/*  <div className="productContainer">
               {productsByCategory[category.name].map((product: IProduct, index) => (
                 <OverviewProduct key product={product}></OverviewProduct>
               ))}
             </div> */}
-            <Card>
-              <Carousel responsive={responsive} itemClass="itemClass">
-                {productsByCategory[category.name].map((product: IProduct, index) => (
-                  <OverviewProduct key product={product}></OverviewProduct>
-                ))}
-              </Carousel>
-            </Card>
-          </div>
-        ))}
+                <Carousel responsive={responsive} itemClass="itemClass">
+                  {productsByCategory[category].map((product: IProduct, index) => (
+                    <Zoom triggerOnce key={index} duration={1500} direction={'up'}>
+                      <ProductItem product={product} disabled></ProductItem>
+                    </Zoom>
+                  ))}
+                </Carousel>
+
+                {/*  {productsByCategory[category].map((product: IProduct, index) => (
+                  <div key={index} style={{ display: 'flex' }}>
+                    <h5>{product.name}</h5>
+                  </div>
+                ))} */}
+              </div>
+            ))}
+          </Card>
+        </Col>
       </Row>
     </>
   );
 };
 {
-  /*  <Zoom triggerOnce key={index} duration={1500} direction={'up'}>
-<ProductItem product={product} disabled></ProductItem>
-</Zoom> */
+  /*   <Carousel responsive={responsive} itemClass="itemClass">
+    {productsByCategory[category].map((product: IProduct, index) => (
+      <Zoom triggerOnce key={index} duration={1500} direction={'up'}>
+        <ProductItem product={product} disabled></ProductItem>
+      </Zoom>
+    ))}
+  </Carousel>; */
 }
 
 export default Overview;
