@@ -75,10 +75,6 @@ export const ProductDetail = () => {
               </div>
             ) : null}
           </dd>
-          <dt>
-            <Translate contentKey="meinAperoApp.product.productCategory">Product Category</Translate>
-          </dt>
-          <dd>{productEntity.productCategory ? productEntity.productCategory.name : ''}</dd>
         </dl>
         <Button tag={Link} to="/product" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}

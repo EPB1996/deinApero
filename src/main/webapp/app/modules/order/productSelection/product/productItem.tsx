@@ -7,18 +7,20 @@ import { Slide } from 'react-awesome-reveal';
 import { IProduct } from 'app/shared/model/product.model';
 import { update } from 'lodash';
 const ProductItem = props => {
-  const { product, disabled = false } = props;
+  const { product, productCategory, disabled = false } = props;
+  console.log(product);
   const { name, description, price, productSize, image } = product;
   const dispatch = useAppDispatch();
 
-  const addedProducts = useAppSelector(state => state.products[product.productCategory.name]);
+  const addedProducts = useAppSelector(state => state.products[productCategory]);
+  console.log(addedProducts);
 
   const handleAddProduct = () => {
-    dispatch(addProduct(product));
+    dispatch(addProduct({ product, productCategory }));
   };
 
   const handleRemoveProduct = () => {
-    dispatch(removeProduct(product));
+    dispatch(removeProduct({ product, productCategory }));
   };
 
   return (

@@ -8,6 +8,7 @@ import ProductItem from './product/productItem';
 import Carousel from 'react-multi-carousel';
 import { Fade, Slide } from 'react-awesome-reveal';
 import { nextStep } from '../stepper/stepper.reducer';
+import { IProductCategory } from 'app/shared/model/product-category.model';
 
 const responsive = {
   superLargeDesktop: {
@@ -31,8 +32,8 @@ const responsive = {
 
 const ProductSelection = () => {
   const dispatch = useAppDispatch();
-  const productsByCategory = useAppSelector(state => state.packageReducer.productsByCategory);
-  const [open, setOpen] = useState('Wein');
+  const productCategories = useAppSelector(state => state.productCategory.entities);
+  const [open, setOpen] = useState('Champagne');
 
   const toggle = id => {
     setOpen(id);
@@ -44,15 +45,15 @@ const ProductSelection = () => {
 
   return (
     <div>
-      {productsByCategory && (
+      {productCategories && (
         <Row>
           <Col md={12} sm={12} lg={2}>
             <Row>
               <div>
-                {Object.keys(productsByCategory).map((productKey, i) => (
+                {productCategories.map((productCategory: IProductCategory, i) => (
                   <Slide key={i} direction="left" duration={1500} cascade>
-                    <Button onClick={() => toggle(productKey)} style={{ width: '100%' }}>
-                      {productKey}
+                    <Button onClick={() => toggle(productCategory.name)} style={{ width: '100%' }}>
+                      {productCategory.name}
                     </Button>
                   </Slide>
                 ))}
@@ -61,31 +62,46 @@ const ProductSelection = () => {
           </Col>
 
           <Col>
-            {open === 'Wein' && (
+            {open === 'Champagne' && (
               <Slide direction="right" duration={1500} cascade>
-                {/* <Carousel partialVisible responsive={responsive} itemClass="productItem"> */}
                 <Row>
-                  {productsByCategory[open].map((product: IProduct, index) => (
-                    <Col key={index} sm={6} md={4} lg={3} className={'productItem'}>
-                      <ProductItem product={product}></ProductItem>
-                    </Col>
-                  ))}
+                  {productCategories.filter((productCategory: IProductCategory) => productCategory.name === open)[0] &&
+                    productCategories
+                      .filter((productCategory: IProductCategory) => productCategory.name === open)[0]
+                      .products.map((product: IProduct, index) => (
+                        <Col key={index} sm={6} md={4} lg={3} className={'productItem'}>
+                          <ProductItem product={product} productCategory={open}></ProductItem>
+                        </Col>
+                      ))}
                 </Row>
-
-                {/* </Carousel> */}
               </Slide>
             )}
             {open === 'Kaviar' && (
               <Slide direction="right" duration={1500} cascade>
-                {/*  <Carousel partialVisible responsive={responsive} itemClass="productItem"> */}
                 <Row>
-                  {productsByCategory[open].map((product: IProduct, index) => (
-                    <Col key={index} xs="auto" sm="auto" md="auto" className={'productItem'}>
-                      <ProductItem product={product}></ProductItem>
-                    </Col>
-                  ))}
+                  {productCategories.filter((productCategory: IProductCategory) => productCategory.name === open)[0] &&
+                    productCategories
+                      .filter((productCategory: IProductCategory) => productCategory.name === open)[0]
+                      .products.map((product: IProduct, index) => (
+                        <Col key={index} sm={6} md={4} lg={3} className={'productItem'}>
+                          <ProductItem product={product} productCategory={open}></ProductItem>
+                        </Col>
+                      ))}
                 </Row>
-                {/*  </Carousel> */}
+              </Slide>
+            )}
+            {open === 'Paté' && (
+              <Slide direction="right" duration={1500} cascade>
+                <Row>
+                  {productCategories.filter((productCategory: IProductCategory) => productCategory.name === open)[0] &&
+                    productCategories
+                      .filter((productCategory: IProductCategory) => productCategory.name === open)[0]
+                      .products.map((product: IProduct, index) => (
+                        <Col key={index} sm={6} md={4} lg={3} className={'productItem'}>
+                          <ProductItem product={product} productCategory={open}></ProductItem>
+                        </Col>
+                      ))}
+                </Row>
               </Slide>
             )}
           </Col>

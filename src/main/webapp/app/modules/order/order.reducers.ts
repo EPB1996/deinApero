@@ -5,7 +5,7 @@ import packageReducer from './packageSelection/package/package.reducer';
 const orderReducer = {
   customerInfo,
   orderStepper,
-  packageReducer,
+  /* packageReducer, */
   products,
 };
 export default orderReducer;

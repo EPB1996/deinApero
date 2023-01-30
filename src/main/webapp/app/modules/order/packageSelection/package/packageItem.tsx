@@ -3,7 +3,6 @@ import './package.scss';
 import { Button, Card, CardBody, CardFooter, CardImg, CardSubtitle, CardText, CardTitle } from 'reactstrap';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { nextStep } from '../../stepper/stepper.reducer';
-import { addPackageType } from './package.reducer';
 import { Slide, Zoom } from 'react-awesome-reveal';
 import { reset } from '../../productSelection/product/product.reducer';
 
@@ -14,7 +13,6 @@ const PackageItem = props => {
   const selectedPackageType = useAppSelector(state => state.packageReducer.packageType);
 
   const handlePackageSelecction = () => {
-    dispatch(addPackageType(packageType));
     dispatch(reset());
   };
 

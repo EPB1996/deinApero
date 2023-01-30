@@ -83,12 +83,11 @@ relationship ManyToOne {
 relationship OneToMany {
    Customer{order} to Order{customer(email) required}
    Order{orderItem} to OrderItem{order(code) required}
-   ProductCategory{product} to Product{productCategory(name)}
-  
 }
 
 relationship ManyToMany {
      PackageTemplate{product(name)}  to Product{packageTemplate(name)}
+     ProductCategory{product(name)} to Product{productCategory(name)}
 }
 
 

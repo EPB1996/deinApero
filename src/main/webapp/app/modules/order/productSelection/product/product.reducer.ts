@@ -2,69 +2,15 @@ import { createSlice } from '@reduxjs/toolkit';
 import { IProduct } from 'app/shared/model/product.model';
 
 export interface ProductObject {
-  Wein: Array<IProduct>;
+  Champagne: Array<IProduct>;
   Kaviar: Array<IProduct>;
+  Paté: Array<IProduct>;
 }
 
 const initialState: ProductObject = {
-  /* Wein: [],
-  Kaviar: [], */
-  Wein: [
-    {
-      id: '63cff8eb056acc2c5aa673f1',
-      name: 'Basic Weint',
-      description: 'Basic Wein Description',
-      price: 30,
-      image: null,
-      imageContentType: null,
-      productCategory: {
-        id: '63cff8c7056acc2c5aa673f0',
-        name: 'Wein',
-        description: 'Wein Descprition',
-      },
-    },
-    {
-      id: '63cff8eb056acc2c5aa673f1',
-      name: 'Basic Weint',
-      description: 'Basic Wein Description',
-      price: 30,
-      image: null,
-      imageContentType: null,
-      productCategory: {
-        id: '63cff8c7056acc2c5aa673f0',
-        name: 'Wein',
-        description: 'Wein Descprition',
-      },
-    },
-    {
-      id: '63d039e8f6f35d538fbf0fcc',
-      name: 'Basic Wein 2 ',
-      description: 'Basic Wein 2 Description',
-      price: 99,
-      image: null,
-      imageContentType: null,
-      productCategory: {
-        id: '63cff8c7056acc2c5aa673f0',
-        name: 'Wein',
-        description: 'Wein Descprition',
-      },
-    },
-  ],
-  Kaviar: [
-    {
-      id: '63d039fcf6f35d538fbf0fcd',
-      name: 'Basic Kaviar',
-      description: 'Basic Kaviar Description',
-      price: 99,
-      image: null,
-      imageContentType: null,
-      productCategory: {
-        id: '63d039cbf6f35d538fbf0fcb',
-        name: 'Kaviar',
-        description: 'Kaviar Description',
-      },
-    },
-  ],
+  Champagne: [],
+  Kaviar: [],
+  Paté: [],
 };
 
 export const ProductSlice = createSlice({
@@ -72,21 +18,21 @@ export const ProductSlice = createSlice({
   initialState,
   reducers: {
     addProduct(state, data) {
-      const addedProductIds = state[data.payload.productCategory.name].map(product => {
+      const addedProductIds = state[data.payload.productCategory].map(product => {
         return product.id;
       });
       if (!addedProductIds.includes(data.payload.id)) {
-        state[data.payload.productCategory.name].push(data.payload);
+        state[data.payload.productCategory].push(data.payload.product);
       }
     },
     removeProduct(state, data) {
-      const addedProductIds = state[data.payload.productCategory.name].map(product => {
+      const addedProductIds = state[data.payload.productCategory].map(product => {
         return product.id;
       });
-      if (addedProductIds.includes(data.payload.id)) {
-        const index = addedProductIds.indexOf(data.payload.id);
+      if (addedProductIds.includes(data.payload.product.id)) {
+        const index = addedProductIds.indexOf(data.payload.product.id);
         if (index > -1) {
-          state[data.payload.productCategory.name].splice(index, 1);
+          state[data.payload.productCategory].splice(index, 1);
         }
       }
     },

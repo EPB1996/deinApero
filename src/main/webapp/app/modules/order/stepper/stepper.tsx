@@ -14,17 +14,8 @@ import Overview from '../overview/overview';
 const OrderStepper = () => {
   const dispatch = useAppDispatch();
   const activeStep = useAppSelector(state => state.orderStepper.activeStep);
-  const packageType = useAppSelector(state => state.packageReducer.packageType);
-
-  const [errorText, setErrorText] = useState('');
 
   const validSelection = (step: number) => {
-    if (step === 2) {
-      if (Object.keys(packageType).length === 0) {
-        toast.error('Select Package.');
-        return false;
-      }
-    }
     return true;
   };
   const handleNext = () => {
@@ -46,10 +37,8 @@ const OrderStepper = () => {
       case 0:
         return <CustomerInfo></CustomerInfo>;
       case 1:
-        return <PackageSelection></PackageSelection>;
-      case 2:
         return <ProductSelection></ProductSelection>;
-      case 3:
+      case 2:
         return <Overview></Overview>;
       default:
         return 'Something went wrong';
@@ -67,21 +56,15 @@ const OrderStepper = () => {
             }}
           />
           <Step
-            label="Package Selection"
+            label="Product Selection"
             onClick={() => {
               handleSetStep(1);
             }}
           />
           <Step
-            label="Product Selection"
-            onClick={() => {
-              handleSetStep(2);
-            }}
-          />
-          <Step
             label="Overview"
             onClick={() => {
-              handleSetStep(3);
+              handleSetStep(2);
             }}
           />
         </Stepper>

@@ -28,8 +28,8 @@ public class ProductCategory implements Serializable {
     @Field("description")
     private String description;
 
-    @Field("product")
-    @JsonIgnoreProperties(value = { "productCategory", "packageTemplates" }, allowSetters = true)
+    @Field("products")
+    @JsonIgnoreProperties(value = { "packageTemplates" }, allowSetters = true)
     private Set<Product> products = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
@@ -78,12 +78,6 @@ public class ProductCategory implements Serializable {
     }
 
     public void setProducts(Set<Product> products) {
-        if (this.products != null) {
-            this.products.forEach(i -> i.setProductCategory(null));
-        }
-        if (products != null) {
-            products.forEach(i -> i.setProductCategory(this));
-        }
         this.products = products;
     }
 
@@ -94,13 +88,13 @@ public class ProductCategory implements Serializable {
 
     public ProductCategory addProduct(Product product) {
         this.products.add(product);
-        product.setProductCategory(this);
+        product.getProductCategories().add(this);
         return this;
     }
 
     public ProductCategory removeProduct(Product product) {
         this.products.remove(product);
-        product.setProductCategory(null);
+        product.getProductCategories().remove(this);
         return this;
     }
 

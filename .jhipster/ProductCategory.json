@@ -22,10 +22,12 @@
   "readOnly": false,
   "relationships": [
     {
+      "otherEntityField": "name",
       "otherEntityName": "product",
       "otherEntityRelationshipName": "productCategory",
+      "ownerSide": true,
       "relationshipName": "product",
-      "relationshipType": "one-to-many"
+      "relationshipType": "many-to-many"
     }
   ],
   "service": "serviceClass"

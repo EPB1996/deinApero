@@ -1,15 +1,13 @@
 import './overview.scss';
 import { useAppSelector } from 'app/config/store';
-import { IProductCategory } from 'app/shared/model/product-category.model';
 import { IProduct } from 'app/shared/model/product.model';
 import React from 'react';
-import { Slide, Zoom } from 'react-awesome-reveal';
-import { Card, CardBody, Col, ListGroup, ListGroupItem, Row } from 'reactstrap';
-import PackageItem from '../packageSelection/package/packageItem';
+import { Slide } from 'react-awesome-reveal';
+import { Card, Col, Row } from 'reactstrap';
 import ProductItem from '../productSelection/product/productItem';
-import OverviewProduct from './overviewItem/overviewProduct';
 import Carousel from 'react-multi-carousel';
 import CustomerInfo from '../customerInfo/customerInfo';
+import 'react-multi-carousel/lib/styles.css';
 
 const responsive = {
   superLargeDesktop: {
@@ -32,11 +30,8 @@ const responsive = {
 };
 
 const Overview = () => {
-  const packageType = useAppSelector(state => state.packageReducer.packageType);
   const productsByCategory = useAppSelector(state => state.products);
-
-  /* const productCategories = useAppSelector(state => state.productCategory.entities); */
-  const productCategories = ['Wein', 'Kaviar'];
+  const productCategories = [/* Object.keys(productsByCategory) */ 'Champagne'];
 
   return (
     <>
@@ -53,17 +48,9 @@ const Overview = () => {
           <Col>
             <h2>Selection</h2>
             <Card>
-              <Slide triggerOnce duration={1500} delay={1000} direction={'right'}>
-                <PackageItem packageType={packageType} disabled></PackageItem>
-              </Slide>
               {productCategories.map((category, i) => (
                 <div key={i}>
                   <h2>{category}</h2>
-                  {/*  <div className="productContainer">
-              {productsByCategory[category.name].map((product: IProduct, index) => (
-                <OverviewProduct key product={product}></OverviewProduct>
-              ))}
-            </div> */}
                   <Slide triggerOnce delay={1500} duration={1500} direction={'right'}>
                     <Carousel responsive={responsive} itemClass="itemClass">
                       {productsByCategory[category].map((product: IProduct, index) => (
@@ -71,12 +58,6 @@ const Overview = () => {
                       ))}
                     </Carousel>
                   </Slide>
-
-                  {/*  {productsByCategory[category].map((product: IProduct, index) => (
-                  <div key={index} style={{ display: 'flex' }}>
-                    <h5>{product.name}</h5>
-                  </div>
-                ))} */}
                 </div>
               ))}
             </Card>
@@ -86,14 +67,5 @@ const Overview = () => {
     </>
   );
 };
-{
-  /*   <Carousel responsive={responsive} itemClass="itemClass">
-    {productsByCategory[category].map((product: IProduct, index) => (
-      <Zoom triggerOnce key={index} duration={1500} direction={'up'}>
-        <ProductItem product={product} disabled></ProductItem>
-      </Zoom>
-    ))}
-  </Carousel>; */
-}
 
 export default Overview;

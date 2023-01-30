@@ -173,14 +173,12 @@ public class ProductResource {
      *
      * @param pageable the pagination information.
      * @param request a {@link ServerHttpRequest} request.
-     * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many).
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of products in body.
      */
     @GetMapping("/products")
     public Mono<ResponseEntity<List<Product>>> getAllProducts(
         @org.springdoc.api.annotations.ParameterObject Pageable pageable,
-        ServerHttpRequest request,
-        @RequestParam(required = false, defaultValue = "false") boolean eagerload
+        ServerHttpRequest request
     ) {
         log.debug("REST request to get a page of Products");
         return productService

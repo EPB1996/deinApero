@@ -23,8 +23,8 @@
       "price": "Price",
       "productSize": "Product Size",
       "image": "Image",
-      "productCategory": "Product Category",
-      "packageTemplate": "Package Template"
+      "packageTemplate": "Package Template",
+      "productCategory": "Product Category"
     }
   }
 }

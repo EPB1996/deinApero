@@ -36,7 +36,7 @@ public class OrderItem implements Serializable {
     private OrderItemStatus status;
 
     @Field("product")
-    @JsonIgnoreProperties(value = { "productCategory", "packageTemplates" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "packageTemplates", "productCategories" }, allowSetters = true)
     private Product product;
 
     @Field("order")

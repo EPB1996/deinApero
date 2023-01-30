@@ -57,6 +57,9 @@ export const ProductCategory = () => {
                 <th>
                   <Translate contentKey="meinAperoApp.productCategory.description">Description</Translate>
                 </th>
+                <th>
+                  <Translate contentKey="meinAperoApp.productCategory.product">Product</Translate>
+                </th>
                 <th />
               </tr>
             </thead>
@@ -70,6 +73,16 @@ export const ProductCategory = () => {
                   </td>
                   <td>{productCategory.name}</td>
                   <td>{productCategory.description}</td>
+                  <td>
+                    {productCategory.products
+                      ? productCategory.products.map((val, j) => (
+                          <span key={j}>
+                            <Link to={`/product/${val.id}`}>{val.name}</Link>
+                            {j === productCategory.products.length - 1 ? '' : ', '}
+                          </span>
+                        ))
+                      : null}
+                  </td>
                   <td className="text-end">
                     <div className="btn-group flex-btn-group-container">
                       <Button

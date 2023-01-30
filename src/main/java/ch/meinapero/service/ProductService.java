@@ -93,15 +93,6 @@ public class ProductService {
     }
 
     /**
-     * Get all the products with eager load of many-to-many relationships.
-     *
-     * @return the list of entities.
-     */
-    public Flux<Product> findAllWithEagerRelationships(Pageable pageable) {
-        return productRepository.findAllWithEagerRelationships(pageable);
-    }
-
-    /**
      * Returns the number of products available.
      * @return the number of entities in the database.
      *
@@ -118,7 +109,7 @@ public class ProductService {
      */
     public Mono<Product> findOne(String id) {
         log.debug("Request to get Product : {}", id);
-        return productRepository.findOneWithEagerRelationships(id);
+        return productRepository.findById(id);
     }
 
     /**

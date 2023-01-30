@@ -5,6 +5,7 @@ import ch.meinapero.repository.ProductCategoryRepository;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -80,6 +81,15 @@ public class ProductCategoryService {
     }
 
     /**
+     * Get all the productCategories with eager load of many-to-many relationships.
+     *
+     * @return the list of entities.
+     */
+    public Flux<ProductCategory> findAllWithEagerRelationships(Pageable pageable) {
+        return productCategoryRepository.findAllWithEagerRelationships(pageable);
+    }
+
+    /**
      * Returns the number of productCategories available.
      * @return the number of entities in the database.
      *
@@ -96,7 +106,7 @@ public class ProductCategoryService {
      */
     public Mono<ProductCategory> findOne(String id) {
         log.debug("Request to get ProductCategory : {}", id);
-        return productCategoryRepository.findById(id);
+        return productCategoryRepository.findOneWithEagerRelationships(id);
     }
 
     /**

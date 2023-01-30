@@ -44,6 +44,19 @@ export const ProductCategoryDetail = () => {
             </span>
           </dt>
           <dd>{productCategoryEntity.description}</dd>
+          <dt>
+            <Translate contentKey="meinAperoApp.productCategory.product">Product</Translate>
+          </dt>
+          <dd>
+            {productCategoryEntity.products
+              ? productCategoryEntity.products.map((val, i) => (
+                  <span key={val.id}>
+                    <a>{val.name}</a>
+                    {productCategoryEntity.products && i === productCategoryEntity.products.length - 1 ? '' : ', '}
+                  </span>
+                ))
+              : null}
+          </dd>
         </dl>
         <Button tag={Link} to="/product-category" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}

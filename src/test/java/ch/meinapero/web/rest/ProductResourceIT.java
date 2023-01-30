@@ -4,40 +4,28 @@ import static ch.meinapero.web.rest.TestUtil.sameNumber;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.is;
-import static org.mockito.Mockito.*;
 
 import ch.meinapero.IntegrationTest;
-import ch.meinapero.domain.PackageTemplate;
 import ch.meinapero.domain.Product;
 import ch.meinapero.domain.enumeration.Size;
 import ch.meinapero.repository.ProductRepository;
-import ch.meinapero.service.ProductService;
 import java.math.BigDecimal;
 import java.time.Duration;
 import java.util.List;
 import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.util.Base64Utils;
-import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
 
 /**
  * Integration tests for the {@link ProductResource} REST controller.
  */
 @IntegrationTest
-@ExtendWith(MockitoExtension.class)
 @AutoConfigureWebTestClient(timeout = IntegrationTest.DEFAULT_ENTITY_TIMEOUT)
 @WithMockUser
 class ProductResourceIT {
@@ -65,12 +53,6 @@ class ProductResourceIT {
     @Autowired
     private ProductRepository productRepository;
 
-    @Mock
-    private ProductRepository productRepositoryMock;
-
-    @Mock
-    private ProductService productServiceMock;
-
     @Autowired
     private WebTestClient webTestClient;
 
@@ -90,11 +72,6 @@ class ProductResourceIT {
             .productSize(DEFAULT_PRODUCT_SIZE)
             .image(DEFAULT_IMAGE)
             .imageContentType(DEFAULT_IMAGE_CONTENT_TYPE);
-        // Add required entity
-        PackageTemplate packageTemplate;
-        packageTemplate = PackageTemplateResourceIT.createEntity();
-        packageTemplate.setId("fixed-id-for-tests");
-        product.getPackageTemplates().add(packageTemplate);
         return product;
     }
 
@@ -112,11 +89,6 @@ class ProductResourceIT {
             .productSize(UPDATED_PRODUCT_SIZE)
             .image(UPDATED_IMAGE)
             .imageContentType(UPDATED_IMAGE_CONTENT_TYPE);
-        // Add required entity
-        PackageTemplate packageTemplate;
-        packageTemplate = PackageTemplateResourceIT.createUpdatedEntity();
-        packageTemplate.setId("fixed-id-for-tests");
-        product.getPackageTemplates().add(packageTemplate);
         return product;
     }
 
@@ -266,23 +238,6 @@ class ProductResourceIT {
             .value(hasItem(DEFAULT_IMAGE_CONTENT_TYPE))
             .jsonPath("$.[*].image")
             .value(hasItem(Base64Utils.encodeToString(DEFAULT_IMAGE)));
-    }
-
-    @SuppressWarnings({ "unchecked" })
-    void getAllProductsWithEagerRelationshipsIsEnabled() {
-        when(productServiceMock.findAllWithEagerRelationships(any())).thenReturn(Flux.empty());
-
-        webTestClient.get().uri(ENTITY_API_URL + "?eagerload=true").exchange().expectStatus().isOk();
-
-        verify(productServiceMock, times(1)).findAllWithEagerRelationships(any());
-    }
-
-    @SuppressWarnings({ "unchecked" })
-    void getAllProductsWithEagerRelationshipsIsNotEnabled() {
-        when(productServiceMock.findAllWithEagerRelationships(any())).thenReturn(Flux.empty());
-
-        webTestClient.get().uri(ENTITY_API_URL + "?eagerload=false").exchange().expectStatus().isOk();
-        verify(productRepositoryMock, times(1)).findAllWithEagerRelationships(any());
     }
 
     @Test
