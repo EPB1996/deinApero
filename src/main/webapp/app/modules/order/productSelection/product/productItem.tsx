@@ -8,12 +8,11 @@ import { IProduct } from 'app/shared/model/product.model';
 import { update } from 'lodash';
 const ProductItem = props => {
   const { product, productCategory, disabled = false } = props;
-  console.log(product);
+
   const { name, description, price, productSize, image } = product;
   const dispatch = useAppDispatch();
 
   const addedProducts = useAppSelector(state => state.products[productCategory]);
-  console.log(addedProducts);
 
   const handleAddProduct = () => {
     dispatch(addProduct({ product, productCategory }));

@@ -31,7 +31,7 @@ const responsive = {
 
 const Overview = () => {
   const productsByCategory = useAppSelector(state => state.products);
-  const productCategories = [/* Object.keys(productsByCategory) */ 'Champagne'];
+  const productCategories = Object.keys(productsByCategory);
 
   return (
     <>
