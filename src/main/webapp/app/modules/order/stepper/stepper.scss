@@ -21,3 +21,13 @@
   box-shadow: 0 0 2px darkslategray;
   transform: translateY(2px);
 }
+
+.overview {
+  flex-grow: 1;
+  transition: all 1s ease;
+}
+
+.activeStep {
+  flex-grow: 3;
+  transition: all 1s ease;
+}

@@ -1,3 +1,4 @@
+import '../overview.scss';
 import React, { useEffect, useState } from 'react';
 import { useAppSelector } from 'app/config/store';
 import { Card, CardTitle, Col, Row } from 'reactstrap';
@@ -5,6 +6,7 @@ import { Slide } from 'react-awesome-reveal';
 import Carousel from 'react-multi-carousel';
 import { IProduct } from 'app/shared/model/product.model';
 import ProductItem from '../../productSelection/product/productItem';
+import CustomerInfo from '../../customerInfo/customerInfo';
 
 const responsive = {
   superLargeDesktop: {
@@ -26,7 +28,8 @@ const responsive = {
   },
 };
 
-const OverviewSidebar = () => {
+const OverviewSidebar = props => {
+  const { showOverview } = props;
   const [total, setTotal] = useState(0);
 
   const productsByCategory = useAppSelector(state => state.products);
@@ -45,17 +48,21 @@ const OverviewSidebar = () => {
 
   return (
     <Card>
-      <CardTitle tag={'h3'}> Selection</CardTitle>
+      <Slide triggerOnce duration={1500} direction={'right'} delay={1000}>
+        <CardTitle tag={'h3'}> Selection</CardTitle>
+      </Slide>
       {productCategories.map((category, i) => (
         <div key={i}>
-          <div className="sideBarItem">
-            <h5>{category}</h5>
-            <div>
-              {productsByCategory[category].reduce((sum: number, product: IProduct) => {
-                return (sum += product.price);
-              }, 0)}
+          <Slide triggerOnce duration={1500} direction={'right'} delay={1000}>
+            <div className="sideBarItem">
+              <h5>{category}</h5>
+              <div>
+                {productsByCategory[category].reduce((sum: number, product: IProduct) => {
+                  return (sum += product.price);
+                }, 0)}
+              </div>
             </div>
-          </div>
+          </Slide>
 
           <Slide triggerOnce duration={1500} direction={'right'}>
             {productsByCategory[category].map((product: IProduct, index) => (
@@ -76,11 +83,12 @@ const OverviewSidebar = () => {
           />
         </div>
       ))}
-
-      <div className="sideBarItem">
-        <h5>Total</h5>
-        <div>{total}</div>
-      </div>
+      <Slide triggerOnce duration={1500} direction={'right'} delay={1000}>
+        <div className="sideBarItem">
+          <h5>Total</h5>
+          <div>{total}</div>
+        </div>
+      </Slide>
     </Card>
   );
 };

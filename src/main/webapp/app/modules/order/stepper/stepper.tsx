@@ -16,7 +16,10 @@ const OrderStepper = () => {
   const dispatch = useAppDispatch();
   const activeStep = useAppSelector(state => state.orderStepper.activeStep);
 
+  const [overviewShow, setOverviewShow] = useState(false);
+
   const validSelection = (step: number) => {
+    if (step === 2) setOverviewShow(true);
     return true;
   };
   const handleNext = () => {
@@ -40,7 +43,7 @@ const OrderStepper = () => {
       case 1:
         return <ProductSelection></ProductSelection>;
       case 2:
-        return <Overview></Overview>;
+        return <CustomerInfo></CustomerInfo>;
       default:
         return 'Something went wrong';
     }
@@ -48,34 +51,38 @@ const OrderStepper = () => {
 
   return (
     <>
-      <Slide direction="down" duration={1000}>
+      <Slide direction="down" duration={1500} triggerOnce>
         <Stepper activeStep={activeStep}>
           <Step
             label="Contact Information"
             onClick={() => {
               handleSetStep(0);
+              setOverviewShow(false);
             }}
           />
           <Step
             label="Product Selection"
             onClick={() => {
               handleSetStep(1);
+              setOverviewShow(false);
             }}
           />
           <Step
             label="Overview"
             onClick={() => {
               handleSetStep(2);
+              setOverviewShow(true);
             }}
           />
         </Stepper>
       </Slide>
-      <div style={{ height: '15px' }}></div>
 
       <Row>
-        <Col md={10}>{renderStep(activeStep)}</Col>
-        <Col md={2}>
-          <OverviewSidebar></OverviewSidebar>
+        <Col className={overviewShow ? 'overview' : 'activeStep'}>{renderStep(activeStep)}</Col>
+        <Col className={'overview'}>
+          <Slide direction="right" duration={1500} triggerOnce>
+            <OverviewSidebar showOverview={overviewShow}></OverviewSidebar>
+          </Slide>
         </Col>
       </Row>
 
