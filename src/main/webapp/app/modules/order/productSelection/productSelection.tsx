@@ -61,7 +61,7 @@ const ProductSelection = () => {
             </Row>
           </Col>
 
-          <Col style={{ overflow: 'hidden' }}>
+          <Col style={{ overflowX: 'hidden' }}>
             {open === 'Champagne' && (
               <Slide direction="right" duration={1500} cascade>
                 <Row>
