@@ -24,7 +24,7 @@ const ProductItem = props => {
 
   return (
     <Card outline style={{ position: 'relative', padding: 0, width: '100%' }}>
-      {addedProducts && addedProducts.includes(product) && (
+      {addedProducts && addedProducts[product.id] && (
         <div className="ribbon ribbon-orange ribbon-small ">
           <div className="banner">
             <div className="text">Added</div>
@@ -43,10 +43,13 @@ const ProductItem = props => {
       {!disabled && (
         <CardFooter>
           <Row>
-            {addedProducts && !addedProducts.includes(product) ? (
+            {addedProducts && !addedProducts[product.id] ? (
               <Button onClick={handleAddProduct}>Add</Button>
             ) : (
-              <Button onClick={handleRemoveProduct}>Remove</Button>
+              <Row>
+                <Button onClick={handleAddProduct}>Add</Button>
+                <Button onClick={handleRemoveProduct}>Remove</Button>
+              </Row>
             )}
           </Row>
         </CardFooter>

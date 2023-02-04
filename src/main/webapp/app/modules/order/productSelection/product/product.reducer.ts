@@ -2,15 +2,15 @@ import { createSlice } from '@reduxjs/toolkit';
 import { IProduct } from 'app/shared/model/product.model';
 
 export interface ProductObject {
-  Champagne: Array<IProduct>;
-  Kaviar: Array<IProduct>;
-  Paté: Array<IProduct>;
+  Champagne: {};
+  Kaviar: {};
+  Paté: {};
 }
 
 const initialState: ProductObject = {
-  Champagne: [],
-  Kaviar: [],
-  Paté: [],
+  Champagne: {},
+  Kaviar: {},
+  Paté: {},
 };
 
 export const ProductSlice = createSlice({
@@ -18,21 +18,21 @@ export const ProductSlice = createSlice({
   initialState,
   reducers: {
     addProduct(state, data) {
-      const addedProductIds = state[data.payload.productCategory].map(product => {
-        return product.id;
-      });
-      if (!addedProductIds.includes(data.payload.id)) {
-        state[data.payload.productCategory].push(data.payload.product);
+      const addedProductIds = Object.keys(state[data.payload.productCategory]);
+      if (addedProductIds.includes(data.payload.product.id)) {
+        state[data.payload.productCategory][data.payload.product.id].amount += 1;
+      } else {
+        const firstTimeAdd = { amount: 1, product: data.payload.product };
+        state[data.payload.productCategory][data.payload.product.id] = firstTimeAdd;
       }
     },
     removeProduct(state, data) {
-      const addedProductIds = state[data.payload.productCategory].map(product => {
-        return product.id;
-      });
+      const addedProductIds = Object.keys(state[data.payload.productCategory]);
       if (addedProductIds.includes(data.payload.product.id)) {
-        const index = addedProductIds.indexOf(data.payload.product.id);
-        if (index > -1) {
-          state[data.payload.productCategory].splice(index, 1);
+        if (state[data.payload.productCategory][data.payload.product.id].amount === 1) {
+          delete state[data.payload.productCategory][data.payload.product.id];
+        } else {
+          state[data.payload.productCategory][data.payload.product.id].amount -= 1;
         }
       }
     },

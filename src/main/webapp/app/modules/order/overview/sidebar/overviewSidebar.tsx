@@ -28,8 +28,7 @@ const responsive = {
   },
 };
 
-const OverviewSidebar = props => {
-  const { showOverview } = props;
+const OverviewSidebar = () => {
   const [total, setTotal] = useState(0);
 
   const productsByCategory = useAppSelector(state => state.products);
@@ -37,10 +36,10 @@ const OverviewSidebar = props => {
 
   useEffect(() => {
     let intermediateSum = 0;
-    console.log(productsByCategory);
-    Object.values(productsByCategory).map((products: Array<IProduct>) =>
-      products.map((product: IProduct) => {
-        intermediateSum += product.price;
+
+    Object.values(productsByCategory).map((category: any) =>
+      Object.values(category).map((item: any) => {
+        intermediateSum += item.amount * item.product.price;
       })
     );
     setTotal(intermediateSum);
@@ -57,20 +56,31 @@ const OverviewSidebar = props => {
             <div className="sideBarItem">
               <h5>{category}</h5>
               <div>
-                {productsByCategory[category].reduce((sum: number, product: IProduct) => {
-                  return (sum += product.price);
+                {Object.keys(productsByCategory[category]).reduce((sum: number, productKey) => {
+                  return (sum += productsByCategory[category][productKey].amount * productsByCategory[category][productKey].product.price);
                 }, 0)}
               </div>
             </div>
           </Slide>
 
           <Slide triggerOnce duration={1500} direction={'right'}>
-            {productsByCategory[category].map((product: IProduct, index) => (
-              <div key={index} className="sideBarItem">
-                <div>{product.name}</div>
-                <div>{product.price}</div>
-              </div>
-            ))}
+            {Object.keys(productsByCategory[category]).map((productKey, index) => {
+              return (
+                <Row>
+                  <Col style={{ flexGrow: 1 }}>
+                    <div>{productsByCategory[category][productKey].amount}</div>
+                  </Col>
+                  <Col style={{ flexGrow: 8 }}>
+                    <div>{productsByCategory[category][productKey].product.name}</div>
+                  </Col>
+                  <Col style={{ flexGrow: 1 }}>
+                    <div style={{ position: 'absolute', right: 0 }}>
+                      {productsByCategory[category][productKey].amount * productsByCategory[category][productKey].product.price}
+                    </div>
+                  </Col>
+                </Row>
+              );
+            })}
           </Slide>
           <hr
             style={{
