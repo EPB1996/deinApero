@@ -14,10 +14,7 @@ import PrivateRoute from 'app/shared/auth/private-route';
 import ErrorBoundaryRoutes from 'app/shared/error/error-boundary-routes';
 import PageNotFound from 'app/shared/error/page-not-found';
 import { AUTHORITIES } from 'app/config/constants';
-import getStore from './config/store';
-import { combineReducers } from 'redux';
 import Order from './modules/order/order';
-import Overview from './modules/order/overview/overview';
 
 const loading = <div>loading ...</div>;
 

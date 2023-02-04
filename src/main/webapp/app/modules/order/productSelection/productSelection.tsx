@@ -51,9 +51,11 @@ const ProductSelection = () => {
             <Row>
               <div>
                 {productCategories.map((productCategory: IProductCategory, i) => (
-                  <Slide key={i} direction="left" duration={1500} cascade>
+                  <Slide key={i} direction="left" duration={1500}>
                     <Button onClick={() => toggle(productCategory.name)} style={{ width: '100%' }}>
-                      {productCategory.name}
+                      <Slide key={i} direction="left" duration={1500}>
+                        <p>{productCategory.name}</p>
+                      </Slide>
                     </Button>
                   </Slide>
                 ))}
@@ -112,18 +114,3 @@ const ProductSelection = () => {
 };
 
 export default ProductSelection;
-
-/* {Object.keys(productsByCategory).map((productKey, i) => (
-  <div key={i}>
-    <Button  onClick={() => toggle(productKey)}>{productKey}</Button>
-    {open === productKey && (
-      <Slide direction="left" duration={1500} cascade>
-        <Carousel partialVisible responsive={responsive} itemClass="productItem">
-          {productsByCategory[productKey].map((product, index) => (
-            <ProductItem key={index} product={product}></ProductItem>
-          ))}
-        </Carousel>
-      </Slide>
-    )}
-  </div>
-))} */

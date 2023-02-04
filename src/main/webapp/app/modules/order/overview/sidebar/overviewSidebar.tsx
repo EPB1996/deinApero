@@ -6,7 +6,7 @@ import { Slide } from 'react-awesome-reveal';
 import Carousel from 'react-multi-carousel';
 import { IProduct } from 'app/shared/model/product.model';
 import ProductItem from '../../productSelection/product/productItem';
-import CustomerInfo from '../../customerInfo/customerInfo';
+import CustomerInfo from '../customerInfo/customerInfo';
 
 const responsive = {
   superLargeDesktop: {
