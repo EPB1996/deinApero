@@ -66,7 +66,7 @@ const OrderStepper = () => {
       <Row>
         <Col className={overViewExpand ? 'side-by-side' : 'sidebar'}>{renderStep(activeStep)}</Col>
         {showSideBar && (
-          <Col className={overViewExpand && 'side-by-side'}>
+          <Col style={{ height: '100vh' }} className={overViewExpand && 'side-by-side'}>
             <Slide direction="right" duration={1500} triggerOnce>
               <OverviewSidebar></OverviewSidebar>
             </Slide>

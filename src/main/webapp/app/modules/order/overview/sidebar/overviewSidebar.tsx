@@ -1,12 +1,13 @@
 import '../overview.scss';
 import React, { useEffect, useState } from 'react';
-import { useAppSelector } from 'app/config/store';
-import { Card, CardTitle, Col, Row } from 'reactstrap';
+import { useAppDispatch, useAppSelector } from 'app/config/store';
+import { Button, Card, CardTitle, Col, Row } from 'reactstrap';
 import { Slide } from 'react-awesome-reveal';
 import Carousel from 'react-multi-carousel';
 import { IProduct } from 'app/shared/model/product.model';
 import ProductItem from '../../productSelection/product/productItem';
 import CustomerInfo from '../customerInfo/customerInfo';
+import { addCustomerInfo } from '../customerInfo/customerInfo.reducer';
 
 const responsive = {
   superLargeDesktop: {
@@ -30,9 +31,11 @@ const responsive = {
 
 const OverviewSidebar = () => {
   const [total, setTotal] = useState(0);
+  const dispatch = useAppDispatch();
 
   const productsByCategory = useAppSelector(state => state.products);
   const productCategories = Object.keys(productsByCategory);
+  const customerInfo = useAppSelector(state => state.customerInfo);
 
   useEffect(() => {
     let intermediateSum = 0;
@@ -45,8 +48,67 @@ const OverviewSidebar = () => {
     setTotal(intermediateSum);
   }, [productsByCategory]);
 
+  const resetCustomerInfo = () => {
+    dispatch(addCustomerInfo({ step: 0 }));
+  };
+
   return (
-    <Card>
+    <Card style={{ height: '100vh' }}>
+      {customerInfo && (
+        <>
+          <Row>
+            <Col md={4}>
+              <h5>Name:</h5>
+            </Col>
+            <Col md={8}>
+              {(customerInfo.step === 1 || customerInfo.step === 2 || customerInfo.step === 3) && (
+                <Slide direction="right" duration={1500} triggerOnce>
+                  <div style={{ display: 'inline-block' }}>
+                    {customerInfo.firstName} {customerInfo.lastName}
+                  </div>
+                </Slide>
+              )}
+            </Col>
+          </Row>
+          <Row>
+            <Col md={4}>
+              <h5>Address:</h5>
+            </Col>
+            <Col md={8}>
+              {(customerInfo.step === 2 || customerInfo.step === 3) && (
+                <Slide direction="right" duration={1500} triggerOnce>
+                  <div style={{ display: 'inline-block' }}>
+                    {customerInfo.addressLine1} {customerInfo.addressLine2}
+                  </div>
+                  <div>{customerInfo.city} </div>
+                  <div>{customerInfo.country}</div>
+                </Slide>
+              )}
+            </Col>
+          </Row>
+          <Row>
+            <Col md={4}>
+              <h5>Contact:</h5>
+            </Col>
+            <Col md={8}>
+              {customerInfo.step === 3 && (
+                <>
+                  <Slide direction="right" duration={1500} triggerOnce>
+                    <div>{customerInfo.email}</div>
+                    <div>{customerInfo.phone}</div>
+                  </Slide>
+                  <Slide direction="left" duration={1500} triggerOnce>
+                    <Button color="primary" id="save-entity" data-cy="entityCreateSaveButton" onClick={() => resetCustomerInfo()}>
+                      Change
+                    </Button>
+                  </Slide>
+                </>
+              )}
+            </Col>
+          </Row>
+        </>
+      )}
+
       <Slide triggerOnce duration={1500} direction={'right'} delay={1000}>
         <CardTitle tag={'h3'}> Selection</CardTitle>
       </Slide>
@@ -84,7 +146,8 @@ const OverviewSidebar = () => {
           </Slide>
           <hr
             style={{
-              margin: '5px',
+              marginTop: '5px',
+              marginBottom: '5px',
               background: 'gray',
               color: 'gray',
               borderColor: 'gray',

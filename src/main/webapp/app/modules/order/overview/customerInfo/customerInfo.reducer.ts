@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { Gender } from 'app/shared/model/enumerations/gender.model';
 
-export interface CustomerInfoObject {
+/* export interface CustomerInfoObject {
   firstName?: string;
   lastName?: string;
   gender?: Gender;
@@ -11,18 +11,20 @@ export interface CustomerInfoObject {
   addressLine2?: string | null;
   city?: string;
   country?: string;
-}
+  step?: Number;
+} */
 
-const initialState: CustomerInfoObject = {
-  firstName: 'Etienne',
-  lastName: 'Baumgartner',
+const initialState = {
+  firstName: 'Et',
+  lastName: '',
   gender: Gender.MALE,
-  email: 'baume96@gmail.com',
-  phone: '1233412352436',
-  addressLine1: 'Nope',
-  addressLine2: 'nope2',
-  city: 'well nope',
-  country: 'Nopeland',
+  email: '',
+  phone: '',
+  addressLine1: '',
+  addressLine2: '',
+  city: '',
+  country: '',
+  step: 0,
 };
 
 export const CustomerInfoSlice = createSlice({
@@ -30,17 +32,12 @@ export const CustomerInfoSlice = createSlice({
   initialState,
   reducers: {
     addCustomerInfo(state, data) {
-      return data.payload as CustomerInfoObject;
-    },
-    addNaming(state, data) {
-      state.firstName = data.payload.firstName;
-      state.lastName = data.payload.lastName;
-      state.gender = data.payload.gender;
+      return { ...state, ...data.payload };
     },
   },
 });
 
-export const { addCustomerInfo, addNaming } = CustomerInfoSlice.actions;
+export const { addCustomerInfo } = CustomerInfoSlice.actions;
 
 // Reducer
 export default CustomerInfoSlice.reducer;
