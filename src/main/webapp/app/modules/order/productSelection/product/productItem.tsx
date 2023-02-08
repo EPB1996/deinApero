@@ -31,7 +31,7 @@ const ProductItem = props => {
           </div>
         </div>
       )}
-      <CardImg alt="Card image cap" src="https://picsum.photos/256/186" top width="50%" />
+      {/*  <CardImg alt="Card image cap" src="https://picsum.photos/256/186" top width="50%" /> */}
 
       <CardBody>
         <CardTitle tag="h5">{name}</CardTitle>

@@ -35,6 +35,12 @@ export const OrderStepperSlice = createSlice({
         (state.activeStep += 1), (state.finished = state.activeStep === state.maxstep);
       }
     },
+    previousStep(state) {
+      validateStep(state.activeStep - 1, state);
+      if (state.activeStep !== 0) {
+        (state.activeStep -= 1), (state.finished = state.activeStep === state.maxstep);
+      }
+    },
     setStep(state, data) {
       validateStep(data.payload, state);
       state.activeStep = data.payload;
@@ -42,5 +48,5 @@ export const OrderStepperSlice = createSlice({
   },
 });
 
-export const { nextStep, setStep } = OrderStepperSlice.actions;
+export const { nextStep, setStep, previousStep } = OrderStepperSlice.actions;
 export default OrderStepperSlice.reducer;

@@ -53,7 +53,7 @@ const OverviewSidebar = () => {
   };
 
   return (
-    <Card style={{ height: '100vh' }}>
+    <Card className="h-100">
       {customerInfo && (
         <>
           <Row>
@@ -156,7 +156,7 @@ const OverviewSidebar = () => {
           />
         </div>
       ))}
-      <Slide triggerOnce duration={1500} direction={'right'} delay={1000}>
+      <Slide style={{ marginTop: 'auto' }} triggerOnce duration={1500} direction={'right'} delay={1000}>
         <div className="sideBarItem">
           <h5>Total</h5>
           <div>{total}</div>

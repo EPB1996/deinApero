@@ -1,6 +1,6 @@
 .productItem {
   display: flex;
-  padding-bottom: 30px;
+  padding-bottom: 10px;
 }
 
 #carousel.show {
@@ -14,4 +14,16 @@
 #carousel {
   opacity: 1;
   transition: opacity 6s;
+}
+
+.product-scrolling {
+  overflow-x: hidden;
+  overflow-y: auto;
+  height: 100%;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.product-scrolling::-webkit-scrollbar {
+  display: none;
 }

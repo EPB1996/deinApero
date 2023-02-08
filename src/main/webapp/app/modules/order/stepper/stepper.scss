@@ -1,7 +1,5 @@
 .nextButtonContainer {
   position: fixed;
-  bottom: 10px;
-  right: 10px;
 }
 
 .nextButton {
@@ -25,6 +23,7 @@
 .side-by-side {
   flex-grow: 1;
   transition: all 1s ease;
+  height: '100%';
 }
 
 .sidebar-hidden {
