@@ -8,6 +8,7 @@ import { IProduct } from 'app/shared/model/product.model';
 import ProductItem from '../../productSelection/product/productItem';
 import CustomerInfo from '../customerInfo/customerInfo';
 import { addCustomerInfo } from '../customerInfo/customerInfo.reducer';
+import { toast } from 'react-toastify';
 
 const responsive = {
   superLargeDesktop: {
@@ -52,6 +53,10 @@ const OverviewSidebar = ({ overViewExpand }) => {
     dispatch(addCustomerInfo({ step: 0 }));
   };
 
+  const submitOrder = () => {
+    alert('order has been added');
+  };
+
   return (
     <Card className="h-100" style={{ overflowX: 'hidden' }}>
       {overViewExpand && (
@@ -92,21 +97,36 @@ const OverviewSidebar = ({ overViewExpand }) => {
                 <h5>Contact:</h5>
               </Col>
               <Col md={8}>
-                {customerInfo.step === 3 && (
-                  <>
-                    <Slide direction="right" duration={1500} triggerOnce>
-                      <div>{customerInfo.email}</div>
-                      <div>{customerInfo.phone}</div>
-                    </Slide>
-                    <Slide direction="left" duration={1500} triggerOnce>
-                      <Button color="primary" id="save-entity" data-cy="entityCreateSaveButton" onClick={() => resetCustomerInfo()}>
-                        Change
-                      </Button>
-                    </Slide>
-                  </>
-                )}
+                <Slide direction="right" duration={1500} triggerOnce>
+                  <div>{customerInfo.email}</div>
+                  <div>{customerInfo.phone}</div>
+                </Slide>
               </Col>
             </Row>
+            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+              {customerInfo.step === 3 && (
+                <Slide style={{ width: '100%', padding: '1px' }} direction="left" duration={1500} triggerOnce>
+                  <Button
+                    style={{ width: '100%' }}
+                    color="primary"
+                    id="save-entity"
+                    data-cy="entityCreateSaveButton"
+                    onClick={() => resetCustomerInfo()}
+                  >
+                    Change
+                  </Button>
+                  <Button
+                    style={{ width: '100%' }}
+                    color="primary"
+                    id="save-entity"
+                    data-cy="entityCreateSaveButton"
+                    onClick={() => submitOrder()}
+                  >
+                    Submit Order
+                  </Button>
+                </Slide>
+              )}
+            </div>
           </Slide>
         </div>
       )}

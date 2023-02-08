@@ -32,18 +32,19 @@ export const OrderStepperSlice = createSlice({
     nextStep(state) {
       validateStep(state.activeStep + 1, state);
       if (state.activeStep !== state.maxstep) {
-        (state.activeStep += 1), (state.finished = state.activeStep === state.maxstep);
+        (state.activeStep += 1), (state.finished = state.activeStep + 1 === state.maxstep);
       }
     },
     previousStep(state) {
       validateStep(state.activeStep - 1, state);
       if (state.activeStep !== 0) {
-        (state.activeStep -= 1), (state.finished = state.activeStep === state.maxstep);
+        (state.activeStep -= 1), (state.finished = state.activeStep - 1 === state.maxstep);
       }
     },
     setStep(state, data) {
       validateStep(data.payload, state);
       state.activeStep = data.payload;
+      state.finished = data.payload === state.maxstep;
     },
   },
 });

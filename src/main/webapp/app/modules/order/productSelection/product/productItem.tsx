@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './product.scss';
-import { Button, Card, CardBody, CardFooter, CardImg, CardSubtitle, CardText, CardTitle, Col, Row } from 'reactstrap';
+import { Button, Card, CardBody, CardFooter, CardImg, CardImgOverlay, CardSubtitle, CardText, CardTitle, Col, Row } from 'reactstrap';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { addProduct, removeProduct } from './product.reducer';
 import { Slide } from 'react-awesome-reveal';
@@ -31,15 +31,14 @@ const ProductItem = props => {
           </div>
         </div>
       )}
-      {/*  <CardImg alt="Card image cap" src="https://picsum.photos/256/186" top width="50%" /> */}
-
-      <CardBody>
+      <CardImg alt="Card image cap" src="https://picsum.photos/900/300?grayscale" />
+      <CardImgOverlay>
         <CardTitle tag="h5">{name}</CardTitle>
         <CardSubtitle className="mb-2 text-muted" tag="h6">
           {productSize} {price}
         </CardSubtitle>
         <CardText>{description}</CardText>
-      </CardBody>
+      </CardImgOverlay>
       {!disabled && (
         <CardFooter>
           <Row>

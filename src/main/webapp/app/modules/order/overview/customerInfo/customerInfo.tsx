@@ -158,7 +158,7 @@ export const CustomerInfo = () => {
                 </Button>
 
                 <Button color="primary" id="save-entity" data-cy="entityCreateSaveButton" type="submit">
-                  Finish
+                  Next
                 </Button>
               </div>
             </ValidatedForm>
@@ -181,7 +181,7 @@ export const CustomerInfo = () => {
                 data-cy="phone"
                 type="text"
               />
-              <ValidatedField label="step" id="step" name="step" data-cy="step" type="number" hidden></ValidatedField>{' '}
+              <ValidatedField label="step" id="step" name="step" data-cy="step" type="number" hidden></ValidatedField>
               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <Button
                   disabled={customerInfo.step === 0}
@@ -196,12 +196,13 @@ export const CustomerInfo = () => {
                 </Button>
 
                 <Button color="primary" id="save-entity" data-cy="entityCreateSaveButton" type="submit">
-                  Next
+                  Save
                 </Button>
               </div>
             </ValidatedForm>
           </Slide>
         )}
+        {customerInfo.step === 3 && <div>Here are the Conditions to Accept.</div>}
       </Card>
     </Slide>
   );

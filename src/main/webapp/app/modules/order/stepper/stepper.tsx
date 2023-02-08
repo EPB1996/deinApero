@@ -17,10 +17,10 @@ import RightArrow from './arrows/rightArrow';
 
 const OrderStepper = () => {
   const dispatch = useAppDispatch();
-  const { activeStep, showSideBar, overViewExpand } = useAppSelector(state => state.orderStepper);
+  const { activeStep, showSideBar, overViewExpand, finished } = useAppSelector(state => state.orderStepper);
 
   const handleNext = () => {
-    dispatch(nextStep());
+    if (!finished) dispatch(nextStep());
   };
 
   const handlePrevious = () => {
