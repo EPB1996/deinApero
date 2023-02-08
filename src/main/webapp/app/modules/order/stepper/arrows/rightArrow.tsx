@@ -4,6 +4,7 @@ import './arrow.scss';
 const RightArrow = () => {
   return (
     <svg
+      className="arrow-svg"
       width="18px"
       height="17px"
       viewBox="-1 0 18 17"

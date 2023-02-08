@@ -65,27 +65,33 @@ const ProductSelection = () => {
 
           <Col className="product-scrolling">
             {open === 'Champagne' && (
-              <Slide className="productItem" direction="right" duration={500} triggerOnce cascade>
+              <Slide className="productItem" direction="right" duration={200} triggerOnce cascade>
                 {productCategories.filter((productCategory: IProductCategory) => productCategory.name === open)[0] &&
                   productCategories
                     .filter((productCategory: IProductCategory) => productCategory.name === open)[0]
-                    .products.map((product: IProduct, index) => <ProductItem product={product} productCategory={open}></ProductItem>)}
+                    .products.map((product: IProduct, index) => (
+                      <ProductItem key={index} product={product} productCategory={open}></ProductItem>
+                    ))}
               </Slide>
             )}
             {open === 'Kaviar' && (
-              <Slide className="productItem" direction="right" duration={500} triggerOnce cascade>
+              <Slide className="productItem" direction="right" duration={200} triggerOnce cascade>
                 {productCategories.filter((productCategory: IProductCategory) => productCategory.name === open)[0] &&
                   productCategories
                     .filter((productCategory: IProductCategory) => productCategory.name === open)[0]
-                    .products.map((product: IProduct, index) => <ProductItem product={product} productCategory={open}></ProductItem>)}
+                    .products.map((product: IProduct, index) => (
+                      <ProductItem key={index} product={product} productCategory={open}></ProductItem>
+                    ))}
               </Slide>
             )}
             {open === 'Paté' && (
-              <Slide className="productItem" direction="right" duration={500} triggerOnce cascade>
+              <Slide className="productItem" direction="right" duration={200} triggerOnce cascade>
                 {productCategories.filter((productCategory: IProductCategory) => productCategory.name === open)[0] &&
                   productCategories
                     .filter((productCategory: IProductCategory) => productCategory.name === open)[0]
-                    .products.map((product: IProduct, index) => <ProductItem product={product} productCategory={open}></ProductItem>)}
+                    .products.map((product: IProduct, index) => (
+                      <ProductItem key={index} product={product} productCategory={open}></ProductItem>
+                    ))}
               </Slide>
             )}
           </Col>

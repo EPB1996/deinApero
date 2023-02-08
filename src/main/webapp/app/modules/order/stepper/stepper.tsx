@@ -46,52 +46,60 @@ const OrderStepper = () => {
 
   return (
     <Container style={{ overflow: 'hidden', height: '100%' }}>
-      <div style={{ display: 'flex', alignItems: 'baseline' }}>
-        <div
-          onClick={() => {
-            handlePrevious();
-          }}
-        >
-          <LeftArrow></LeftArrow>
-        </div>
-        <Slide style={{ flexGrow: 7 }} direction="down" duration={1500} triggerOnce cascade>
-          <Stepper activeStep={activeStep}>
-            <Step
-              label="Guests"
-              onClick={() => {
-                handleSetStep(0);
-              }}
-            />
-            <Step
-              label="Product Selection"
-              onClick={() => {
-                handleSetStep(1);
-              }}
-            />
-            <Step
-              label="Overview"
-              onClick={() => {
-                handleSetStep(2);
-              }}
-            />
-          </Stepper>
-        </Slide>
-        <div
-          onClick={() => {
-            handleNext();
-          }}
-        >
-          <RightArrow></RightArrow>
-        </div>
-      </div>
-      <Row style={{ height: '100%' }}>
-        <Col style={{ height: '100%' }} className={overViewExpand ? 'side-by-side' : 'sidebar'}>
+      <Row style={{ height: '20%', alignItems: 'center', justifyItems: 'center' }}>
+        <Col md={{ size: 2, order: 1 }} sm={{ size: 2, order: 1 }} xs={{ size: 6, order: 2 }}>
+          <div
+            style={{ display: 'flex', justifyContent: 'center' }}
+            onClick={() => {
+              handlePrevious();
+            }}
+          >
+            <LeftArrow></LeftArrow>
+          </div>
+        </Col>
+        <Col md={{ size: 8, order: 2 }} sm={{ size: 8, order: 2 }} xs={{ size: 12, order: 1 }}>
+          <Slide style={{ flexGrow: 7 }} direction="down" duration={1500} triggerOnce cascade>
+            <Stepper activeStep={activeStep}>
+              <Step
+                label="Guests"
+                onClick={() => {
+                  handleSetStep(0);
+                }}
+              />
+              <Step
+                label="Product Selection"
+                onClick={() => {
+                  handleSetStep(1);
+                }}
+              />
+              <Step
+                label="Overview"
+                onClick={() => {
+                  handleSetStep(2);
+                }}
+              />
+            </Stepper>
+          </Slide>
+        </Col>
+        <Col md={{ size: 2, order: 3 }} sm={{ size: 2, order: 3 }} xs={{ size: 6, order: 3 }}>
+          <div
+            style={{ display: 'flex', justifyContent: 'center' }}
+            onClick={() => {
+              handleNext();
+            }}
+          >
+            <RightArrow></RightArrow>
+          </div>
+        </Col>
+      </Row>
+      <Row style={{ height: '80%' }}>
+        <Col style={{ height: '100%', paddingBottom: '10px' }} className={overViewExpand ? 'side-by-side' : 'sidebar'}>
           {renderStep(activeStep)}
         </Col>
         {showSideBar && (
-          <Col style={{ height: '100%' }} className={overViewExpand && 'side-by-side'}>
+          <Col style={{ height: '100%', paddingBottom: '10px' }} className={overViewExpand ? 'side-by-side' : ''}>
             <Slide className="h-100" direction="right" duration={1500} triggerOnce>
-              <OverviewSidebar></OverviewSidebar>
+              <OverviewSidebar overViewExpand={overViewExpand}></OverviewSidebar>
             </Slide>
           </Col>
         )}

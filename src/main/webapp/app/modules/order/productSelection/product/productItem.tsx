@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './product.scss';
-import { Button, Card, CardBody, CardFooter, CardImg, CardSubtitle, CardText, CardTitle, Row } from 'reactstrap';
+import { Button, Card, CardBody, CardFooter, CardImg, CardSubtitle, CardText, CardTitle, Col, Row } from 'reactstrap';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { addProduct, removeProduct } from './product.reducer';
 import { Slide } from 'react-awesome-reveal';
@@ -43,14 +43,16 @@ const ProductItem = props => {
       {!disabled && (
         <CardFooter>
           <Row>
-            {addedProducts && !addedProducts[product.id] ? (
-              <Button onClick={handleAddProduct}>Add</Button>
-            ) : (
-              <Row>
-                <Button onClick={handleAddProduct}>Add</Button>
-                <Button onClick={handleRemoveProduct}>Remove</Button>
-              </Row>
-            )}
+            <Col style={{ padding: '1px' }} md={6} sm={6} xs={12}>
+              <Button style={{ width: '100%' }} onClick={handleAddProduct}>
+                Add
+              </Button>
+            </Col>
+            <Col style={{ padding: '1px' }} md={6} sm={6} xs={12}>
+              <Button style={{ width: '100%' }} onClick={handleRemoveProduct}>
+                Remove
+              </Button>
+            </Col>
           </Row>
         </CardFooter>
       )}

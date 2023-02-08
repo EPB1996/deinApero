@@ -29,7 +29,7 @@ const responsive = {
   },
 };
 
-const OverviewSidebar = () => {
+const OverviewSidebar = ({ overViewExpand }) => {
   const [total, setTotal] = useState(0);
   const dispatch = useAppDispatch();
 
@@ -53,60 +53,62 @@ const OverviewSidebar = () => {
   };
 
   return (
-    <Card className="h-100">
-      {customerInfo && (
-        <>
-          <Row>
-            <Col md={4}>
-              <h5>Name:</h5>
-            </Col>
-            <Col md={8}>
-              {(customerInfo.step === 1 || customerInfo.step === 2 || customerInfo.step === 3) && (
-                <Slide direction="right" duration={1500} triggerOnce>
-                  <div style={{ display: 'inline-block' }}>
-                    {customerInfo.firstName} {customerInfo.lastName}
-                  </div>
-                </Slide>
-              )}
-            </Col>
-          </Row>
-          <Row>
-            <Col md={4}>
-              <h5>Address:</h5>
-            </Col>
-            <Col md={8}>
-              {(customerInfo.step === 2 || customerInfo.step === 3) && (
-                <Slide direction="right" duration={1500} triggerOnce>
-                  <div style={{ display: 'inline-block' }}>
-                    {customerInfo.addressLine1} {customerInfo.addressLine2}
-                  </div>
-                  <div>{customerInfo.city} </div>
-                  <div>{customerInfo.country}</div>
-                </Slide>
-              )}
-            </Col>
-          </Row>
-          <Row>
-            <Col md={4}>
-              <h5>Contact:</h5>
-            </Col>
-            <Col md={8}>
-              {customerInfo.step === 3 && (
-                <>
+    <Card className="h-100" style={{ overflowX: 'hidden' }}>
+      {overViewExpand && (
+        <div>
+          <Slide triggerOnce duration={1500} direction={'left'}>
+            <Row>
+              <Col md={4}>
+                <h5>Name:</h5>
+              </Col>
+              <Col md={8}>
+                {(customerInfo.step === 1 || customerInfo.step === 2 || customerInfo.step === 3) && (
                   <Slide direction="right" duration={1500} triggerOnce>
-                    <div>{customerInfo.email}</div>
-                    <div>{customerInfo.phone}</div>
+                    <div style={{ display: 'inline-block' }}>
+                      {customerInfo.firstName} {customerInfo.lastName}
+                    </div>
                   </Slide>
-                  <Slide direction="left" duration={1500} triggerOnce>
-                    <Button color="primary" id="save-entity" data-cy="entityCreateSaveButton" onClick={() => resetCustomerInfo()}>
-                      Change
-                    </Button>
+                )}
+              </Col>
+            </Row>
+            <Row>
+              <Col md={4}>
+                <h5>Address:</h5>
+              </Col>
+              <Col md={8}>
+                {(customerInfo.step === 2 || customerInfo.step === 3) && (
+                  <Slide direction="right" duration={1500} triggerOnce>
+                    <div style={{ display: 'inline-block' }}>
+                      {customerInfo.addressLine1} {customerInfo.addressLine2}
+                    </div>
+                    <div>{customerInfo.city} </div>
+                    <div>{customerInfo.country}</div>
                   </Slide>
-                </>
-              )}
-            </Col>
-          </Row>
-        </>
+                )}
+              </Col>
+            </Row>
+            <Row>
+              <Col md={4}>
+                <h5>Contact:</h5>
+              </Col>
+              <Col md={8}>
+                {customerInfo.step === 3 && (
+                  <>
+                    <Slide direction="right" duration={1500} triggerOnce>
+                      <div>{customerInfo.email}</div>
+                      <div>{customerInfo.phone}</div>
+                    </Slide>
+                    <Slide direction="left" duration={1500} triggerOnce>
+                      <Button color="primary" id="save-entity" data-cy="entityCreateSaveButton" onClick={() => resetCustomerInfo()}>
+                        Change
+                      </Button>
+                    </Slide>
+                  </>
+                )}
+              </Col>
+            </Row>
+          </Slide>
+        </div>
       )}
 
       <Slide triggerOnce duration={1500} direction={'right'} delay={1000}>
