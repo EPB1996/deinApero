@@ -5,6 +5,15 @@ import { Button, Card, CardTitle, Col, Row } from 'reactstrap';
 import { Slide } from 'react-awesome-reveal';
 
 import { addCustomerInfo } from '../customerInfo/customerInfo.reducer';
+import { createEntity as createCustomer } from 'app/entities/customer/customer.reducer';
+import { createEntity as createOrder } from 'app/entities/order/order.reducer';
+import { OrderStatus } from 'app/shared/model/enumerations/order-status.model';
+import { IOrder } from 'app/shared/model/order.model';
+import { convertDateTimeToServer, defaultDateTimeNow } from 'app/shared/util/date-utils';
+import { v4 as uuidv4 } from 'uuid';
+import { forEach } from 'lodash';
+import { createEntity } from 'app/entities/order-item/order-item.reducer';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 const responsive = {
   superLargeDesktop: {
@@ -29,11 +38,13 @@ const responsive = {
 const OverviewSidebar = ({ overViewExpand }) => {
   const [total, setTotal] = useState(0);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const productsByCategory = useAppSelector(state => state.products);
   const productCategories = Object.keys(productsByCategory);
   const customerInfo = useAppSelector(state => state.customerInfo);
   const numberOfGuests = useAppSelector(state => state.guests.numberOfGuests);
+  const user = useAppSelector(state => state.authentication.account);
 
   useEffect(() => {
     let intermediateSum = 0;
@@ -51,7 +62,38 @@ const OverviewSidebar = ({ overViewExpand }) => {
   };
 
   const submitOrder = () => {
-    alert('order has been added');
+    //Unschöner Prozess hier....
+    const customerEntity = {
+      ...customerInfo,
+      user: user,
+    };
+
+    dispatch(createCustomer(customerEntity))
+      .unwrap()
+      .then(customerObject => {
+        const orderEntity: any = {
+          placedDate: convertDateTimeToServer(defaultDateTimeNow()),
+          status: OrderStatus.PENDING,
+          code: uuidv4(),
+          customer: customerObject.data,
+        };
+        dispatch(createOrder(orderEntity))
+          .unwrap()
+          .then(orderObject => {
+            productCategories.map(category => {
+              Object.keys(productsByCategory[category]).map((productKey, index) => {
+                const orderItemEntity = {
+                  quantity: productsByCategory[category][productKey].amount,
+                  totalPrice: productsByCategory[category][productKey].amount * productsByCategory[category][productKey].product.price,
+                  product: productsByCategory[category][productKey].product,
+                  order: orderObject.data,
+                };
+                dispatch(createEntity(orderItemEntity));
+              });
+            });
+          })
+          .then(() => navigate('/'));
+      });
   };
 
   return (

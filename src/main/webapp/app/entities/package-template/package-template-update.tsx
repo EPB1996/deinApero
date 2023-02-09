@@ -51,9 +51,7 @@ export const PackageTemplateUpdate = () => {
     const entity = {
       ...packageTemplateEntity,
       ...values,
-      products: products.filter((product: any) => {
-        return Array.from(values.products).includes(product.id);
-      }),
+      products: mapIdList(values.products),
     };
 
     if (isNew) {

@@ -29,7 +29,7 @@ public class ProductCategory implements Serializable {
     private String description;
 
     @Field("products")
-    @JsonIgnoreProperties(value = { "packageTemplates" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "packageTemplates", "productCategories" }, allowSetters = true)
     private Set<Product> products = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

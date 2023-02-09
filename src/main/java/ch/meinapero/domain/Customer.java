@@ -51,12 +51,12 @@ public class Customer implements Serializable {
     private String addressLine2;
 
     @NotNull(message = "must not be null")
-    @Field("city")
-    private String city;
+    @Field("zip")
+    private Long zip;
 
     @NotNull(message = "must not be null")
-    @Field("country")
-    private String country;
+    @Field("city")
+    private String city;
 
     @Field("user")
     private User user;
@@ -171,6 +171,19 @@ public class Customer implements Serializable {
         this.addressLine2 = addressLine2;
     }
 
+    public Long getZip() {
+        return this.zip;
+    }
+
+    public Customer zip(Long zip) {
+        this.setZip(zip);
+        return this;
+    }
+
+    public void setZip(Long zip) {
+        this.zip = zip;
+    }
+
     public String getCity() {
         return this.city;
     }
@@ -182,19 +195,6 @@ public class Customer implements Serializable {
 
     public void setCity(String city) {
         this.city = city;
-    }
-
-    public String getCountry() {
-        return this.country;
-    }
-
-    public Customer country(String country) {
-        this.setCountry(country);
-        return this;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
     }
 
     public User getUser() {
@@ -272,8 +272,8 @@ public class Customer implements Serializable {
             ", phone='" + getPhone() + "'" +
             ", addressLine1='" + getAddressLine1() + "'" +
             ", addressLine2='" + getAddressLine2() + "'" +
+            ", zip=" + getZip() +
             ", city='" + getCity() + "'" +
-            ", country='" + getCountry() + "'" +
             "}";
     }
 }

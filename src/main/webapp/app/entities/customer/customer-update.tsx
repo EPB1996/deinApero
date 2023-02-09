@@ -172,20 +172,21 @@ export const CustomerUpdate = () => {
                 type="text"
               />
               <ValidatedField
+                label={translate('meinAperoApp.customer.zip')}
+                id="customer-zip"
+                name="zip"
+                data-cy="zip"
+                type="text"
+                validate={{
+                  required: { value: true, message: translate('entity.validation.required') },
+                  validate: v => isNumber(v) || translate('entity.validation.number'),
+                }}
+              />
+              <ValidatedField
                 label={translate('meinAperoApp.customer.city')}
                 id="customer-city"
                 name="city"
                 data-cy="city"
-                type="text"
-                validate={{
-                  required: { value: true, message: translate('entity.validation.required') },
-                }}
-              />
-              <ValidatedField
-                label={translate('meinAperoApp.customer.country')}
-                id="customer-country"
-                name="country"
-                data-cy="country"
                 type="text"
                 validate={{
                   required: { value: true, message: translate('entity.validation.required') },

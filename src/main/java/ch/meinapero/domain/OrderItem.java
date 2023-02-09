@@ -1,6 +1,5 @@
 package ch.meinapero.domain;
 
-import ch.meinapero.domain.enumeration.OrderItemStatus;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -30,10 +29,6 @@ public class OrderItem implements Serializable {
     @DecimalMin(value = "0")
     @Field("total_price")
     private BigDecimal totalPrice;
-
-    @NotNull(message = "must not be null")
-    @Field("status")
-    private OrderItemStatus status;
 
     @Field("product")
     @JsonIgnoreProperties(value = { "packageTemplates", "productCategories" }, allowSetters = true)
@@ -82,19 +77,6 @@ public class OrderItem implements Serializable {
 
     public void setTotalPrice(BigDecimal totalPrice) {
         this.totalPrice = totalPrice;
-    }
-
-    public OrderItemStatus getStatus() {
-        return this.status;
-    }
-
-    public OrderItem status(OrderItemStatus status) {
-        this.setStatus(status);
-        return this;
-    }
-
-    public void setStatus(OrderItemStatus status) {
-        this.status = status;
     }
 
     public Product getProduct() {
@@ -149,7 +131,6 @@ public class OrderItem implements Serializable {
             "id=" + getId() +
             ", quantity=" + getQuantity() +
             ", totalPrice=" + getTotalPrice() +
-            ", status='" + getStatus() + "'" +
             "}";
     }
 }

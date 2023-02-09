@@ -114,9 +114,6 @@ export const Order = () => {
                 <th className="hand" onClick={sort('code')}>
                   <Translate contentKey="meinAperoApp.order.code">Code</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
-                <th className="hand" onClick={sort('invoiceId')}>
-                  <Translate contentKey="meinAperoApp.order.invoiceId">Invoice Id</Translate> <FontAwesomeIcon icon="sort" />
-                </th>
                 <th>
                   <Translate contentKey="meinAperoApp.order.packageType">Package Type</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
@@ -139,7 +136,6 @@ export const Order = () => {
                     <Translate contentKey={`meinAperoApp.OrderStatus.${order.status}`} />
                   </td>
                   <td>{order.code}</td>
-                  <td>{order.invoiceId}</td>
                   <td>{order.packageType ? <Link to={`/package-type/${order.packageType.id}`}>{order.packageType.name}</Link> : ''}</td>
                   <td>{order.customer ? <Link to={`/customer/${order.customer.id}`}>{order.customer.email}</Link> : ''}</td>
                   <td className="text-end">

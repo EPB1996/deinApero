@@ -6,11 +6,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
 import { mapIdList } from 'app/shared/util/entity-utils';
+import { useAppDispatch, useAppSelector } from 'app/config/store';
 
+import { IProduct } from 'app/shared/model/product.model';
 import { getEntities as getProducts } from 'app/entities/product/product.reducer';
 import { IProductCategory } from 'app/shared/model/product-category.model';
 import { getEntity, updateEntity, createEntity, reset } from './product-category.reducer';
-import { useAppDispatch, useAppSelector } from 'app/config/store';
 
 export const ProductCategoryUpdate = () => {
   const dispatch = useAppDispatch();
@@ -50,9 +51,7 @@ export const ProductCategoryUpdate = () => {
     const entity = {
       ...productCategoryEntity,
       ...values,
-      products: products.filter((product: any) => {
-        return Array.from(values.products).includes(product.id);
-      }),
+      products: mapIdList(values.products),
     };
 
     if (isNew) {
@@ -67,7 +66,7 @@ export const ProductCategoryUpdate = () => {
       ? {}
       : {
           ...productCategoryEntity,
-          products: productCategoryEntity?.products,
+          products: productCategoryEntity?.products?.map(e => e.id.toString()),
         };
 
   return (

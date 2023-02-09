@@ -51,12 +51,6 @@ export const OrderDetail = () => {
           </dt>
           <dd>{orderEntity.code}</dd>
           <dt>
-            <span id="invoiceId">
-              <Translate contentKey="meinAperoApp.order.invoiceId">Invoice Id</Translate>
-            </span>
-          </dt>
-          <dd>{orderEntity.invoiceId}</dd>
-          <dt>
             <Translate contentKey="meinAperoApp.order.packageType">Package Type</Translate>
           </dt>
           <dd>{orderEntity.packageType ? orderEntity.packageType.name : ''}</dd>

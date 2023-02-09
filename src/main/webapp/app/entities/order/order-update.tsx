@@ -137,13 +137,6 @@ export const OrderUpdate = () => {
                 }}
               />
               <ValidatedField
-                label={translate('meinAperoApp.order.invoiceId')}
-                id="order-invoiceId"
-                name="invoiceId"
-                data-cy="invoiceId"
-                type="text"
-              />
-              <ValidatedField
                 id="order-packageType"
                 name="packageType"
                 data-cy="packageType"

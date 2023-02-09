@@ -21,7 +21,6 @@
       "placedDate": "Placed Date",
       "status": "Status",
       "code": "Code",
-      "invoiceId": "Invoice Id",
       "packageType": "Package Type",
       "orderItem": "Order Item",
       "customer": "Customer"

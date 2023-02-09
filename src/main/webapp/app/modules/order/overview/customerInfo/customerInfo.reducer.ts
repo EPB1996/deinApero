@@ -15,7 +15,7 @@ import { Gender } from 'app/shared/model/enumerations/gender.model';
 } */
 
 const initialState = {
-  firstName: 'Et',
+  firstName: '',
   lastName: '',
   gender: Gender.MALE,
   email: '',

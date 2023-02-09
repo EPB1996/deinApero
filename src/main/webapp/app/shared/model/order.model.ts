@@ -9,7 +9,6 @@ export interface IOrder {
   placedDate?: string;
   status?: OrderStatus;
   code?: string;
-  invoiceId?: number | null;
   packageType?: IPackageType | null;
   orderItems?: IOrderItem[] | null;
   customer?: ICustomer;

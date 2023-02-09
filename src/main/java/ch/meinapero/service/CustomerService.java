@@ -78,11 +78,11 @@ public class CustomerService {
                 if (customer.getAddressLine2() != null) {
                     existingCustomer.setAddressLine2(customer.getAddressLine2());
                 }
+                if (customer.getZip() != null) {
+                    existingCustomer.setZip(customer.getZip());
+                }
                 if (customer.getCity() != null) {
                     existingCustomer.setCity(customer.getCity());
-                }
-                if (customer.getCountry() != null) {
-                    existingCustomer.setCountry(customer.getCountry());
                 }
 
                 return existingCustomer;

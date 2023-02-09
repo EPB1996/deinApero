@@ -50,9 +50,6 @@ class OrderResourceIT {
     private static final String DEFAULT_CODE = "AAAAAAAAAA";
     private static final String UPDATED_CODE = "BBBBBBBBBB";
 
-    private static final Long DEFAULT_INVOICE_ID = 1L;
-    private static final Long UPDATED_INVOICE_ID = 2L;
-
     private static final String ENTITY_API_URL = "/api/orders";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
 
@@ -77,7 +74,7 @@ class OrderResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Order createEntity() {
-        Order order = new Order().placedDate(DEFAULT_PLACED_DATE).status(DEFAULT_STATUS).code(DEFAULT_CODE).invoiceId(DEFAULT_INVOICE_ID);
+        Order order = new Order().placedDate(DEFAULT_PLACED_DATE).status(DEFAULT_STATUS).code(DEFAULT_CODE);
         // Add required entity
         Customer customer;
         customer = CustomerResourceIT.createEntity();
@@ -93,7 +90,7 @@ class OrderResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Order createUpdatedEntity() {
-        Order order = new Order().placedDate(UPDATED_PLACED_DATE).status(UPDATED_STATUS).code(UPDATED_CODE).invoiceId(UPDATED_INVOICE_ID);
+        Order order = new Order().placedDate(UPDATED_PLACED_DATE).status(UPDATED_STATUS).code(UPDATED_CODE);
         // Add required entity
         Customer customer;
         customer = CustomerResourceIT.createUpdatedEntity();
@@ -128,7 +125,6 @@ class OrderResourceIT {
         assertThat(testOrder.getPlacedDate()).isEqualTo(DEFAULT_PLACED_DATE);
         assertThat(testOrder.getStatus()).isEqualTo(DEFAULT_STATUS);
         assertThat(testOrder.getCode()).isEqualTo(DEFAULT_CODE);
-        assertThat(testOrder.getInvoiceId()).isEqualTo(DEFAULT_INVOICE_ID);
     }
 
     @Test
@@ -239,9 +235,7 @@ class OrderResourceIT {
             .jsonPath("$.[*].status")
             .value(hasItem(DEFAULT_STATUS.toString()))
             .jsonPath("$.[*].code")
-            .value(hasItem(DEFAULT_CODE))
-            .jsonPath("$.[*].invoiceId")
-            .value(hasItem(DEFAULT_INVOICE_ID.intValue()));
+            .value(hasItem(DEFAULT_CODE));
     }
 
     @SuppressWarnings({ "unchecked" })
@@ -284,9 +278,7 @@ class OrderResourceIT {
             .jsonPath("$.status")
             .value(is(DEFAULT_STATUS.toString()))
             .jsonPath("$.code")
-            .value(is(DEFAULT_CODE))
-            .jsonPath("$.invoiceId")
-            .value(is(DEFAULT_INVOICE_ID.intValue()));
+            .value(is(DEFAULT_CODE));
     }
 
     @Test
@@ -310,7 +302,7 @@ class OrderResourceIT {
 
         // Update the order
         Order updatedOrder = orderRepository.findById(order.getId()).block();
-        updatedOrder.placedDate(UPDATED_PLACED_DATE).status(UPDATED_STATUS).code(UPDATED_CODE).invoiceId(UPDATED_INVOICE_ID);
+        updatedOrder.placedDate(UPDATED_PLACED_DATE).status(UPDATED_STATUS).code(UPDATED_CODE);
 
         webTestClient
             .put()
@@ -328,7 +320,6 @@ class OrderResourceIT {
         assertThat(testOrder.getPlacedDate()).isEqualTo(UPDATED_PLACED_DATE);
         assertThat(testOrder.getStatus()).isEqualTo(UPDATED_STATUS);
         assertThat(testOrder.getCode()).isEqualTo(UPDATED_CODE);
-        assertThat(testOrder.getInvoiceId()).isEqualTo(UPDATED_INVOICE_ID);
     }
 
     @Test
@@ -402,7 +393,7 @@ class OrderResourceIT {
         Order partialUpdatedOrder = new Order();
         partialUpdatedOrder.setId(order.getId());
 
-        partialUpdatedOrder.placedDate(UPDATED_PLACED_DATE).code(UPDATED_CODE).invoiceId(UPDATED_INVOICE_ID);
+        partialUpdatedOrder.placedDate(UPDATED_PLACED_DATE).code(UPDATED_CODE);
 
         webTestClient
             .patch()
@@ -420,7 +411,6 @@ class OrderResourceIT {
         assertThat(testOrder.getPlacedDate()).isEqualTo(UPDATED_PLACED_DATE);
         assertThat(testOrder.getStatus()).isEqualTo(DEFAULT_STATUS);
         assertThat(testOrder.getCode()).isEqualTo(UPDATED_CODE);
-        assertThat(testOrder.getInvoiceId()).isEqualTo(UPDATED_INVOICE_ID);
     }
 
     @Test
@@ -434,7 +424,7 @@ class OrderResourceIT {
         Order partialUpdatedOrder = new Order();
         partialUpdatedOrder.setId(order.getId());
 
-        partialUpdatedOrder.placedDate(UPDATED_PLACED_DATE).status(UPDATED_STATUS).code(UPDATED_CODE).invoiceId(UPDATED_INVOICE_ID);
+        partialUpdatedOrder.placedDate(UPDATED_PLACED_DATE).status(UPDATED_STATUS).code(UPDATED_CODE);
 
         webTestClient
             .patch()
@@ -452,7 +442,6 @@ class OrderResourceIT {
         assertThat(testOrder.getPlacedDate()).isEqualTo(UPDATED_PLACED_DATE);
         assertThat(testOrder.getStatus()).isEqualTo(UPDATED_STATUS);
         assertThat(testOrder.getCode()).isEqualTo(UPDATED_CODE);
-        assertThat(testOrder.getInvoiceId()).isEqualTo(UPDATED_INVOICE_ID);
     }
 
     @Test

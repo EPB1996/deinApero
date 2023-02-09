@@ -11,8 +11,8 @@ export interface ICustomer {
   phone?: string;
   addressLine1?: string;
   addressLine2?: string | null;
+  zip?: number;
   city?: string;
-  country?: string;
   user?: IUser;
   orders?: IOrder[] | null;
 }

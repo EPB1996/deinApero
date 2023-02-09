@@ -20,10 +20,6 @@
       "fieldName": "code",
       "fieldType": "String",
       "fieldValidateRules": ["required"]
-    },
-    {
-      "fieldName": "invoiceId",
-      "fieldType": "Long"
     }
   ],
   "fluentMethods": true,

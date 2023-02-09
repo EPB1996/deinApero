@@ -35,9 +35,6 @@ public class Order implements Serializable {
     @Field("code")
     private String code;
 
-    @Field("invoice_id")
-    private Long invoiceId;
-
     @Field("packageType")
     private PackageType packageType;
 
@@ -101,19 +98,6 @@ public class Order implements Serializable {
 
     public void setCode(String code) {
         this.code = code;
-    }
-
-    public Long getInvoiceId() {
-        return this.invoiceId;
-    }
-
-    public Order invoiceId(Long invoiceId) {
-        this.setInvoiceId(invoiceId);
-        return this;
-    }
-
-    public void setInvoiceId(Long invoiceId) {
-        this.invoiceId = invoiceId;
     }
 
     public PackageType getPackageType() {
@@ -200,7 +184,6 @@ public class Order implements Serializable {
             ", placedDate='" + getPlacedDate() + "'" +
             ", status='" + getStatus() + "'" +
             ", code='" + getCode() + "'" +
-            ", invoiceId=" + getInvoiceId() +
             "}";
     }
 }

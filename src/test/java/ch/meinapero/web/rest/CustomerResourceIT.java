@@ -60,11 +60,11 @@ class CustomerResourceIT {
     private static final String DEFAULT_ADDRESS_LINE_2 = "AAAAAAAAAA";
     private static final String UPDATED_ADDRESS_LINE_2 = "BBBBBBBBBB";
 
+    private static final Long DEFAULT_ZIP = 1L;
+    private static final Long UPDATED_ZIP = 2L;
+
     private static final String DEFAULT_CITY = "AAAAAAAAAA";
     private static final String UPDATED_CITY = "BBBBBBBBBB";
-
-    private static final String DEFAULT_COUNTRY = "AAAAAAAAAA";
-    private static final String UPDATED_COUNTRY = "BBBBBBBBBB";
 
     private static final String ENTITY_API_URL = "/api/customers";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
@@ -98,8 +98,8 @@ class CustomerResourceIT {
             .phone(DEFAULT_PHONE)
             .addressLine1(DEFAULT_ADDRESS_LINE_1)
             .addressLine2(DEFAULT_ADDRESS_LINE_2)
-            .city(DEFAULT_CITY)
-            .country(DEFAULT_COUNTRY);
+            .zip(DEFAULT_ZIP)
+            .city(DEFAULT_CITY);
         // Add required entity
         User user = UserResourceIT.createEntity();
         user.setId("fixed-id-for-tests");
@@ -122,8 +122,8 @@ class CustomerResourceIT {
             .phone(UPDATED_PHONE)
             .addressLine1(UPDATED_ADDRESS_LINE_1)
             .addressLine2(UPDATED_ADDRESS_LINE_2)
-            .city(UPDATED_CITY)
-            .country(UPDATED_COUNTRY);
+            .zip(UPDATED_ZIP)
+            .city(UPDATED_CITY);
         // Add required entity
         User user = UserResourceIT.createEntity();
         user.setId("fixed-id-for-tests");
@@ -161,8 +161,8 @@ class CustomerResourceIT {
         assertThat(testCustomer.getPhone()).isEqualTo(DEFAULT_PHONE);
         assertThat(testCustomer.getAddressLine1()).isEqualTo(DEFAULT_ADDRESS_LINE_1);
         assertThat(testCustomer.getAddressLine2()).isEqualTo(DEFAULT_ADDRESS_LINE_2);
+        assertThat(testCustomer.getZip()).isEqualTo(DEFAULT_ZIP);
         assertThat(testCustomer.getCity()).isEqualTo(DEFAULT_CITY);
-        assertThat(testCustomer.getCountry()).isEqualTo(DEFAULT_COUNTRY);
     }
 
     @Test
@@ -314,10 +314,10 @@ class CustomerResourceIT {
     }
 
     @Test
-    void checkCityIsRequired() throws Exception {
+    void checkZipIsRequired() throws Exception {
         int databaseSizeBeforeTest = customerRepository.findAll().collectList().block().size();
         // set the field null
-        customer.setCity(null);
+        customer.setZip(null);
 
         // Create the Customer, which fails.
 
@@ -335,10 +335,10 @@ class CustomerResourceIT {
     }
 
     @Test
-    void checkCountryIsRequired() throws Exception {
+    void checkCityIsRequired() throws Exception {
         int databaseSizeBeforeTest = customerRepository.findAll().collectList().block().size();
         // set the field null
-        customer.setCountry(null);
+        customer.setCity(null);
 
         // Create the Customer, which fails.
 
@@ -387,10 +387,10 @@ class CustomerResourceIT {
             .value(hasItem(DEFAULT_ADDRESS_LINE_1))
             .jsonPath("$.[*].addressLine2")
             .value(hasItem(DEFAULT_ADDRESS_LINE_2))
+            .jsonPath("$.[*].zip")
+            .value(hasItem(DEFAULT_ZIP.intValue()))
             .jsonPath("$.[*].city")
-            .value(hasItem(DEFAULT_CITY))
-            .jsonPath("$.[*].country")
-            .value(hasItem(DEFAULT_COUNTRY));
+            .value(hasItem(DEFAULT_CITY));
     }
 
     @SuppressWarnings({ "unchecked" })
@@ -442,10 +442,10 @@ class CustomerResourceIT {
             .value(is(DEFAULT_ADDRESS_LINE_1))
             .jsonPath("$.addressLine2")
             .value(is(DEFAULT_ADDRESS_LINE_2))
+            .jsonPath("$.zip")
+            .value(is(DEFAULT_ZIP.intValue()))
             .jsonPath("$.city")
-            .value(is(DEFAULT_CITY))
-            .jsonPath("$.country")
-            .value(is(DEFAULT_COUNTRY));
+            .value(is(DEFAULT_CITY));
     }
 
     @Test
@@ -477,8 +477,8 @@ class CustomerResourceIT {
             .phone(UPDATED_PHONE)
             .addressLine1(UPDATED_ADDRESS_LINE_1)
             .addressLine2(UPDATED_ADDRESS_LINE_2)
-            .city(UPDATED_CITY)
-            .country(UPDATED_COUNTRY);
+            .zip(UPDATED_ZIP)
+            .city(UPDATED_CITY);
 
         webTestClient
             .put()
@@ -500,8 +500,8 @@ class CustomerResourceIT {
         assertThat(testCustomer.getPhone()).isEqualTo(UPDATED_PHONE);
         assertThat(testCustomer.getAddressLine1()).isEqualTo(UPDATED_ADDRESS_LINE_1);
         assertThat(testCustomer.getAddressLine2()).isEqualTo(UPDATED_ADDRESS_LINE_2);
+        assertThat(testCustomer.getZip()).isEqualTo(UPDATED_ZIP);
         assertThat(testCustomer.getCity()).isEqualTo(UPDATED_CITY);
-        assertThat(testCustomer.getCountry()).isEqualTo(UPDATED_COUNTRY);
     }
 
     @Test
@@ -580,7 +580,7 @@ class CustomerResourceIT {
             .gender(UPDATED_GENDER)
             .email(UPDATED_EMAIL)
             .addressLine1(UPDATED_ADDRESS_LINE_1)
-            .country(UPDATED_COUNTRY);
+            .city(UPDATED_CITY);
 
         webTestClient
             .patch()
@@ -602,8 +602,8 @@ class CustomerResourceIT {
         assertThat(testCustomer.getPhone()).isEqualTo(DEFAULT_PHONE);
         assertThat(testCustomer.getAddressLine1()).isEqualTo(UPDATED_ADDRESS_LINE_1);
         assertThat(testCustomer.getAddressLine2()).isEqualTo(DEFAULT_ADDRESS_LINE_2);
-        assertThat(testCustomer.getCity()).isEqualTo(DEFAULT_CITY);
-        assertThat(testCustomer.getCountry()).isEqualTo(UPDATED_COUNTRY);
+        assertThat(testCustomer.getZip()).isEqualTo(DEFAULT_ZIP);
+        assertThat(testCustomer.getCity()).isEqualTo(UPDATED_CITY);
     }
 
     @Test
@@ -625,8 +625,8 @@ class CustomerResourceIT {
             .phone(UPDATED_PHONE)
             .addressLine1(UPDATED_ADDRESS_LINE_1)
             .addressLine2(UPDATED_ADDRESS_LINE_2)
-            .city(UPDATED_CITY)
-            .country(UPDATED_COUNTRY);
+            .zip(UPDATED_ZIP)
+            .city(UPDATED_CITY);
 
         webTestClient
             .patch()
@@ -648,8 +648,8 @@ class CustomerResourceIT {
         assertThat(testCustomer.getPhone()).isEqualTo(UPDATED_PHONE);
         assertThat(testCustomer.getAddressLine1()).isEqualTo(UPDATED_ADDRESS_LINE_1);
         assertThat(testCustomer.getAddressLine2()).isEqualTo(UPDATED_ADDRESS_LINE_2);
+        assertThat(testCustomer.getZip()).isEqualTo(UPDATED_ZIP);
         assertThat(testCustomer.getCity()).isEqualTo(UPDATED_CITY);
-        assertThat(testCustomer.getCountry()).isEqualTo(UPDATED_COUNTRY);
     }
 
     @Test

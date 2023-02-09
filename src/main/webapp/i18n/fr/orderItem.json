@@ -20,7 +20,6 @@
       "id": "ID",
       "quantity": "Quantity",
       "totalPrice": "Total Price",
-      "status": "Status",
       "product": "Product",
       "order": "Order"
     }
