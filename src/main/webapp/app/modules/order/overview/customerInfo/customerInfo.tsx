@@ -136,13 +136,7 @@ export const CustomerInfo = () => {
                 type="text"
               />
               <ValidatedField label={translate('meinAperoApp.customer.city')} id="customer-city" name="city" data-cy="city" type="text" />
-              <ValidatedField
-                label={translate('meinAperoApp.customer.country')}
-                id="customer-country"
-                name="country"
-                data-cy="country"
-                type="text"
-              />
+              <ValidatedField label={translate('meinAperoApp.customer.zip')} id="customer-zip" name="zip" data-cy="zip" type="number" />
               <ValidatedField label="step" id="step" name="step" data-cy="step" type="number" hidden></ValidatedField>
               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <Button
