@@ -3,12 +3,8 @@ import React, { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { Button, Card, CardTitle, Col, Row } from 'reactstrap';
 import { Slide } from 'react-awesome-reveal';
-import Carousel from 'react-multi-carousel';
-import { IProduct } from 'app/shared/model/product.model';
-import ProductItem from '../../productSelection/product/productItem';
-import CustomerInfo from '../customerInfo/customerInfo';
+
 import { addCustomerInfo } from '../customerInfo/customerInfo.reducer';
-import { toast } from 'react-toastify';
 
 const responsive = {
   superLargeDesktop: {
@@ -37,6 +33,7 @@ const OverviewSidebar = ({ overViewExpand }) => {
   const productsByCategory = useAppSelector(state => state.products);
   const productCategories = Object.keys(productsByCategory);
   const customerInfo = useAppSelector(state => state.customerInfo);
+  const numberOfGuests = useAppSelector(state => state.guests.numberOfGuests);
 
   useEffect(() => {
     let intermediateSum = 0;
@@ -97,10 +94,12 @@ const OverviewSidebar = ({ overViewExpand }) => {
                 <h5>Contact:</h5>
               </Col>
               <Col md={8}>
-                <Slide direction="right" duration={1500} triggerOnce>
-                  <div>{customerInfo.email}</div>
-                  <div>{customerInfo.phone}</div>
-                </Slide>
+                {customerInfo.step === 3 && (
+                  <Slide direction="right" duration={1500} triggerOnce>
+                    <div>{customerInfo.email}</div>
+                    <div>{customerInfo.phone}</div>
+                  </Slide>
+                )}
               </Col>
             </Row>
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -180,10 +179,18 @@ const OverviewSidebar = ({ overViewExpand }) => {
       ))}
       <Slide style={{ marginTop: 'auto' }} triggerOnce duration={1500} direction={'right'} delay={1000}>
         <div className="sideBarItem">
-          <h5>Total</h5>
+          <h5 style={{ marginBottom: 0, marginTop: 'auto' }}>Total</h5>
           <div>{total}</div>
         </div>
       </Slide>
+      {numberOfGuests > 0 && (
+        <Slide triggerOnce duration={1500} direction={'right'} delay={1000}>
+          <div className="sideBarItem">
+            <h5 style={{ marginBottom: 0, marginTop: 'auto' }}>Total per Person</h5>
+            <div>{total / numberOfGuests}</div>
+          </div>
+        </Slide>
+      )}
     </Card>
   );
 };

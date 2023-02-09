@@ -32,7 +32,7 @@ const ProductItem = props => {
         </div>
       )}
       <CardImg alt="Card image cap" src="https://picsum.photos/900/300?grayscale" />
-      <CardImgOverlay>
+      <CardImgOverlay style={{ height: '100%' }}>
         <CardTitle tag="h5">{name}</CardTitle>
         <CardSubtitle className="mb-2 text-muted" tag="h6">
           {productSize} {price}
@@ -40,7 +40,7 @@ const ProductItem = props => {
         <CardText>{description}</CardText>
       </CardImgOverlay>
       {!disabled && (
-        <CardFooter>
+        <CardFooter style={{ zIndex: 100 }}>
           <Row>
             <Col style={{ padding: '1px' }} md={6} sm={6} xs={12}>
               <Button style={{ width: '100%' }} onClick={handleAddProduct}>
