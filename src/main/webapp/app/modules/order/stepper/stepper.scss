@@ -23,7 +23,11 @@
 .side-by-side {
   flex-grow: 1;
   transition: all 1s ease;
-  height: '100%';
+  overflow-x: hidden;
+  overflow-y: auto;
+  height: 100%;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
 .sidebar-hidden {
@@ -35,4 +39,9 @@
 .sidebar {
   flex-grow: 3;
   transition: all 1s ease;
+  overflow-x: hidden;
+  overflow-y: auto;
+  height: 100%;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }

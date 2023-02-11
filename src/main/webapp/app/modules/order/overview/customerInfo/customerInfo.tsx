@@ -10,10 +10,12 @@ import { addCustomerInfo } from './customerInfo.reducer';
 import { nextStep } from '../../stepper/stepper.reducer';
 import { Slide } from 'react-awesome-reveal';
 import { Step, Stepper } from 'react-form-stepper';
+import { ICustomer } from 'app/shared/model/customer.model';
 
 export const CustomerInfo = () => {
   const dispatch = useAppDispatch();
   const customerInfo = useAppSelector(state => state.customerInfo);
+  const previousCustomerInfos = useAppSelector(state => state.customer.entities);
   const genderValues = Object.keys(Gender);
 
   const nextStep = values => {
@@ -29,6 +31,10 @@ export const CustomerInfo = () => {
     dispatch(addCustomerInfo({ step: 0 }));
   };
 
+  const selectFromPrevious = (previousCustomerInfo: ICustomer) => {
+    dispatch(addCustomerInfo({ ...previousCustomerInfo, step: 3 }));
+  };
+
   const defaultValues = () => {
     return customerInfo;
   };
@@ -36,36 +42,31 @@ export const CustomerInfo = () => {
   return (
     <Slide direction="left" duration={1500} triggerOnce>
       <Card>
-        {/*   {(customerInfo.step === 1 || customerInfo.step === 2 || customerInfo.step === 3) && (
-          <Slide direction="right" duration={1500} triggerOnce>
-            <div style={{ display: 'inline-block' }}>
-              {customerInfo.firstName} {customerInfo.lastName}
-            </div>
+        {previousCustomerInfos && customerInfo.step === 0 && (
+          <Slide direction="left" duration={1500} triggerOnce>
+            <p>Previous Contact Informations:</p>
+            <Row>
+              {previousCustomerInfos.map((previousCustomerInfo: ICustomer) => (
+                <Col md="6" sm="6" xs="12">
+                  <Button onClick={() => selectFromPrevious(previousCustomerInfo)}>
+                    <div>
+                      {previousCustomerInfo.firstName} {previousCustomerInfo.lastName}
+                    </div>
+                    <div>
+                      {previousCustomerInfo.addressLine1} {previousCustomerInfo.addressLine2}
+                    </div>
+                    <div>
+                      {previousCustomerInfo.zip} {previousCustomerInfo.city}
+                    </div>
+                    <div>{previousCustomerInfo.email} </div>
+                    <div>{previousCustomerInfo.phone} </div>
+                  </Button>
+                </Col>
+              ))}
+            </Row>
           </Slide>
         )}
 
-        {(customerInfo.step === 2 || customerInfo.step === 3) && (
-          <Slide direction="right" duration={1500} triggerOnce>
-            <div>{customerInfo.addressLine1}</div>
-            <div>{customerInfo.addressLine2}</div>
-            <div style={{ display: 'inline-block' }}>
-              {customerInfo.city} {customerInfo.country}
-            </div>
-          </Slide>
-        )}
-        {customerInfo.step === 3 && (
-          <>
-            <Slide direction="right" duration={1500} triggerOnce>
-              <div>{customerInfo.email}</div>
-              <div>{customerInfo.phone}</div>
-            </Slide>
-            <Slide direction="left" duration={1500} triggerOnce>
-              <Button color="primary" id="save-entity" data-cy="entityCreateSaveButton" onClick={() => resetCustomerInfo()}>
-                Change
-              </Button>
-            </Slide>
-          </>
-        )} */}
         {customerInfo.step === 0 && (
           <Slide direction="left" duration={1500} triggerOnce>
             <ValidatedForm defaultValues={defaultValues()} onSubmit={nextStep}>

@@ -68,34 +68,61 @@ const OverviewSidebar = ({ overViewExpand }) => {
       user: user,
     };
 
-    dispatch(createCustomer(customerEntity))
-      .unwrap()
-      .then(customerObject => {
-        const orderEntity: any = {
-          placedDate: convertDateTimeToServer(defaultDateTimeNow()),
-          status: OrderStatus.PENDING,
-          code: uuidv4(),
-          user: user,
-          customer: customerObject.data,
-        };
-        dispatch(createOrder(orderEntity))
-          .unwrap()
-          .then(orderObject => {
-            productCategories.map(category => {
-              Object.keys(productsByCategory[category]).map((productKey, index) => {
-                const orderItemEntity = {
-                  quantity: productsByCategory[category][productKey].amount,
-                  totalPrice: productsByCategory[category][productKey].amount * productsByCategory[category][productKey].product.price,
-                  product: productsByCategory[category][productKey].product,
-                  user: user,
-                  order: orderObject.data,
-                };
-                dispatch(createOrderItem(orderItemEntity));
+    if (!customerInfo.id) {
+      dispatch(createCustomer(customerEntity))
+        .unwrap()
+        .then(customerObject => {
+          const orderEntity: any = {
+            placedDate: convertDateTimeToServer(defaultDateTimeNow()),
+            status: OrderStatus.PENDING,
+            code: uuidv4(),
+            user: user,
+            customer: customerObject.data,
+          };
+          dispatch(createOrder(orderEntity))
+            .unwrap()
+            .then(orderObject => {
+              productCategories.map(category => {
+                Object.keys(productsByCategory[category]).map((productKey, index) => {
+                  const orderItemEntity = {
+                    quantity: productsByCategory[category][productKey].amount,
+                    totalPrice: productsByCategory[category][productKey].amount * productsByCategory[category][productKey].product.price,
+                    product: productsByCategory[category][productKey].product,
+                    user: user,
+                    order: orderObject.data,
+                  };
+                  dispatch(createOrderItem(orderItemEntity));
+                });
               });
+            })
+            .then(() => navigate('/'));
+        });
+    } else {
+      const orderEntity: any = {
+        placedDate: convertDateTimeToServer(defaultDateTimeNow()),
+        status: OrderStatus.PENDING,
+        code: uuidv4(),
+        user: user,
+        customer: customerInfo,
+      };
+      dispatch(createOrder(orderEntity))
+        .unwrap()
+        .then(orderObject => {
+          productCategories.map(category => {
+            Object.keys(productsByCategory[category]).map((productKey, index) => {
+              const orderItemEntity = {
+                quantity: productsByCategory[category][productKey].amount,
+                totalPrice: productsByCategory[category][productKey].amount * productsByCategory[category][productKey].product.price,
+                product: productsByCategory[category][productKey].product,
+                user: user,
+                order: orderObject.data,
+              };
+              dispatch(createOrderItem(orderItemEntity));
             });
-          })
-          .then(() => navigate('/'));
-      });
+          });
+        })
+        .then(() => navigate('/'));
+    }
   };
 
   return (
