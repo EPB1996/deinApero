@@ -1,8 +1,13 @@
 package ch.meinapero.web.rest;
 
 import ch.meinapero.domain.Customer;
+import ch.meinapero.domain.User;
 import ch.meinapero.repository.CustomerRepository;
+import ch.meinapero.security.AuthoritiesConstants;
+import ch.meinapero.security.SecurityUtils;
 import ch.meinapero.service.CustomerService;
+import ch.meinapero.service.UserService;
+import ch.meinapero.service.dto.AdminUserDTO;
 import ch.meinapero.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -10,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Function;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import org.slf4j.Logger;
@@ -23,6 +29,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.server.reactive.ServerHttpRequest;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.CurrentSecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -50,9 +59,12 @@ public class CustomerResource {
 
     private final CustomerRepository customerRepository;
 
-    public CustomerResource(CustomerService customerService, CustomerRepository customerRepository) {
+    private final UserService userService;
+
+    public CustomerResource(CustomerService customerService, CustomerRepository customerRepository, UserService userService) {
         this.customerService = customerService;
         this.customerRepository = customerRepository;
+        this.userService = userService;
     }
 
     /**
@@ -178,16 +190,32 @@ public class CustomerResource {
      */
     @GetMapping("/customers")
     public Mono<ResponseEntity<List<Customer>>> getAllCustomers(
+        @CurrentSecurityContext(expression = "authentication") Authentication authentication,
         @org.springdoc.api.annotations.ParameterObject Pageable pageable,
         ServerHttpRequest request,
         @RequestParam(required = false, defaultValue = "false") boolean eagerload
     ) {
         log.debug("REST request to get a page of Customers");
+
         return customerService
             .countAll()
-            .zipWith(customerService.findAll(pageable).collectList())
-            .map(countWithEntities ->
-                ResponseEntity
+            .zipWith(
+                customerService
+                    .findAll(pageable)
+                    // Only give back customers of user
+                    .filter(customer -> {
+                        if (authentication.getAuthorities().stream().anyMatch(ga -> ga.getAuthority().equals(AuthoritiesConstants.ADMIN))) {
+                            return true;
+                        } else {
+                            return customer.getUser().getLogin().equals(authentication.getName());
+                        }
+                    })
+                    .collectList()
+            )
+            .map(countWithEntities -> {
+                System.out.println(authentication);
+                System.out.println(countWithEntities);
+                return ResponseEntity
                     .ok()
                     .headers(
                         PaginationUtil.generatePaginationHttpHeaders(
@@ -195,8 +223,28 @@ public class CustomerResource {
                             new PageImpl<>(countWithEntities.getT2(), pageable, countWithEntities.getT1())
                         )
                     )
-                    .body(countWithEntities.getT2())
-            );
+                    .body(countWithEntities.getT2());
+            });
+        /*  return userService
+            .getUserWithAuthorities()
+            .map(user -> {
+                System.out.println(user);
+                return customerService
+                    .countAll()
+                    .zipWith(customerService.findAll(pageable).collectList())
+                    .map(countWithEntities -> {
+                        System.out.println(countWithEntities);
+                        return ResponseEntity
+                            .ok()
+                            .headers(
+                                PaginationUtil.generatePaginationHttpHeaders(
+                                    UriComponentsBuilder.fromHttpRequest(request),
+                                    new PageImpl<>(countWithEntities.getT2(), pageable, countWithEntities.getT1())
+                                )
+                            )
+                            .body(countWithEntities.getT2());
+                    });
+            }); */
     }
 
     /**

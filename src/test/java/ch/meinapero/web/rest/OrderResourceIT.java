@@ -8,6 +8,7 @@ import static org.mockito.Mockito.*;
 import ch.meinapero.IntegrationTest;
 import ch.meinapero.domain.Customer;
 import ch.meinapero.domain.Order;
+import ch.meinapero.domain.User;
 import ch.meinapero.domain.enumeration.OrderStatus;
 import ch.meinapero.repository.OrderRepository;
 import ch.meinapero.service.OrderService;
@@ -76,6 +77,10 @@ class OrderResourceIT {
     public static Order createEntity() {
         Order order = new Order().placedDate(DEFAULT_PLACED_DATE).status(DEFAULT_STATUS).code(DEFAULT_CODE);
         // Add required entity
+        User user = UserResourceIT.createEntity();
+        user.setId("fixed-id-for-tests");
+        order.setUser(user);
+        // Add required entity
         Customer customer;
         customer = CustomerResourceIT.createEntity();
         customer.setId("fixed-id-for-tests");
@@ -91,6 +96,10 @@ class OrderResourceIT {
      */
     public static Order createUpdatedEntity() {
         Order order = new Order().placedDate(UPDATED_PLACED_DATE).status(UPDATED_STATUS).code(UPDATED_CODE);
+        // Add required entity
+        User user = UserResourceIT.createEntity();
+        user.setId("fixed-id-for-tests");
+        order.setUser(user);
         // Add required entity
         Customer customer;
         customer = CustomerResourceIT.createUpdatedEntity();

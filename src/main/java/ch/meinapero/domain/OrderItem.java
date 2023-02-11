@@ -34,8 +34,11 @@ public class OrderItem implements Serializable {
     @JsonIgnoreProperties(value = { "packageTemplates", "productCategories" }, allowSetters = true)
     private Product product;
 
+    @Field("user")
+    private User user;
+
     @Field("order")
-    @JsonIgnoreProperties(value = { "packageType", "orderItems", "customer" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "packageType", "orderItems", "user", "customer" }, allowSetters = true)
     private Order order;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
@@ -89,6 +92,19 @@ public class OrderItem implements Serializable {
 
     public OrderItem product(Product product) {
         this.setProduct(product);
+        return this;
+    }
+
+    public User getUser() {
+        return this.user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public OrderItem user(User user) {
+        this.setUser(user);
         return this;
     }
 

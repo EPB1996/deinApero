@@ -62,7 +62,7 @@ public class Customer implements Serializable {
     private User user;
 
     @Field("order")
-    @JsonIgnoreProperties(value = { "packageType", "orderItems", "customer" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "packageType", "orderItems", "user", "customer" }, allowSetters = true)
     private Set<Order> orders = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

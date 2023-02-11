@@ -14,10 +14,13 @@ import OverviewSidebar from '../overview/sidebar/overviewSidebar';
 import Guests from '../guests/guests';
 import LeftArrow from './arrows/leftArrow';
 import RightArrow from './arrows/rightArrow';
+import Login from 'app/modules/login/login';
 
 const OrderStepper = () => {
   const dispatch = useAppDispatch();
   const { activeStep, showSideBar, overViewExpand, finished } = useAppSelector(state => state.orderStepper);
+  const account = useAppSelector(state => state.authentication.account);
+  console.log(account);
 
   const handleNext = () => {
     if (!finished) dispatch(nextStep());
@@ -38,7 +41,7 @@ const OrderStepper = () => {
       case 1:
         return <ProductSelection></ProductSelection>;
       case 2:
-        return <CustomerInfo></CustomerInfo>;
+        return account.id ? <CustomerInfo></CustomerInfo> : <Login></Login>;
       default:
         return 'Something went wrong';
     }

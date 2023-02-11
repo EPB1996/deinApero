@@ -21,6 +21,8 @@ import { getEntities as getPackageTemplates } from './entities/package-template/
 import { getEntities as getPackageTypes } from './entities/package-type/package-type.reducer';
 import { getEntities as getPackageCategories } from './entities/product-category/product-category.reducer';
 import { getEntities as getProducts } from './entities/product/product.reducer';
+import { getEntities as getCustomersInfo } from './entities/customer/customer.reducer';
+import { getEntities as getOrders } from './entities/order/order.reducer';
 
 const baseHref = document.querySelector('base').getAttribute('href').replace(/\/$/, '');
 
@@ -32,6 +34,8 @@ export const App = () => {
     dispatch(getProfile());
     /* dispatch(getPackageTemplates({})); */
     /* dispatch(getPackageTypes({})); */
+    dispatch(getCustomersInfo({}));
+    dispatch(getOrders({}));
     dispatch(getPackageCategories({}));
     dispatch(getProducts({}));
   }, []);

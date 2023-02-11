@@ -42,6 +42,13 @@
       "relationshipType": "one-to-many"
     },
     {
+      "otherEntityField": "login",
+      "otherEntityName": "user",
+      "relationshipName": "user",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    },
+    {
       "otherEntityField": "email",
       "otherEntityName": "customer",
       "otherEntityRelationshipName": "order",

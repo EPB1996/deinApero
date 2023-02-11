@@ -12,7 +12,7 @@ import { IOrder } from 'app/shared/model/order.model';
 import { convertDateTimeToServer, defaultDateTimeNow } from 'app/shared/util/date-utils';
 import { v4 as uuidv4 } from 'uuid';
 import { forEach } from 'lodash';
-import { createEntity } from 'app/entities/order-item/order-item.reducer';
+import { createEntity as createOrderItem } from 'app/entities/order-item/order-item.reducer';
 import { Navigate, useNavigate } from 'react-router-dom';
 
 const responsive = {
@@ -75,6 +75,7 @@ const OverviewSidebar = ({ overViewExpand }) => {
           placedDate: convertDateTimeToServer(defaultDateTimeNow()),
           status: OrderStatus.PENDING,
           code: uuidv4(),
+          user: user,
           customer: customerObject.data,
         };
         dispatch(createOrder(orderEntity))
@@ -86,9 +87,10 @@ const OverviewSidebar = ({ overViewExpand }) => {
                   quantity: productsByCategory[category][productKey].amount,
                   totalPrice: productsByCategory[category][productKey].amount * productsByCategory[category][productKey].product.price,
                   product: productsByCategory[category][productKey].product,
+                  user: user,
                   order: orderObject.data,
                 };
-                dispatch(createEntity(orderItemEntity));
+                dispatch(createOrderItem(orderItemEntity));
               });
             });
           })

@@ -39,8 +39,11 @@ public class Order implements Serializable {
     private PackageType packageType;
 
     @Field("orderItem")
-    @JsonIgnoreProperties(value = { "product", "order" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "product", "user", "order" }, allowSetters = true)
     private Set<OrderItem> orderItems = new HashSet<>();
+
+    @Field("user")
+    private User user;
 
     @Field("customer")
     @JsonIgnoreProperties(value = { "user", "orders" }, allowSetters = true)
@@ -141,6 +144,19 @@ public class Order implements Serializable {
     public Order removeOrderItem(OrderItem orderItem) {
         this.orderItems.remove(orderItem);
         orderItem.setOrder(null);
+        return this;
+    }
+
+    public User getUser() {
+        return this.user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Order user(User user) {
+        this.setUser(user);
         return this;
     }
 

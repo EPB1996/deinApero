@@ -118,6 +118,9 @@ export const Order = () => {
                   <Translate contentKey="meinAperoApp.order.packageType">Package Type</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
                 <th>
+                  <Translate contentKey="meinAperoApp.order.user">User</Translate> <FontAwesomeIcon icon="sort" />
+                </th>
+                <th>
                   <Translate contentKey="meinAperoApp.order.customer">Customer</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
                 <th />
@@ -137,6 +140,7 @@ export const Order = () => {
                   </td>
                   <td>{order.code}</td>
                   <td>{order.packageType ? <Link to={`/package-type/${order.packageType.id}`}>{order.packageType.name}</Link> : ''}</td>
+                  <td>{order.user ? order.user.login : ''}</td>
                   <td>{order.customer ? <Link to={`/customer/${order.customer.id}`}>{order.customer.email}</Link> : ''}</td>
                   <td className="text-end">
                     <div className="btn-group flex-btn-group-container">

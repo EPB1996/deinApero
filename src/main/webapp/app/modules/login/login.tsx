@@ -22,7 +22,6 @@ export const Login = () => {
 
   const handleClose = () => {
     setShowModal(false);
-    navigate('/');
   };
 
   const { from } = (location.state as any) || { from: { pathname: '/', search: location.search } };

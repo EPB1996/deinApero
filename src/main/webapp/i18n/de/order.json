@@ -23,6 +23,7 @@
       "code": "Code",
       "packageType": "Package Type",
       "orderItem": "Order Item",
+      "user": "User",
       "customer": "Customer"
     }
   }

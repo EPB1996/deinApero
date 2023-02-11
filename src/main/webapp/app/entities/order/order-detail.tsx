@@ -55,6 +55,10 @@ export const OrderDetail = () => {
           </dt>
           <dd>{orderEntity.packageType ? orderEntity.packageType.name : ''}</dd>
           <dt>
+            <Translate contentKey="meinAperoApp.order.user">User</Translate>
+          </dt>
+          <dd>{orderEntity.user ? orderEntity.user.login : ''}</dd>
+          <dt>
             <Translate contentKey="meinAperoApp.order.customer">Customer</Translate>
           </dt>
           <dd>{orderEntity.customer ? orderEntity.customer.email : ''}</dd>

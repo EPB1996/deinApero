@@ -10,6 +10,7 @@ import ch.meinapero.IntegrationTest;
 import ch.meinapero.domain.Order;
 import ch.meinapero.domain.OrderItem;
 import ch.meinapero.domain.Product;
+import ch.meinapero.domain.User;
 import ch.meinapero.repository.OrderItemRepository;
 import ch.meinapero.service.OrderItemService;
 import java.math.BigDecimal;
@@ -78,6 +79,10 @@ class OrderItemResourceIT {
         product.setId("fixed-id-for-tests");
         orderItem.setProduct(product);
         // Add required entity
+        User user = UserResourceIT.createEntity();
+        user.setId("fixed-id-for-tests");
+        orderItem.setUser(user);
+        // Add required entity
         Order order;
         order = OrderResourceIT.createEntity();
         order.setId("fixed-id-for-tests");
@@ -98,6 +103,10 @@ class OrderItemResourceIT {
         product = ProductResourceIT.createUpdatedEntity();
         product.setId("fixed-id-for-tests");
         orderItem.setProduct(product);
+        // Add required entity
+        User user = UserResourceIT.createEntity();
+        user.setId("fixed-id-for-tests");
+        orderItem.setUser(user);
         // Add required entity
         Order order;
         order = OrderResourceIT.createUpdatedEntity();
