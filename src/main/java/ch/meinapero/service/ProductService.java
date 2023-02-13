@@ -89,7 +89,7 @@ public class ProductService {
      */
     public Flux<Product> findAll(Pageable pageable) {
         log.debug("Request to get all Products");
-        return productRepository.findAllBy(pageable);
+        return productRepository.findAll();
     }
 
     /**

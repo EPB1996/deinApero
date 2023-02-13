@@ -84,7 +84,7 @@ const ProductSelection = () => {
                     ))}
               </Slide>
             )}
-            {open === 'Paté' && (
+            {open === 'Austern' && (
               <Slide className="productItem" direction="right" duration={200} triggerOnce cascade>
                 {productCategories.filter((productCategory: IProductCategory) => productCategory.name === open)[0] &&
                   productCategories
