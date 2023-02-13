@@ -51,7 +51,9 @@ export const ProductCategoryUpdate = () => {
     const entity = {
       ...productCategoryEntity,
       ...values,
-      products: mapIdList(values.products),
+      products: products.filter((product: IProduct) => {
+        return Array.from(values.products).includes(product.id);
+      }),
     };
 
     if (isNew) {
