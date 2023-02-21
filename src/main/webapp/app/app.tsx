@@ -52,6 +52,10 @@ export const App = () => {
     <BrowserRouter basename={baseHref}>
       <div className="app-container" style={{ paddingTop }}>
         <ToastContainer position={toast.POSITION.TOP_LEFT} className="toastify-container" toastClassName="toastify-toast" />
+        <video id="background-video" loop autoPlay>
+          <source src={'../../../content/video/vecteezy_cooked-snacks-on-a-table-in-a-restaurant_2654950.mp4'} type="video/mp4" />
+        </video>
+
         <ErrorBoundary>
           <Header
             isAuthenticated={isAuthenticated}
@@ -62,6 +66,7 @@ export const App = () => {
             isOpenAPIEnabled={isOpenAPIEnabled}
           />
         </ErrorBoundary>
+
         <div className="container-fluid view-container" id="app-view-container">
           <ErrorBoundary>
             <AppRoutes />
