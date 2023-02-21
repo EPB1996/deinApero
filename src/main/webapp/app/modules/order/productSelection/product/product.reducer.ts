@@ -3,14 +3,18 @@ import { IProduct } from 'app/shared/model/product.model';
 
 export interface ProductObject {
   Champagne: {};
+  Austern: {};
   Kaviar: {};
-  Paté: {};
+  Platten: {};
+  Vegetarisch: {};
 }
 
 const initialState: ProductObject = {
   Champagne: {},
+  Austern: {},
   Kaviar: {},
-  Paté: {},
+  Platten: {},
+  Vegetarisch: {},
 };
 
 export const ProductSlice = createSlice({
