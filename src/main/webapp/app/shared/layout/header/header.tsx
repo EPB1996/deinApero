@@ -9,6 +9,7 @@ import { Home, Brand } from './header-components';
 import { AdminMenu, EntitiesMenu, AccountMenu, LocaleMenu } from '../menus';
 import { useAppDispatch } from 'app/config/store';
 import { setLocale } from 'app/shared/reducers/locale';
+import { useNavigate } from 'react-router-dom';
 
 export interface IHeaderProps {
   isAuthenticated: boolean;
@@ -49,7 +50,7 @@ const Header = (props: IHeaderProps) => {
       <LoadingBar className="loading-bar" />
       <Navbar data-cy="navbar" dark expand="md" fixed="top">
         <NavbarToggler aria-label="Menu" onClick={toggleMenu} />
-
+        <Brand></Brand>
         <Collapse isOpen={menuOpen} navbar>
           <Nav id="header-tabs" className="ms-auto" navbar>
             <Home />

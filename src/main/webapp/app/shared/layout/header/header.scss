@@ -68,11 +68,19 @@ Navbar styles
 }
 
 .brand-title {
-  font-size: 24px;
-  color: $header-color;
+  font-size: 3rem;
+  text-transform: uppercase;
+  font-family: 'Gambetta', serif;
+  letter-spacing: -3px;
+  transition: 700ms ease;
+  font-variation-settings: 'wght' 311;
+  margin-bottom: 0.8rem;
+  color: PaleGoldenRod;
+  outline: none;
+  text-align: center;
   &:hover {
-    color: $header-color-hover;
-    text-decoration: none;
+    font-variation-settings: 'wght' 582;
+    letter-spacing: 1px;
   }
 }
 

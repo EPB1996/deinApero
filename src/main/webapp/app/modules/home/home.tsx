@@ -12,10 +12,6 @@ export const Home = () => {
 
   return (
     <Row style={{ justifyContent: 'center' }}>
-      <Col md={12}>
-        <h1 className="title">Dein Apero</h1>
-      </Col>
-
       <Col md={6} style={{ display: 'flex', justifyContent: 'space-around', paddingTop: '10rem' }}>
         <Card>
           <CardTitle tag={'h3'}>Place your Order</CardTitle>
