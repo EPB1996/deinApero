@@ -12,7 +12,7 @@ export const Home = () => {
 
   return (
     <Row style={{ justifyContent: 'center' }}>
-      <Col md={6} style={{ display: 'flex', justifyContent: 'space-around', paddingTop: '10rem' }}>
+      <Col md={6} style={{ display: 'flex', justifyContent: 'space-around', paddingTop: '10%' }}>
         <Card>
           <CardTitle tag={'h3'}>Place your Order</CardTitle>
           <CardBody>Select from different Products and get the party started!</CardBody>{' '}

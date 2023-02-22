@@ -48,7 +48,7 @@ const OrderStepper = () => {
   };
 
   return (
-    <Container style={{ overflow: 'hidden', height: '100%' }}>
+    <div>
       <Row style={{ height: '20%', alignItems: 'center', justifyItems: 'center' }}>
         <Col md={{ size: 2, order: 1 }} sm={{ size: 2, order: 1 }} xs={{ size: 6, order: 2 }}>
           <div
@@ -107,7 +107,7 @@ const OrderStepper = () => {
           </Col>
         )}
       </Row>
-    </Container>
+    </div>
   );
 };
 
