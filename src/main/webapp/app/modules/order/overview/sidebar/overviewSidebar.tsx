@@ -14,6 +14,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { forEach } from 'lodash';
 import { createEntity as createOrderItem } from 'app/entities/order-item/order-item.reducer';
 import { Navigate, useNavigate } from 'react-router-dom';
+import { Translate } from 'react-jhipster';
 
 const responsive = {
   superLargeDesktop: {
@@ -45,6 +46,7 @@ const OverviewSidebar = ({ overViewExpand }) => {
   const customerInfo = useAppSelector(state => state.customerInfo);
   const numberOfGuests = useAppSelector(state => state.guests.numberOfGuests);
   const user = useAppSelector(state => state.authentication.account);
+  const step = useAppSelector(state => state.orderStepper.activeStep);
 
   useEffect(() => {
     let intermediateSum = 0;
@@ -132,7 +134,9 @@ const OverviewSidebar = ({ overViewExpand }) => {
           <Slide triggerOnce duration={1500} direction={'left'}>
             <Row>
               <Col md={4}>
-                <h5>Name:</h5>
+                <h5>
+                  <Translate contentKey={`custom.overview.name`}> Name</Translate>:
+                </h5>
               </Col>
               <Col md={8}>
                 {(customerInfo.step === 1 || customerInfo.step === 2 || customerInfo.step === 3) && (
@@ -146,7 +150,10 @@ const OverviewSidebar = ({ overViewExpand }) => {
             </Row>
             <Row>
               <Col md={4}>
-                <h5>Address:</h5>
+                <h5>
+                  {' '}
+                  <Translate contentKey={`custom.overview.address`}> Address</Translate>:
+                </h5>
               </Col>
               <Col md={8}>
                 {(customerInfo.step === 2 || customerInfo.step === 3) && (
@@ -162,7 +169,9 @@ const OverviewSidebar = ({ overViewExpand }) => {
             </Row>
             <Row>
               <Col md={4}>
-                <h5>Contact:</h5>
+                <h5>
+                  <Translate contentKey={`custom.overview.address`}> Contact</Translate>:
+                </h5>
               </Col>
               <Col md={8}>
                 {customerInfo.step === 3 && (
@@ -183,7 +192,7 @@ const OverviewSidebar = ({ overViewExpand }) => {
                     data-cy="entityCreateSaveButton"
                     onClick={() => resetCustomerInfo()}
                   >
-                    Change
+                    <Translate contentKey={`custom.overview.changeButton`}> Change</Translate>
                   </Button>
                   <Button
                     style={{ width: '100%' }}
@@ -192,7 +201,7 @@ const OverviewSidebar = ({ overViewExpand }) => {
                     data-cy="entityCreateSaveButton"
                     onClick={() => submitOrder()}
                   >
-                    Submit Order
+                    <Translate contentKey={`custom.overview.submitButton`}> Submit Order</Translate>
                   </Button>
                 </Slide>
               )}
@@ -202,13 +211,18 @@ const OverviewSidebar = ({ overViewExpand }) => {
       )}
 
       <Slide triggerOnce duration={1500} direction={'right'} delay={1000}>
-        <CardTitle tag={'h3'}> Selection</CardTitle>
+        <CardTitle tag={'h3'}>
+          {' '}
+          <Translate contentKey={`custom.overview.selectionTitle`}> Selection</Translate>
+        </CardTitle>
       </Slide>
       {productCategories.map((category, i) => (
         <div key={i}>
           <Slide triggerOnce duration={1500} direction={'right'} delay={1000}>
             <div className="sideBarItem">
-              <h5>{category}</h5>
+              <h5>
+                <Translate contentKey={`custom.productCategory.${category}`}> {category}</Translate>
+              </h5>
               <div>
                 {Object.keys(productsByCategory[category]).reduce((sum: number, productKey) => {
                   return (sum += productsByCategory[category][productKey].amount * productsByCategory[category][productKey].product.price);
@@ -250,14 +264,19 @@ const OverviewSidebar = ({ overViewExpand }) => {
       ))}
       <Slide style={{ marginTop: 'auto' }} triggerOnce duration={1500} direction={'right'} delay={1000}>
         <div className="sideBarItem">
-          <h5 style={{ marginBottom: 0, marginTop: 'auto' }}>Total</h5>
+          <h5 style={{ marginBottom: 0, marginTop: 'auto' }}>
+            {' '}
+            <Translate contentKey={`custom.overview.total`}>Total </Translate>
+          </h5>
           <div>{total}</div>
         </div>
       </Slide>
-      {numberOfGuests > 0 && (
+      {numberOfGuests > 0 && step === 2 && (
         <Slide triggerOnce duration={1500} direction={'right'} delay={1000}>
           <div className="sideBarItem">
-            <h5 style={{ marginBottom: 0, marginTop: 'auto' }}>Total per Person</h5>
+            <h5 style={{ marginBottom: 0, marginTop: 'auto' }}>
+              <Translate contentKey={`custom.overview.totalPerPerson`}>Total per Person </Translate>
+            </h5>
             <div>{total / numberOfGuests}</div>
           </div>
         </Slide>

@@ -1,0 +1,40 @@
+{
+  "custom": {
+    "orderCard": {
+      "title": "Place your order",
+      "description": "Select from different products and get the party started!",
+      "order": "Order"
+    },
+    "stepper": {
+      "guestLabel": "Guests",
+      "productSelectionLabel": "Selection",
+      "overviewLabel": "Checkout"
+    },
+    "guest": {
+      "title": "Number of guests",
+      "confirmation": "Confirm"
+    },
+    "productCategory": {
+      "Champagne": "Champagne",
+      "Austern": "Oyster",
+      "Kaviar": "Caviar",
+      "Platten": "Plates",
+      "Vegetarisch": "Vegetarian"
+    },
+    "productItem": {
+      "added": "Added",
+      "add": "Add",
+      "remove": "Remove"
+    },
+    "overview": {
+      "name": "Name",
+      "address": "Address",
+      "contact": "Contact",
+      "changeButton": "Change Information",
+      "submitButton": "Submit Order",
+      "selectionTitle": "Selection",
+      "total": "Total",
+      "totalPerPerson": "Total per Person"
+    }
+  }
+}

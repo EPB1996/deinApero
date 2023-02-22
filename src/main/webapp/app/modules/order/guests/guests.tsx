@@ -1,7 +1,7 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useAppDispatch } from 'app/config/store';
-import { ValidatedField, ValidatedForm } from 'react-jhipster';
+import { Translate, translate, ValidatedField, ValidatedForm } from 'react-jhipster';
 import { Button, Card, Col, Container, Row } from 'reactstrap';
 import { nextStep } from '../stepper/stepper.reducer';
 import { addNumberOfGuests } from './guests.reducer';
@@ -26,7 +26,7 @@ const Guests = () => {
           <Card>
             <ValidatedForm defaultValues={defaultValues()} onSubmit={saveEntity}>
               <ValidatedField
-                label={'Number of Guests'}
+                label={translate('custom.guest.title')}
                 id="numberOfGuests"
                 name="numberOfGuests"
                 data-cy="numberOfGuests"
@@ -36,13 +36,12 @@ const Guests = () => {
                 }}
               />
               <Button color="primary" id="save-entity" data-cy="entityCreateSaveButton" type="submit">
-                <FontAwesomeIcon icon="save" />
-                Next
+                <Translate contentKey="custom.guest.confirmation">Confirm</Translate>
               </Button>
             </ValidatedForm>
           </Card>
         </Col>
-      </Row>{' '}
+      </Row>
     </Slide>
   );
 };

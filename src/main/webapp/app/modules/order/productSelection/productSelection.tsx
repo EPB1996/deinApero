@@ -9,6 +9,7 @@ import Carousel from 'react-multi-carousel';
 import { Fade, Slide } from 'react-awesome-reveal';
 import { nextStep } from '../stepper/stepper.reducer';
 import { IProductCategory } from 'app/shared/model/product-category.model';
+import { Translate } from 'react-jhipster';
 
 const responsive = {
   superLargeDesktop: {
@@ -54,7 +55,9 @@ const ProductSelection = () => {
                   <Slide className="productItem" key={i} direction="left" duration={1500} triggerOnce>
                     <Button onClick={() => toggle(productCategory.name)} style={{ width: '100%' }}>
                       <Slide key={i} direction="left" duration={1500}>
-                        <p>{productCategory.name}</p>
+                        <p>
+                          <Translate contentKey={`custom.productCategory.${productCategory.name}`}> {productCategory.name}</Translate>
+                        </p>
                       </Slide>
                     </Button>
                   </Slide>

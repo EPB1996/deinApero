@@ -22,6 +22,7 @@ import { addProduct, removeProduct } from './product.reducer';
 import { Slide } from 'react-awesome-reveal';
 import { IProduct } from 'app/shared/model/product.model';
 import { update } from 'lodash';
+import { Translate } from 'react-jhipster';
 const ProductItem = props => {
   const { product, productCategory, disabled = false } = props;
   const { name, description, price, productSize, image } = product;
@@ -48,7 +49,10 @@ const ProductItem = props => {
         {addedProducts && addedProducts[product.id] && (
           <div className="ribbon ribbon-orange ribbon-small ">
             <div className="banner">
-              <div className="text">Added</div>
+              <div className="text">
+                {' '}
+                <Translate contentKey={`custom.productItem.added`}> Added</Translate>
+              </div>
             </div>
           </div>
         )}
@@ -66,12 +70,12 @@ const ProductItem = props => {
             <Row style={{ paddingTop: '5px' }}>
               <Col style={{ padding: '1px' }} md={6} sm={6} xs={12}>
                 <Button style={{ width: '100%' }} onClick={handleAddProduct}>
-                  Add
+                  <Translate contentKey={`custom.productItem.add`}> Add</Translate>
                 </Button>
               </Col>
               <Col style={{ padding: '1px' }} md={6} sm={6} xs={12}>
                 <Button style={{ width: '100%' }} onClick={handleRemoveProduct}>
-                  Remove
+                  <Translate contentKey={`custom.productItem.remove`}> Remove</Translate>
                 </Button>
               </Col>
             </Row>
@@ -82,12 +86,12 @@ const ProductItem = props => {
             <Row>
               <Col style={{ padding: '1px' }} md={6} sm={6} xs={12}>
                 <Button style={{ width: '100%' }} onClick={handleAddProduct}>
-                  Add
+                  <Translate contentKey={`custom.productItem.add`}> Add</Translate>
                 </Button>
               </Col>
               <Col style={{ padding: '1px' }} md={6} sm={6} xs={12}>
                 <Button style={{ width: '100%' }} onClick={handleRemoveProduct}>
-                  Remove
+                  <Translate contentKey={`custom.productItem.remove`}> Remove</Translate>
                 </Button>
               </Col>
             </Row>

@@ -15,6 +15,7 @@ import Guests from '../guests/guests';
 import LeftArrow from './arrows/leftArrow';
 import RightArrow from './arrows/rightArrow';
 import Login from 'app/modules/login/login';
+import { translate } from 'react-jhipster';
 
 const OrderStepper = () => {
   const dispatch = useAppDispatch();
@@ -64,19 +65,19 @@ const OrderStepper = () => {
           <Slide style={{ flexGrow: 7 }} direction="down" duration={1500} triggerOnce cascade>
             <Stepper activeStep={activeStep}>
               <Step
-                label="Guests"
+                label={translate('custom.stepper.guestLabel')}
                 onClick={() => {
                   handleSetStep(0);
                 }}
               />
               <Step
-                label="Product Selection"
+                label={translate('custom.stepper.productSelectionLabel')}
                 onClick={() => {
                   handleSetStep(1);
                 }}
               />
               <Step
-                label="Overview"
+                label={translate('custom.stepper.overviewLabel')}
                 onClick={() => {
                   handleSetStep(2);
                 }}

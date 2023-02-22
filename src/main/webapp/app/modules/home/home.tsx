@@ -18,11 +18,15 @@ export const Home = () => {
       <Row style={{ justifyContent: 'center' }}>
         <Col md={6} style={{ display: 'flex', justifyContent: 'space-around', paddingTop: '10%' }}>
           <Card>
-            <CardTitle tag={'h3'}>Place your Order</CardTitle>
-            <CardBody>Select from different Products and get the party started!</CardBody>{' '}
+            <CardTitle tag={'h3'}>
+              <Translate contentKey="custom.orderCard.title">Place your Order</Translate>
+            </CardTitle>
+            <CardBody>
+              <Translate contentKey="custom.orderCard.description">Select from different Products and get the party started!</Translate>
+            </CardBody>
             <Button>
               <Link to="/productOrder" className="alert-link">
-                ORDER
+                <Translate contentKey="custom.orderCard.order">Order</Translate>
               </Link>
             </Button>
           </Card>
