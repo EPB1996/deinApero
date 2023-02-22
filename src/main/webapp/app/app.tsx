@@ -30,12 +30,12 @@ export const App = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(getSession());
+    /*  dispatch(getSession()); */
     dispatch(getProfile());
     /* dispatch(getPackageTemplates({})); */
     /* dispatch(getPackageTypes({})); */
-    dispatch(getCustomersInfo({}));
-    dispatch(getOrders({}));
+    /* dispatch(getCustomersInfo({}));
+    dispatch(getOrders({})); */
     dispatch(getPackageCategories({}));
     dispatch(getProducts({}));
   }, []);
@@ -52,9 +52,6 @@ export const App = () => {
     <BrowserRouter basename={baseHref}>
       <div className="app-container" style={{ paddingTop }}>
         <ToastContainer position={toast.POSITION.TOP_LEFT} className="toastify-container" toastClassName="toastify-toast" />
-        <video id="background-video" loop autoPlay>
-          <source src={'../../../content/video/vecteezy_cooked-snacks-on-a-table-in-a-restaurant_2654950.mp4'} type="video/mp4" />
-        </video>
 
         <ErrorBoundary>
           <Header

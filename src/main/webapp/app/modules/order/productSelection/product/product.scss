@@ -13,3 +13,27 @@
 .modal-backdrop {
   --bs-backdrop-opacity: 0.7;
 }
+
+.overlay {
+  animation-duration: 0.25s;
+  animation-iteration-count: 3;
+  transform-origin: center;
+  transition: font-size 3s;
+}
+
+.overlay:hover {
+  cursor: pointer;
+  animation-name: bounce;
+  animation-timing-function: ease;
+}
+@keyframes bounce {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(-10px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}

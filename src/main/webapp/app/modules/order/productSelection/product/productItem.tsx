@@ -53,7 +53,7 @@ const ProductItem = props => {
           </div>
         )}
         <CardImg alt="Card image cap" src="https://picsum.photos/900/300?grayscale" />
-        <CardImgOverlay onClick={toggle} style={{ height: '100%' }}>
+        <CardImgOverlay className="overlay" onClick={toggle} style={{ height: '100%' }}>
           <CardTitle tag="h5">{name}</CardTitle>
           <CardSubtitle className="mb-2 text-muted" tag="h6">
             {productSize} {price}

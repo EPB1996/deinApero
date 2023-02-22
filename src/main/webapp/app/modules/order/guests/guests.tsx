@@ -22,7 +22,7 @@ const Guests = () => {
   return (
     <Slide direction="left" duration={1500} triggerOnce>
       <Row style={{ justifyContent: 'center' }}>
-        <Col md={6} style={{ display: 'flex', justifyContent: 'space-around' }}>
+        <Col md={6} style={{ display: 'flex', justifyContent: 'space-around', paddingTop: '10%' }}>
           <Card>
             <ValidatedForm defaultValues={defaultValues()} onSubmit={saveEntity}>
               <ValidatedField
