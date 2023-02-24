@@ -8,10 +8,6 @@ import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateT
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
-import { IPackageType } from 'app/shared/model/package-type.model';
-import { getEntities as getPackageTypes } from 'app/entities/package-type/package-type.reducer';
-import { IUser } from 'app/shared/model/user.model';
-import { getUsers } from 'app/modules/administration/user-management/user-management.reducer';
 import { ICustomer } from 'app/shared/model/customer.model';
 import { getEntities as getCustomers } from 'app/entities/customer/customer.reducer';
 import { IOrder } from 'app/shared/model/order.model';
@@ -26,8 +22,6 @@ export const OrderUpdate = () => {
   const { id } = useParams<'id'>();
   const isNew = id === undefined;
 
-  const packageTypes = useAppSelector(state => state.packageType.entities);
-  const users = useAppSelector(state => state.userManagement.users);
   const customers = useAppSelector(state => state.customer.entities);
   const orderEntity = useAppSelector(state => state.order.entity);
   const loading = useAppSelector(state => state.order.loading);
@@ -36,7 +30,7 @@ export const OrderUpdate = () => {
   const orderStatusValues = Object.keys(OrderStatus);
 
   const handleClose = () => {
-    navigate('/order' + location.search);
+    navigate('/order');
   };
 
   useEffect(() => {
@@ -46,8 +40,6 @@ export const OrderUpdate = () => {
       dispatch(getEntity(id));
     }
 
-    dispatch(getPackageTypes({}));
-    dispatch(getUsers({}));
     dispatch(getCustomers({}));
   }, []);
 
@@ -63,8 +55,6 @@ export const OrderUpdate = () => {
     const entity = {
       ...orderEntity,
       ...values,
-      packageType: packageTypes.find(it => it.id.toString() === values.packageType.toString()),
-      user: users.find(it => it.id.toString() === values.user.toString()),
       customer: customers.find(it => it.id.toString() === values.customer.toString()),
     };
 
@@ -84,8 +74,6 @@ export const OrderUpdate = () => {
           status: 'COMPLETED',
           ...orderEntity,
           placedDate: convertDateTimeFromServer(orderEntity.placedDate),
-          packageType: orderEntity?.packageType?.id,
-          user: orderEntity?.user?.id,
           customer: orderEntity?.customer?.id,
         };
 
@@ -143,48 +131,11 @@ export const OrderUpdate = () => {
                 }}
               />
               <ValidatedField
-                id="order-packageType"
-                name="packageType"
-                data-cy="packageType"
-                label={translate('meinAperoApp.order.packageType')}
-                type="select"
-              >
-                <option value="" key="0" />
-                {packageTypes
-                  ? packageTypes.map(otherEntity => (
-                      <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.name}
-                      </option>
-                    ))
-                  : null}
-              </ValidatedField>
-              <ValidatedField
-                id="order-user"
-                name="user"
-                data-cy="user"
-                label={translate('meinAperoApp.order.user')}
-                type="select"
-                required
-              >
-                <option value="" key="0" />
-                {users
-                  ? users.map(otherEntity => (
-                      <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.login}
-                      </option>
-                    ))
-                  : null}
-              </ValidatedField>
-              <FormText>
-                <Translate contentKey="entity.validation.required">This field is required.</Translate>
-              </FormText>
-              <ValidatedField
                 id="order-customer"
                 name="customer"
                 data-cy="customer"
                 label={translate('meinAperoApp.order.customer')}
                 type="select"
-                required
               >
                 <option value="" key="0" />
                 {customers
@@ -195,9 +146,6 @@ export const OrderUpdate = () => {
                     ))
                   : null}
               </ValidatedField>
-              <FormText>
-                <Translate contentKey="entity.validation.required">This field is required.</Translate>
-              </FormText>
               <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/order" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;

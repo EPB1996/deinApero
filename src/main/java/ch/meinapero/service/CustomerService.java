@@ -1,13 +1,10 @@
 package ch.meinapero.service;
 
 import ch.meinapero.domain.Customer;
-import ch.meinapero.domain.User;
 import ch.meinapero.repository.CustomerRepository;
+import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -96,21 +93,11 @@ public class CustomerService {
     /**
      * Get all the customers.
      *
-     * @param pageable the pagination information.
      * @return the list of entities.
      */
-    public Flux<Customer> findAll(Pageable pageable) {
+    public Flux<Customer> findAll() {
         log.debug("Request to get all Customers");
-        return customerRepository.findAllBy(pageable);
-    }
-
-    /**
-     * Get all the customers with eager load of many-to-many relationships.
-     *
-     * @return the list of entities.
-     */
-    public Flux<Customer> findAllWithEagerRelationships(Pageable pageable) {
-        return customerRepository.findAllWithEagerRelationships(pageable);
+        return customerRepository.findAll();
     }
 
     /**
@@ -130,8 +117,7 @@ public class CustomerService {
      */
     public Mono<Customer> findOne(String id) {
         log.debug("Request to get Customer : {}", id);
-
-        return customerRepository.findOneWithEagerRelationships(id);
+        return customerRepository.findById(id);
     }
 
     /**

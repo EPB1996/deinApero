@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Button, Table } from 'reactstrap';
-import { openFile, byteSize, Translate, getSortState, JhiPagination, JhiItemCount } from 'react-jhipster';
+import { openFile, byteSize, Translate } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
-import { ASC, DESC, ITEMS_PER_PAGE, SORT } from 'app/shared/util/pagination.constants';
-import { overridePaginationStateWithQueryParams } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
 import { IProduct } from 'app/shared/model/product.model';
@@ -18,67 +16,15 @@ export const Product = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const [paginationState, setPaginationState] = useState(
-    overridePaginationStateWithQueryParams(getSortState(location, ITEMS_PER_PAGE, 'id'), location.search)
-  );
-
   const productList = useAppSelector(state => state.product.entities);
   const loading = useAppSelector(state => state.product.loading);
-  const totalItems = useAppSelector(state => state.product.totalItems);
-
-  const getAllEntities = () => {
-    dispatch(
-      getEntities({
-        page: paginationState.activePage - 1,
-        size: paginationState.itemsPerPage,
-        sort: `${paginationState.sort},${paginationState.order}`,
-      })
-    );
-  };
-
-  const sortEntities = () => {
-    getAllEntities();
-    const endURL = `?page=${paginationState.activePage}&sort=${paginationState.sort},${paginationState.order}`;
-    if (location.search !== endURL) {
-      navigate(`${location.pathname}${endURL}`);
-    }
-  };
 
   useEffect(() => {
-    sortEntities();
-  }, [paginationState.activePage, paginationState.order, paginationState.sort]);
-
-  useEffect(() => {
-    const params = new URLSearchParams(location.search);
-    const page = params.get('page');
-    const sort = params.get(SORT);
-    if (page && sort) {
-      const sortSplit = sort.split(',');
-      setPaginationState({
-        ...paginationState,
-        activePage: +page,
-        sort: sortSplit[0],
-        order: sortSplit[1],
-      });
-    }
-  }, [location.search]);
-
-  const sort = p => () => {
-    setPaginationState({
-      ...paginationState,
-      order: paginationState.order === ASC ? DESC : ASC,
-      sort: p,
-    });
-  };
-
-  const handlePagination = currentPage =>
-    setPaginationState({
-      ...paginationState,
-      activePage: currentPage,
-    });
+    dispatch(getEntities({}));
+  }, []);
 
   const handleSyncList = () => {
-    sortEntities();
+    dispatch(getEntities({}));
   };
 
   return (
@@ -102,23 +48,20 @@ export const Product = () => {
           <Table responsive>
             <thead>
               <tr>
-                <th className="hand" onClick={sort('id')}>
-                  <Translate contentKey="meinAperoApp.product.id">ID</Translate> <FontAwesomeIcon icon="sort" />
+                <th>
+                  <Translate contentKey="meinAperoApp.product.id">ID</Translate>
                 </th>
-                <th className="hand" onClick={sort('name')}>
-                  <Translate contentKey="meinAperoApp.product.name">Name</Translate> <FontAwesomeIcon icon="sort" />
+                <th>
+                  <Translate contentKey="meinAperoApp.product.name">Name</Translate>
                 </th>
-                <th className="hand" onClick={sort('description')}>
-                  <Translate contentKey="meinAperoApp.product.description">Description</Translate> <FontAwesomeIcon icon="sort" />
+                <th>
+                  <Translate contentKey="meinAperoApp.product.description">Description</Translate>
                 </th>
-                <th className="hand" onClick={sort('price')}>
-                  <Translate contentKey="meinAperoApp.product.price">Price</Translate> <FontAwesomeIcon icon="sort" />
+                <th>
+                  <Translate contentKey="meinAperoApp.product.price">Price</Translate>
                 </th>
-                <th className="hand" onClick={sort('productSize')}>
-                  <Translate contentKey="meinAperoApp.product.productSize">Product Size</Translate> <FontAwesomeIcon icon="sort" />
-                </th>
-                <th className="hand" onClick={sort('image')}>
-                  <Translate contentKey="meinAperoApp.product.image">Image</Translate> <FontAwesomeIcon icon="sort" />
+                <th>
+                  <Translate contentKey="meinAperoApp.product.image">Image</Translate>
                 </th>
                 <th />
               </tr>
@@ -134,9 +77,6 @@ export const Product = () => {
                   <td>{product.name}</td>
                   <td>{product.description}</td>
                   <td>{product.price}</td>
-                  <td>
-                    <Translate contentKey={`meinAperoApp.Size.${product.productSize}`} />
-                  </td>
                   <td>
                     {product.image ? (
                       <div>
@@ -160,25 +100,13 @@ export const Product = () => {
                           <Translate contentKey="entity.action.view">View</Translate>
                         </span>
                       </Button>
-                      <Button
-                        tag={Link}
-                        to={`/product/${product.id}/edit?page=${paginationState.activePage}&sort=${paginationState.sort},${paginationState.order}`}
-                        color="primary"
-                        size="sm"
-                        data-cy="entityEditButton"
-                      >
+                      <Button tag={Link} to={`/product/${product.id}/edit`} color="primary" size="sm" data-cy="entityEditButton">
                         <FontAwesomeIcon icon="pencil-alt" />{' '}
                         <span className="d-none d-md-inline">
                           <Translate contentKey="entity.action.edit">Edit</Translate>
                         </span>
                       </Button>
-                      <Button
-                        tag={Link}
-                        to={`/product/${product.id}/delete?page=${paginationState.activePage}&sort=${paginationState.sort},${paginationState.order}`}
-                        color="danger"
-                        size="sm"
-                        data-cy="entityDeleteButton"
-                      >
+                      <Button tag={Link} to={`/product/${product.id}/delete`} color="danger" size="sm" data-cy="entityDeleteButton">
                         <FontAwesomeIcon icon="trash" />{' '}
                         <span className="d-none d-md-inline">
                           <Translate contentKey="entity.action.delete">Delete</Translate>
@@ -198,24 +126,6 @@ export const Product = () => {
           )
         )}
       </div>
-      {totalItems ? (
-        <div className={productList && productList.length > 0 ? '' : 'd-none'}>
-          <div className="justify-content-center d-flex">
-            <JhiItemCount page={paginationState.activePage} total={totalItems} itemsPerPage={paginationState.itemsPerPage} i18nEnabled />
-          </div>
-          <div className="justify-content-center d-flex">
-            <JhiPagination
-              activePage={paginationState.activePage}
-              onSelect={handlePagination}
-              maxButtons={5}
-              itemsPerPage={paginationState.itemsPerPage}
-              totalItems={totalItems}
-            />
-          </div>
-        </div>
-      ) : (
-        ''
-      )}
     </div>
   );
 };

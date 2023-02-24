@@ -21,12 +21,6 @@
       "fieldValidateRulesMin": "0"
     },
     {
-      "fieldName": "productSize",
-      "fieldType": "Size",
-      "fieldValidateRules": ["required"],
-      "fieldValues": "S,M,L,XL,XXL"
-    },
-    {
       "fieldName": "image",
       "fieldType": "byte[]",
       "fieldTypeBlobContent": "image"
@@ -36,17 +30,9 @@
   "javadoc": "Product sold by the Online store",
   "jpaMetamodelFiltering": false,
   "name": "Product",
-  "pagination": "pagination",
+  "pagination": "no",
   "readOnly": false,
   "relationships": [
-    {
-      "otherEntityField": "name",
-      "otherEntityName": "packageTemplate",
-      "otherEntityRelationshipName": "product",
-      "ownerSide": false,
-      "relationshipName": "packageTemplate",
-      "relationshipType": "many-to-many"
-    },
     {
       "otherEntityField": "name",
       "otherEntityName": "productCategory",

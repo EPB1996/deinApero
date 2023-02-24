@@ -1,6 +1,5 @@
 package ch.meinapero.domain;
 
-import ch.meinapero.domain.enumeration.Size;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.Serializable;
@@ -37,19 +36,11 @@ public class Product implements Serializable {
     @Field("price")
     private BigDecimal price;
 
-    @NotNull(message = "must not be null")
-    @Field("product_size")
-    private Size productSize;
-
     @Field("image")
     private byte[] image;
 
     @Field("image_content_type")
     private String imageContentType;
-
-    @Field("packageTemplates")
-    @JsonIgnoreProperties(value = { "products" }, allowSetters = true)
-    private Set<PackageTemplate> packageTemplates = new HashSet<>();
 
     @Field("productCategories")
     @JsonIgnoreProperties(value = { "products" }, allowSetters = true)
@@ -109,19 +100,6 @@ public class Product implements Serializable {
         this.price = price;
     }
 
-    public Size getProductSize() {
-        return this.productSize;
-    }
-
-    public Product productSize(Size productSize) {
-        this.setProductSize(productSize);
-        return this;
-    }
-
-    public void setProductSize(Size productSize) {
-        this.productSize = productSize;
-    }
-
     public byte[] getImage() {
         return this.image;
     }
@@ -146,37 +124,6 @@ public class Product implements Serializable {
 
     public void setImageContentType(String imageContentType) {
         this.imageContentType = imageContentType;
-    }
-
-    public Set<PackageTemplate> getPackageTemplates() {
-        return this.packageTemplates;
-    }
-
-    public void setPackageTemplates(Set<PackageTemplate> packageTemplates) {
-        if (this.packageTemplates != null) {
-            this.packageTemplates.forEach(i -> i.removeProduct(this));
-        }
-        if (packageTemplates != null) {
-            packageTemplates.forEach(i -> i.addProduct(this));
-        }
-        this.packageTemplates = packageTemplates;
-    }
-
-    public Product packageTemplates(Set<PackageTemplate> packageTemplates) {
-        this.setPackageTemplates(packageTemplates);
-        return this;
-    }
-
-    public Product addPackageTemplate(PackageTemplate packageTemplate) {
-        this.packageTemplates.add(packageTemplate);
-        packageTemplate.getProducts().add(this);
-        return this;
-    }
-
-    public Product removePackageTemplate(PackageTemplate packageTemplate) {
-        this.packageTemplates.remove(packageTemplate);
-        packageTemplate.getProducts().remove(this);
-        return this;
     }
 
     public Set<ProductCategory> getProductCategories() {
@@ -237,7 +184,6 @@ public class Product implements Serializable {
             ", name='" + getName() + "'" +
             ", description='" + getDescription() + "'" +
             ", price=" + getPrice() +
-            ", productSize='" + getProductSize() + "'" +
             ", image='" + getImage() + "'" +
             ", imageContentType='" + getImageContentType() + "'" +
             "}";

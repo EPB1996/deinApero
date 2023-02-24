@@ -3,38 +3,26 @@ package ch.meinapero.web.rest;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.is;
-import static org.mockito.Mockito.*;
 
 import ch.meinapero.IntegrationTest;
 import ch.meinapero.domain.Customer;
-import ch.meinapero.domain.User;
 import ch.meinapero.domain.enumeration.Gender;
 import ch.meinapero.repository.CustomerRepository;
-import ch.meinapero.service.CustomerService;
 import java.time.Duration;
 import java.util.List;
 import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.reactive.server.WebTestClient;
-import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
 
 /**
  * Integration tests for the {@link CustomerResource} REST controller.
  */
 @IntegrationTest
-@ExtendWith(MockitoExtension.class)
 @AutoConfigureWebTestClient(timeout = IntegrationTest.DEFAULT_ENTITY_TIMEOUT)
 @WithMockUser
 class CustomerResourceIT {
@@ -72,12 +60,6 @@ class CustomerResourceIT {
     @Autowired
     private CustomerRepository customerRepository;
 
-    @Mock
-    private CustomerRepository customerRepositoryMock;
-
-    @Mock
-    private CustomerService customerServiceMock;
-
     @Autowired
     private WebTestClient webTestClient;
 
@@ -100,10 +82,6 @@ class CustomerResourceIT {
             .addressLine2(DEFAULT_ADDRESS_LINE_2)
             .zip(DEFAULT_ZIP)
             .city(DEFAULT_CITY);
-        // Add required entity
-        User user = UserResourceIT.createEntity();
-        user.setId("fixed-id-for-tests");
-        customer.setUser(user);
         return customer;
     }
 
@@ -124,10 +102,6 @@ class CustomerResourceIT {
             .addressLine2(UPDATED_ADDRESS_LINE_2)
             .zip(UPDATED_ZIP)
             .city(UPDATED_CITY);
-        // Add required entity
-        User user = UserResourceIT.createEntity();
-        user.setId("fixed-id-for-tests");
-        customer.setUser(user);
         return customer;
     }
 
@@ -293,66 +267,37 @@ class CustomerResourceIT {
     }
 
     @Test
-    void checkAddressLine1IsRequired() throws Exception {
-        int databaseSizeBeforeTest = customerRepository.findAll().collectList().block().size();
-        // set the field null
-        customer.setAddressLine1(null);
+    void getAllCustomersAsStream() {
+        // Initialize the database
+        customerRepository.save(customer).block();
 
-        // Create the Customer, which fails.
-
-        webTestClient
-            .post()
+        List<Customer> customerList = webTestClient
+            .get()
             .uri(ENTITY_API_URL)
-            .contentType(MediaType.APPLICATION_JSON)
-            .bodyValue(TestUtil.convertObjectToJsonBytes(customer))
+            .accept(MediaType.APPLICATION_NDJSON)
             .exchange()
             .expectStatus()
-            .isBadRequest();
+            .isOk()
+            .expectHeader()
+            .contentTypeCompatibleWith(MediaType.APPLICATION_NDJSON)
+            .returnResult(Customer.class)
+            .getResponseBody()
+            .filter(customer::equals)
+            .collectList()
+            .block(Duration.ofSeconds(5));
 
-        List<Customer> customerList = customerRepository.findAll().collectList().block();
-        assertThat(customerList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    void checkZipIsRequired() throws Exception {
-        int databaseSizeBeforeTest = customerRepository.findAll().collectList().block().size();
-        // set the field null
-        customer.setZip(null);
-
-        // Create the Customer, which fails.
-
-        webTestClient
-            .post()
-            .uri(ENTITY_API_URL)
-            .contentType(MediaType.APPLICATION_JSON)
-            .bodyValue(TestUtil.convertObjectToJsonBytes(customer))
-            .exchange()
-            .expectStatus()
-            .isBadRequest();
-
-        List<Customer> customerList = customerRepository.findAll().collectList().block();
-        assertThat(customerList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    void checkCityIsRequired() throws Exception {
-        int databaseSizeBeforeTest = customerRepository.findAll().collectList().block().size();
-        // set the field null
-        customer.setCity(null);
-
-        // Create the Customer, which fails.
-
-        webTestClient
-            .post()
-            .uri(ENTITY_API_URL)
-            .contentType(MediaType.APPLICATION_JSON)
-            .bodyValue(TestUtil.convertObjectToJsonBytes(customer))
-            .exchange()
-            .expectStatus()
-            .isBadRequest();
-
-        List<Customer> customerList = customerRepository.findAll().collectList().block();
-        assertThat(customerList).hasSize(databaseSizeBeforeTest);
+        assertThat(customerList).isNotNull();
+        assertThat(customerList).hasSize(1);
+        Customer testCustomer = customerList.get(0);
+        assertThat(testCustomer.getFirstName()).isEqualTo(DEFAULT_FIRST_NAME);
+        assertThat(testCustomer.getLastName()).isEqualTo(DEFAULT_LAST_NAME);
+        assertThat(testCustomer.getGender()).isEqualTo(DEFAULT_GENDER);
+        assertThat(testCustomer.getEmail()).isEqualTo(DEFAULT_EMAIL);
+        assertThat(testCustomer.getPhone()).isEqualTo(DEFAULT_PHONE);
+        assertThat(testCustomer.getAddressLine1()).isEqualTo(DEFAULT_ADDRESS_LINE_1);
+        assertThat(testCustomer.getAddressLine2()).isEqualTo(DEFAULT_ADDRESS_LINE_2);
+        assertThat(testCustomer.getZip()).isEqualTo(DEFAULT_ZIP);
+        assertThat(testCustomer.getCity()).isEqualTo(DEFAULT_CITY);
     }
 
     @Test
@@ -391,23 +336,6 @@ class CustomerResourceIT {
             .value(hasItem(DEFAULT_ZIP.intValue()))
             .jsonPath("$.[*].city")
             .value(hasItem(DEFAULT_CITY));
-    }
-
-    @SuppressWarnings({ "unchecked" })
-    void getAllCustomersWithEagerRelationshipsIsEnabled() {
-        when(customerServiceMock.findAllWithEagerRelationships(any())).thenReturn(Flux.empty());
-
-        webTestClient.get().uri(ENTITY_API_URL + "?eagerload=true").exchange().expectStatus().isOk();
-
-        verify(customerServiceMock, times(1)).findAllWithEagerRelationships(any());
-    }
-
-    @SuppressWarnings({ "unchecked" })
-    void getAllCustomersWithEagerRelationshipsIsNotEnabled() {
-        when(customerServiceMock.findAllWithEagerRelationships(any())).thenReturn(Flux.empty());
-
-        webTestClient.get().uri(ENTITY_API_URL + "?eagerload=false").exchange().expectStatus().isOk();
-        verify(customerRepositoryMock, times(1)).findAllWithEagerRelationships(any());
     }
 
     @Test

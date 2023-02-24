@@ -1,8 +1,6 @@
 import dayjs from 'dayjs';
-import { IPackageType } from 'app/shared/model/package-type.model';
-import { IOrderItem } from 'app/shared/model/order-item.model';
-import { IUser } from 'app/shared/model/user.model';
 import { ICustomer } from 'app/shared/model/customer.model';
+import { IOrderItem } from 'app/shared/model/order-item.model';
 import { OrderStatus } from 'app/shared/model/enumerations/order-status.model';
 
 export interface IOrder {
@@ -10,10 +8,8 @@ export interface IOrder {
   placedDate?: string;
   status?: OrderStatus;
   code?: string;
-  packageType?: IPackageType | null;
+  customer?: ICustomer | null;
   orderItems?: IOrderItem[] | null;
-  user?: IUser;
-  customer?: ICustomer;
 }
 
 export const defaultValue: Readonly<IOrder> = {};

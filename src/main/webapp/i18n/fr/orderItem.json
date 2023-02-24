@@ -21,7 +21,6 @@
       "quantity": "Quantity",
       "totalPrice": "Total Price",
       "product": "Product",
-      "user": "User",
       "order": "Order"
     }
   }

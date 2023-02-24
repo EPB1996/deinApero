@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { Button, Card, CardTitle, Col, Row } from 'reactstrap';
 import { Slide } from 'react-awesome-reveal';
 
-import { addCustomerInfo } from '../customerInfo/customerInfo.reducer';
+import { addCustomerInfo, reset as resetCustomerInfo } from '../customerInfo/customerInfo.reducer';
 import { createEntity as createCustomer } from 'app/entities/customer/customer.reducer';
 import { createEntity as createOrder } from 'app/entities/order/order.reducer';
 import { OrderStatus } from 'app/shared/model/enumerations/order-status.model';
@@ -15,6 +15,9 @@ import { forEach } from 'lodash';
 import { createEntity as createOrderItem } from 'app/entities/order-item/order-item.reducer';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { Translate } from 'react-jhipster';
+import { reset as resetProductSelection } from '../../productSelection/product/product.reducer';
+import { reset as resetOrderStepper } from '../../stepper/stepper.reducer';
+import { reset as resetGuests } from '../../guests/guests.reducer';
 
 const responsive = {
   superLargeDesktop: {
@@ -59,7 +62,7 @@ const OverviewSidebar = ({ overViewExpand }) => {
     setTotal(intermediateSum);
   }, [productsByCategory]);
 
-  const resetCustomerInfo = () => {
+  const resetCustomerInfoStep = () => {
     dispatch(addCustomerInfo({ step: 0 }));
   };
 
@@ -70,61 +73,38 @@ const OverviewSidebar = ({ overViewExpand }) => {
       user: user,
     };
 
-    if (!customerInfo.id) {
-      dispatch(createCustomer(customerEntity))
-        .unwrap()
-        .then(customerObject => {
-          const orderEntity: any = {
-            placedDate: convertDateTimeToServer(defaultDateTimeNow()),
-            status: OrderStatus.PENDING,
-            code: uuidv4(),
-            user: user,
-            customer: customerObject.data,
-          };
-          dispatch(createOrder(orderEntity))
-            .unwrap()
-            .then(orderObject => {
-              productCategories.map(category => {
-                Object.keys(productsByCategory[category]).map((productKey, index) => {
-                  const orderItemEntity = {
-                    quantity: productsByCategory[category][productKey].amount,
-                    totalPrice: productsByCategory[category][productKey].amount * productsByCategory[category][productKey].product.price,
-                    product: productsByCategory[category][productKey].product,
-                    user: user,
-                    order: orderObject.data,
-                  };
-                  dispatch(createOrderItem(orderItemEntity));
-                });
+    dispatch(createCustomer(customerEntity))
+      .unwrap()
+      .then(customerObject => {
+        const orderEntity: any = {
+          placedDate: convertDateTimeToServer(defaultDateTimeNow()),
+          status: OrderStatus.PENDING,
+          code: uuidv4(),
+          customer: customerObject.data,
+        };
+        dispatch(createOrder(orderEntity))
+          .unwrap()
+          .then(orderObject => {
+            productCategories.map(category => {
+              Object.keys(productsByCategory[category]).map((productKey, index) => {
+                const orderItemEntity = {
+                  quantity: productsByCategory[category][productKey].amount,
+                  totalPrice: productsByCategory[category][productKey].amount * productsByCategory[category][productKey].product.price,
+                  product: productsByCategory[category][productKey].product,
+                  order: orderObject.data,
+                };
+                dispatch(createOrderItem(orderItemEntity));
               });
-            })
-            .then(() => navigate('/'));
-        });
-    } else {
-      const orderEntity: any = {
-        placedDate: convertDateTimeToServer(defaultDateTimeNow()),
-        status: OrderStatus.PENDING,
-        code: uuidv4(),
-        user: user,
-        customer: customerInfo,
-      };
-      dispatch(createOrder(orderEntity))
-        .unwrap()
-        .then(orderObject => {
-          productCategories.map(category => {
-            Object.keys(productsByCategory[category]).map((productKey, index) => {
-              const orderItemEntity = {
-                quantity: productsByCategory[category][productKey].amount,
-                totalPrice: productsByCategory[category][productKey].amount * productsByCategory[category][productKey].product.price,
-                product: productsByCategory[category][productKey].product,
-                user: user,
-                order: orderObject.data,
-              };
-              dispatch(createOrderItem(orderItemEntity));
             });
+          })
+          .then(() => {
+            dispatch(resetProductSelection());
+            dispatch(resetCustomerInfo());
+            dispatch(resetOrderStepper());
+            dispatch(resetGuests());
+            navigate('/');
           });
-        })
-        .then(() => navigate('/'));
-    }
+      });
   };
 
   return (
@@ -190,7 +170,7 @@ const OverviewSidebar = ({ overViewExpand }) => {
                     color="primary"
                     id="save-entity"
                     data-cy="entityCreateSaveButton"
-                    onClick={() => resetCustomerInfo()}
+                    onClick={() => resetCustomerInfoStep()}
                   >
                     <Translate contentKey={`custom.overview.changeButton`}> Change</Translate>
                   </Button>
@@ -212,7 +192,6 @@ const OverviewSidebar = ({ overViewExpand }) => {
 
       <Slide triggerOnce duration={1500} direction={'right'} delay={1000}>
         <CardTitle tag={'h3'}>
-          {' '}
           <Translate contentKey={`custom.overview.selectionTitle`}> Selection</Translate>
         </CardTitle>
       </Slide>
@@ -234,7 +213,7 @@ const OverviewSidebar = ({ overViewExpand }) => {
           <Slide triggerOnce duration={1500} direction={'right'}>
             {Object.keys(productsByCategory[category]).map((productKey, index) => {
               return (
-                <Row>
+                <Row key={index}>
                   <Col style={{ flexGrow: 1 }}>
                     <div>{productsByCategory[category][productKey].amount}</div>
                   </Col>

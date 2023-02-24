@@ -26,9 +26,7 @@
       "addressLine1": "Address Line 1",
       "addressLine2": "Address Line 2",
       "zip": "Zip",
-      "city": "City",
-      "user": "User",
-      "order": "Order"
+      "city": "City"
     }
   }
 }

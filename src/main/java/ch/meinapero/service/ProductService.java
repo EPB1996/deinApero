@@ -2,9 +2,9 @@ package ch.meinapero.service;
 
 import ch.meinapero.domain.Product;
 import ch.meinapero.repository.ProductRepository;
+import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -66,9 +66,6 @@ public class ProductService {
                 if (product.getPrice() != null) {
                     existingProduct.setPrice(product.getPrice());
                 }
-                if (product.getProductSize() != null) {
-                    existingProduct.setProductSize(product.getProductSize());
-                }
                 if (product.getImage() != null) {
                     existingProduct.setImage(product.getImage());
                 }
@@ -84,10 +81,9 @@ public class ProductService {
     /**
      * Get all the products.
      *
-     * @param pageable the pagination information.
      * @return the list of entities.
      */
-    public Flux<Product> findAll(Pageable pageable) {
+    public Flux<Product> findAll() {
         log.debug("Request to get all Products");
         return productRepository.findAll();
     }

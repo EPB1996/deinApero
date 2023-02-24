@@ -8,8 +8,6 @@ import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateT
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
-import { IUser } from 'app/shared/model/user.model';
-import { getUsers } from 'app/modules/administration/user-management/user-management.reducer';
 import { ICustomer } from 'app/shared/model/customer.model';
 import { Gender } from 'app/shared/model/enumerations/gender.model';
 import { getEntity, updateEntity, createEntity, reset } from './customer.reducer';
@@ -22,7 +20,6 @@ export const CustomerUpdate = () => {
   const { id } = useParams<'id'>();
   const isNew = id === undefined;
 
-  const users = useAppSelector(state => state.userManagement.users);
   const customerEntity = useAppSelector(state => state.customer.entity);
   const loading = useAppSelector(state => state.customer.loading);
   const updating = useAppSelector(state => state.customer.updating);
@@ -30,7 +27,7 @@ export const CustomerUpdate = () => {
   const genderValues = Object.keys(Gender);
 
   const handleClose = () => {
-    navigate('/customer' + location.search);
+    navigate('/customer');
   };
 
   useEffect(() => {
@@ -39,8 +36,6 @@ export const CustomerUpdate = () => {
     } else {
       dispatch(getEntity(id));
     }
-
-    dispatch(getUsers({}));
   }, []);
 
   useEffect(() => {
@@ -53,7 +48,6 @@ export const CustomerUpdate = () => {
     const entity = {
       ...customerEntity,
       ...values,
-      user: users.find(it => it.id.toString() === values.user.toString()),
     };
 
     if (isNew) {
@@ -69,7 +63,6 @@ export const CustomerUpdate = () => {
       : {
           gender: 'MALE',
           ...customerEntity,
-          user: customerEntity?.user?.id,
         };
 
   return (
@@ -160,9 +153,6 @@ export const CustomerUpdate = () => {
                 name="addressLine1"
                 data-cy="addressLine1"
                 type="text"
-                validate={{
-                  required: { value: true, message: translate('entity.validation.required') },
-                }}
               />
               <ValidatedField
                 label={translate('meinAperoApp.customer.addressLine2')}
@@ -171,47 +161,8 @@ export const CustomerUpdate = () => {
                 data-cy="addressLine2"
                 type="text"
               />
-              <ValidatedField
-                label={translate('meinAperoApp.customer.zip')}
-                id="customer-zip"
-                name="zip"
-                data-cy="zip"
-                type="text"
-                validate={{
-                  required: { value: true, message: translate('entity.validation.required') },
-                  validate: v => isNumber(v) || translate('entity.validation.number'),
-                }}
-              />
-              <ValidatedField
-                label={translate('meinAperoApp.customer.city')}
-                id="customer-city"
-                name="city"
-                data-cy="city"
-                type="text"
-                validate={{
-                  required: { value: true, message: translate('entity.validation.required') },
-                }}
-              />
-              <ValidatedField
-                id="customer-user"
-                name="user"
-                data-cy="user"
-                label={translate('meinAperoApp.customer.user')}
-                type="select"
-                required
-              >
-                <option value="" key="0" />
-                {users
-                  ? users.map(otherEntity => (
-                      <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.login}
-                      </option>
-                    ))
-                  : null}
-              </ValidatedField>
-              <FormText>
-                <Translate contentKey="entity.validation.required">This field is required.</Translate>
-              </FormText>
+              <ValidatedField label={translate('meinAperoApp.customer.zip')} id="customer-zip" name="zip" data-cy="zip" type="text" />
+              <ValidatedField label={translate('meinAperoApp.customer.city')} id="customer-city" name="city" data-cy="city" type="text" />
               <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/customer" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;

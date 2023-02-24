@@ -2,12 +2,10 @@ package ch.meinapero.web.rest;
 
 import ch.meinapero.domain.Order;
 import ch.meinapero.repository.OrderRepository;
-import ch.meinapero.security.AuthoritiesConstants;
 import ch.meinapero.service.OrderService;
 import ch.meinapero.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -16,23 +14,14 @@ import javax.validation.constraints.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.server.reactive.ServerHttpRequest;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.CurrentSecurityContext;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
-import org.springframework.web.util.UriComponentsBuilder;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import tech.jhipster.web.util.HeaderUtil;
-import tech.jhipster.web.util.PaginationUtil;
 import tech.jhipster.web.util.reactive.ResponseUtil;
 
 /**
@@ -174,46 +163,23 @@ public class OrderResource {
     /**
      * {@code GET  /orders} : get all the orders.
      *
-     * @param pageable the pagination information.
-     * @param request a {@link ServerHttpRequest} request.
      * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many).
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of orders in body.
      */
     @GetMapping("/orders")
-    public Mono<ResponseEntity<List<Order>>> getAllOrders(
-        @CurrentSecurityContext(expression = "authentication") Authentication authentication,
-        @org.springdoc.api.annotations.ParameterObject Pageable pageable,
-        ServerHttpRequest request,
-        @RequestParam(required = false, defaultValue = "false") boolean eagerload
-    ) {
-        log.debug("REST request to get a page of Orders");
-        return orderService
-            .countAll()
-            .zipWith(
-                orderService
-                    .findAll(pageable)
-                    .filter(order -> {
-                        System.out.println(order);
-                        System.out.println(authentication);
-                        if (authentication.getAuthorities().stream().anyMatch(ga -> ga.getAuthority().equals(AuthoritiesConstants.ADMIN))) {
-                            return true;
-                        } else {
-                            return order.getCustomer().getUser().getLogin().equals(authentication.getName());
-                        }
-                    })
-                    .collectList()
-            )
-            .map(countWithEntities ->
-                ResponseEntity
-                    .ok()
-                    .headers(
-                        PaginationUtil.generatePaginationHttpHeaders(
-                            UriComponentsBuilder.fromHttpRequest(request),
-                            new PageImpl<>(countWithEntities.getT2(), pageable, countWithEntities.getT1())
-                        )
-                    )
-                    .body(countWithEntities.getT2())
-            );
+    public Mono<List<Order>> getAllOrders(@RequestParam(required = false, defaultValue = "false") boolean eagerload) {
+        log.debug("REST request to get all Orders");
+        return orderService.findAll().collectList();
+    }
+
+    /**
+     * {@code GET  /orders} : get all the orders as a stream.
+     * @return the {@link Flux} of orders.
+     */
+    @GetMapping(value = "/orders", produces = MediaType.APPLICATION_NDJSON_VALUE)
+    public Flux<Order> getAllOrdersAsStream() {
+        log.debug("REST request to get all Orders as a stream");
+        return orderService.findAll();
     }
 
     /**

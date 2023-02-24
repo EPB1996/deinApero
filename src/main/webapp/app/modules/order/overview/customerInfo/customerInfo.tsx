@@ -42,31 +42,6 @@ export const CustomerInfo = () => {
   return (
     <Slide direction="left" duration={1500} triggerOnce>
       <Card>
-        {previousCustomerInfos && customerInfo.step === 0 && (
-          <Slide direction="left" duration={1500} triggerOnce>
-            <p>Previous Contact Informations:</p>
-            <Row>
-              {previousCustomerInfos.map((previousCustomerInfo: ICustomer) => (
-                <Col md="6" sm="6" xs="12">
-                  <Button onClick={() => selectFromPrevious(previousCustomerInfo)}>
-                    <div>
-                      {previousCustomerInfo.firstName} {previousCustomerInfo.lastName}
-                    </div>
-                    <div>
-                      {previousCustomerInfo.addressLine1} {previousCustomerInfo.addressLine2}
-                    </div>
-                    <div>
-                      {previousCustomerInfo.zip} {previousCustomerInfo.city}
-                    </div>
-                    <div>{previousCustomerInfo.email} </div>
-                    <div>{previousCustomerInfo.phone} </div>
-                  </Button>
-                </Col>
-              ))}
-            </Row>
-          </Slide>
-        )}
-
         {customerInfo.step === 0 && (
           <Slide direction="left" duration={1500} triggerOnce>
             <ValidatedForm defaultValues={defaultValues()} onSubmit={nextStep}>

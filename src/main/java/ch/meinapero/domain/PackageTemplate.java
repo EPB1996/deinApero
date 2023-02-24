@@ -26,7 +26,7 @@ public class PackageTemplate implements Serializable {
     private String name;
 
     @Field("products")
-    @JsonIgnoreProperties(value = { "packageTemplates", "productCategories" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "productCategories" }, allowSetters = true)
     private Set<Product> products = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
@@ -72,13 +72,11 @@ public class PackageTemplate implements Serializable {
 
     public PackageTemplate addProduct(Product product) {
         this.products.add(product);
-        product.getPackageTemplates().add(this);
         return this;
     }
 
     public PackageTemplate removeProduct(Product product) {
         this.products.remove(product);
-        product.getPackageTemplates().remove(this);
         return this;
     }
 

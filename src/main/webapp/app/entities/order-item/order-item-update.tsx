@@ -10,8 +10,6 @@ import { useAppDispatch, useAppSelector } from 'app/config/store';
 
 import { IProduct } from 'app/shared/model/product.model';
 import { getEntities as getProducts } from 'app/entities/product/product.reducer';
-import { IUser } from 'app/shared/model/user.model';
-import { getUsers } from 'app/modules/administration/user-management/user-management.reducer';
 import { IOrder } from 'app/shared/model/order.model';
 import { getEntities as getOrders } from 'app/entities/order/order.reducer';
 import { IOrderItem } from 'app/shared/model/order-item.model';
@@ -26,7 +24,6 @@ export const OrderItemUpdate = () => {
   const isNew = id === undefined;
 
   const products = useAppSelector(state => state.product.entities);
-  const users = useAppSelector(state => state.userManagement.users);
   const orders = useAppSelector(state => state.order.entities);
   const orderItemEntity = useAppSelector(state => state.orderItem.entity);
   const loading = useAppSelector(state => state.orderItem.loading);
@@ -34,7 +31,7 @@ export const OrderItemUpdate = () => {
   const updateSuccess = useAppSelector(state => state.orderItem.updateSuccess);
 
   const handleClose = () => {
-    navigate('/order-item' + location.search);
+    navigate('/order-item');
   };
 
   useEffect(() => {
@@ -45,7 +42,6 @@ export const OrderItemUpdate = () => {
     }
 
     dispatch(getProducts({}));
-    dispatch(getUsers({}));
     dispatch(getOrders({}));
   }, []);
 
@@ -60,7 +56,6 @@ export const OrderItemUpdate = () => {
       ...orderItemEntity,
       ...values,
       product: products.find(it => it.id.toString() === values.product.toString()),
-      user: users.find(it => it.id.toString() === values.user.toString()),
       order: orders.find(it => it.id.toString() === values.order.toString()),
     };
 
@@ -77,7 +72,6 @@ export const OrderItemUpdate = () => {
       : {
           ...orderItemEntity,
           product: orderItemEntity?.product?.id,
-          user: orderItemEntity?.user?.id,
           order: orderItemEntity?.order?.id,
         };
 
@@ -143,26 +137,6 @@ export const OrderItemUpdate = () => {
                   ? products.map(otherEntity => (
                       <option value={otherEntity.id} key={otherEntity.id}>
                         {otherEntity.name}
-                      </option>
-                    ))
-                  : null}
-              </ValidatedField>
-              <FormText>
-                <Translate contentKey="entity.validation.required">This field is required.</Translate>
-              </FormText>
-              <ValidatedField
-                id="order-item-user"
-                name="user"
-                data-cy="user"
-                label={translate('meinAperoApp.orderItem.user')}
-                type="select"
-                required
-              >
-                <option value="" key="0" />
-                {users
-                  ? users.map(otherEntity => (
-                      <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.login}
                       </option>
                     ))
                   : null}

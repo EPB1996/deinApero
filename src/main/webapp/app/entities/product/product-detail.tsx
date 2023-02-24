@@ -51,12 +51,6 @@ export const ProductDetail = () => {
           </dt>
           <dd>{productEntity.price}</dd>
           <dt>
-            <span id="productSize">
-              <Translate contentKey="meinAperoApp.product.productSize">Product Size</Translate>
-            </span>
-          </dt>
-          <dd>{productEntity.productSize}</dd>
-          <dt>
             <span id="image">
               <Translate contentKey="meinAperoApp.product.image">Image</Translate>
             </span>

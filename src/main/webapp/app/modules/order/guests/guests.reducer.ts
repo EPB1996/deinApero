@@ -11,9 +11,12 @@ export const GuestsSlice = createSlice({
     addNumberOfGuests(state, data) {
       state.numberOfGuests = data.payload.numberOfGuests;
     },
+    reset() {
+      return initialState;
+    },
   },
 });
 
-export const { addNumberOfGuests } = GuestsSlice.actions;
+export const { addNumberOfGuests, reset } = GuestsSlice.actions;
 
 export default GuestsSlice.reducer;

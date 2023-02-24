@@ -42,7 +42,7 @@ const OrderStepper = () => {
       case 1:
         return <ProductSelection></ProductSelection>;
       case 2:
-        return account.id ? <CustomerInfo></CustomerInfo> : <Login></Login>;
+        return <CustomerInfo></CustomerInfo>;
       default:
         return 'Something went wrong';
     }

@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Button, Table } from 'reactstrap';
-import { Translate, getSortState, JhiPagination, JhiItemCount } from 'react-jhipster';
+import { Translate } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
-import { ASC, DESC, ITEMS_PER_PAGE, SORT } from 'app/shared/util/pagination.constants';
-import { overridePaginationStateWithQueryParams } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
 import { IOrderItem } from 'app/shared/model/order-item.model';
@@ -18,67 +16,15 @@ export const OrderItem = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const [paginationState, setPaginationState] = useState(
-    overridePaginationStateWithQueryParams(getSortState(location, ITEMS_PER_PAGE, 'id'), location.search)
-  );
-
   const orderItemList = useAppSelector(state => state.orderItem.entities);
   const loading = useAppSelector(state => state.orderItem.loading);
-  const totalItems = useAppSelector(state => state.orderItem.totalItems);
-
-  const getAllEntities = () => {
-    dispatch(
-      getEntities({
-        page: paginationState.activePage - 1,
-        size: paginationState.itemsPerPage,
-        sort: `${paginationState.sort},${paginationState.order}`,
-      })
-    );
-  };
-
-  const sortEntities = () => {
-    getAllEntities();
-    const endURL = `?page=${paginationState.activePage}&sort=${paginationState.sort},${paginationState.order}`;
-    if (location.search !== endURL) {
-      navigate(`${location.pathname}${endURL}`);
-    }
-  };
 
   useEffect(() => {
-    sortEntities();
-  }, [paginationState.activePage, paginationState.order, paginationState.sort]);
-
-  useEffect(() => {
-    const params = new URLSearchParams(location.search);
-    const page = params.get('page');
-    const sort = params.get(SORT);
-    if (page && sort) {
-      const sortSplit = sort.split(',');
-      setPaginationState({
-        ...paginationState,
-        activePage: +page,
-        sort: sortSplit[0],
-        order: sortSplit[1],
-      });
-    }
-  }, [location.search]);
-
-  const sort = p => () => {
-    setPaginationState({
-      ...paginationState,
-      order: paginationState.order === ASC ? DESC : ASC,
-      sort: p,
-    });
-  };
-
-  const handlePagination = currentPage =>
-    setPaginationState({
-      ...paginationState,
-      activePage: currentPage,
-    });
+    dispatch(getEntities({}));
+  }, []);
 
   const handleSyncList = () => {
-    sortEntities();
+    dispatch(getEntities({}));
   };
 
   return (
@@ -102,23 +48,20 @@ export const OrderItem = () => {
           <Table responsive>
             <thead>
               <tr>
-                <th className="hand" onClick={sort('id')}>
-                  <Translate contentKey="meinAperoApp.orderItem.id">ID</Translate> <FontAwesomeIcon icon="sort" />
-                </th>
-                <th className="hand" onClick={sort('quantity')}>
-                  <Translate contentKey="meinAperoApp.orderItem.quantity">Quantity</Translate> <FontAwesomeIcon icon="sort" />
-                </th>
-                <th className="hand" onClick={sort('totalPrice')}>
-                  <Translate contentKey="meinAperoApp.orderItem.totalPrice">Total Price</Translate> <FontAwesomeIcon icon="sort" />
+                <th>
+                  <Translate contentKey="meinAperoApp.orderItem.id">ID</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="meinAperoApp.orderItem.product">Product</Translate> <FontAwesomeIcon icon="sort" />
+                  <Translate contentKey="meinAperoApp.orderItem.quantity">Quantity</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="meinAperoApp.orderItem.user">User</Translate> <FontAwesomeIcon icon="sort" />
+                  <Translate contentKey="meinAperoApp.orderItem.totalPrice">Total Price</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="meinAperoApp.orderItem.order">Order</Translate> <FontAwesomeIcon icon="sort" />
+                  <Translate contentKey="meinAperoApp.orderItem.product">Product</Translate>
+                </th>
+                <th>
+                  <Translate contentKey="meinAperoApp.orderItem.order">Order</Translate>
                 </th>
                 <th />
               </tr>
@@ -134,7 +77,6 @@ export const OrderItem = () => {
                   <td>{orderItem.quantity}</td>
                   <td>{orderItem.totalPrice}</td>
                   <td>{orderItem.product ? <Link to={`/product/${orderItem.product.id}`}>{orderItem.product.name}</Link> : ''}</td>
-                  <td>{orderItem.user ? orderItem.user.login : ''}</td>
                   <td>{orderItem.order ? <Link to={`/order/${orderItem.order.id}`}>{orderItem.order.code}</Link> : ''}</td>
                   <td className="text-end">
                     <div className="btn-group flex-btn-group-container">
@@ -144,25 +86,13 @@ export const OrderItem = () => {
                           <Translate contentKey="entity.action.view">View</Translate>
                         </span>
                       </Button>
-                      <Button
-                        tag={Link}
-                        to={`/order-item/${orderItem.id}/edit?page=${paginationState.activePage}&sort=${paginationState.sort},${paginationState.order}`}
-                        color="primary"
-                        size="sm"
-                        data-cy="entityEditButton"
-                      >
+                      <Button tag={Link} to={`/order-item/${orderItem.id}/edit`} color="primary" size="sm" data-cy="entityEditButton">
                         <FontAwesomeIcon icon="pencil-alt" />{' '}
                         <span className="d-none d-md-inline">
                           <Translate contentKey="entity.action.edit">Edit</Translate>
                         </span>
                       </Button>
-                      <Button
-                        tag={Link}
-                        to={`/order-item/${orderItem.id}/delete?page=${paginationState.activePage}&sort=${paginationState.sort},${paginationState.order}`}
-                        color="danger"
-                        size="sm"
-                        data-cy="entityDeleteButton"
-                      >
+                      <Button tag={Link} to={`/order-item/${orderItem.id}/delete`} color="danger" size="sm" data-cy="entityDeleteButton">
                         <FontAwesomeIcon icon="trash" />{' '}
                         <span className="d-none d-md-inline">
                           <Translate contentKey="entity.action.delete">Delete</Translate>
@@ -182,24 +112,6 @@ export const OrderItem = () => {
           )
         )}
       </div>
-      {totalItems ? (
-        <div className={orderItemList && orderItemList.length > 0 ? '' : 'd-none'}>
-          <div className="justify-content-center d-flex">
-            <JhiItemCount page={paginationState.activePage} total={totalItems} itemsPerPage={paginationState.itemsPerPage} i18nEnabled />
-          </div>
-          <div className="justify-content-center d-flex">
-            <JhiPagination
-              activePage={paginationState.activePage}
-              onSelect={handlePagination}
-              maxButtons={5}
-              itemsPerPage={paginationState.itemsPerPage}
-              totalItems={totalItems}
-            />
-          </div>
-        </div>
-      ) : (
-        ''
-      )}
     </div>
   );
 };

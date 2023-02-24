@@ -21,10 +21,8 @@
       "placedDate": "Placed Date",
       "status": "Status",
       "code": "Code",
-      "packageType": "Package Type",
-      "orderItem": "Order Item",
-      "user": "User",
-      "customer": "Customer"
+      "customer": "Customer",
+      "orderItem": "Order Item"
     }
   }
 }

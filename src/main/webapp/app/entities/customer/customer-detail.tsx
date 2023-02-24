@@ -86,10 +86,6 @@ export const CustomerDetail = () => {
             </span>
           </dt>
           <dd>{customerEntity.city}</dd>
-          <dt>
-            <Translate contentKey="meinAperoApp.customer.user">User</Translate>
-          </dt>
-          <dd>{customerEntity.user ? customerEntity.user.login : ''}</dd>
         </dl>
         <Button tag={Link} to="/customer" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}

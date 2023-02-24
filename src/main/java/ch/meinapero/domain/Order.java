@@ -35,19 +35,12 @@ public class Order implements Serializable {
     @Field("code")
     private String code;
 
-    @Field("packageType")
-    private PackageType packageType;
+    @Field("customer")
+    private Customer customer;
 
     @Field("orderItem")
-    @JsonIgnoreProperties(value = { "product", "user", "order" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "product", "order" }, allowSetters = true)
     private Set<OrderItem> orderItems = new HashSet<>();
-
-    @Field("user")
-    private User user;
-
-    @Field("customer")
-    @JsonIgnoreProperties(value = { "user", "orders" }, allowSetters = true)
-    private Customer customer;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -103,16 +96,16 @@ public class Order implements Serializable {
         this.code = code;
     }
 
-    public PackageType getPackageType() {
-        return this.packageType;
+    public Customer getCustomer() {
+        return this.customer;
     }
 
-    public void setPackageType(PackageType packageType) {
-        this.packageType = packageType;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
-    public Order packageType(PackageType packageType) {
-        this.setPackageType(packageType);
+    public Order customer(Customer customer) {
+        this.setCustomer(customer);
         return this;
     }
 
@@ -144,32 +137,6 @@ public class Order implements Serializable {
     public Order removeOrderItem(OrderItem orderItem) {
         this.orderItems.remove(orderItem);
         orderItem.setOrder(null);
-        return this;
-    }
-
-    public User getUser() {
-        return this.user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Order user(User user) {
-        this.setUser(user);
-        return this;
-    }
-
-    public Customer getCustomer() {
-        return this.customer;
-    }
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
-
-    public Order customer(Customer customer) {
-        this.setCustomer(customer);
         return this;
     }
 

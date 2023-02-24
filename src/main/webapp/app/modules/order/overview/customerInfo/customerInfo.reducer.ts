@@ -34,10 +34,13 @@ export const CustomerInfoSlice = createSlice({
     addCustomerInfo(state, data) {
       return { ...state, ...data.payload };
     },
+    reset() {
+      return initialState;
+    },
   },
 });
 
-export const { addCustomerInfo } = CustomerInfoSlice.actions;
+export const { addCustomerInfo, reset } = CustomerInfoSlice.actions;
 
 // Reducer
 export default CustomerInfoSlice.reducer;

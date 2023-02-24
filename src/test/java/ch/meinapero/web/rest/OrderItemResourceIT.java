@@ -10,7 +10,6 @@ import ch.meinapero.IntegrationTest;
 import ch.meinapero.domain.Order;
 import ch.meinapero.domain.OrderItem;
 import ch.meinapero.domain.Product;
-import ch.meinapero.domain.User;
 import ch.meinapero.repository.OrderItemRepository;
 import ch.meinapero.service.OrderItemService;
 import java.math.BigDecimal;
@@ -79,10 +78,6 @@ class OrderItemResourceIT {
         product.setId("fixed-id-for-tests");
         orderItem.setProduct(product);
         // Add required entity
-        User user = UserResourceIT.createEntity();
-        user.setId("fixed-id-for-tests");
-        orderItem.setUser(user);
-        // Add required entity
         Order order;
         order = OrderResourceIT.createEntity();
         order.setId("fixed-id-for-tests");
@@ -103,10 +98,6 @@ class OrderItemResourceIT {
         product = ProductResourceIT.createUpdatedEntity();
         product.setId("fixed-id-for-tests");
         orderItem.setProduct(product);
-        // Add required entity
-        User user = UserResourceIT.createEntity();
-        user.setId("fixed-id-for-tests");
-        orderItem.setUser(user);
         // Add required entity
         Order order;
         order = OrderResourceIT.createUpdatedEntity();
@@ -204,6 +195,33 @@ class OrderItemResourceIT {
 
         List<OrderItem> orderItemList = orderItemRepository.findAll().collectList().block();
         assertThat(orderItemList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    void getAllOrderItemsAsStream() {
+        // Initialize the database
+        orderItemRepository.save(orderItem).block();
+
+        List<OrderItem> orderItemList = webTestClient
+            .get()
+            .uri(ENTITY_API_URL)
+            .accept(MediaType.APPLICATION_NDJSON)
+            .exchange()
+            .expectStatus()
+            .isOk()
+            .expectHeader()
+            .contentTypeCompatibleWith(MediaType.APPLICATION_NDJSON)
+            .returnResult(OrderItem.class)
+            .getResponseBody()
+            .filter(orderItem::equals)
+            .collectList()
+            .block(Duration.ofSeconds(5));
+
+        assertThat(orderItemList).isNotNull();
+        assertThat(orderItemList).hasSize(1);
+        OrderItem testOrderItem = orderItemList.get(0);
+        assertThat(testOrderItem.getQuantity()).isEqualTo(DEFAULT_QUANTITY);
+        assertThat(testOrderItem.getTotalPrice()).isEqualByComparingTo(DEFAULT_TOTAL_PRICE);
     }
 
     @Test

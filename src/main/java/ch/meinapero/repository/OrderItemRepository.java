@@ -14,8 +14,6 @@ import reactor.core.publisher.Mono;
 @SuppressWarnings("unused")
 @Repository
 public interface OrderItemRepository extends ReactiveMongoRepository<OrderItem, String> {
-    Flux<OrderItem> findAllBy(Pageable pageable);
-
     @Query("{}")
     Flux<OrderItem> findAllWithEagerRelationships(Pageable pageable);
 

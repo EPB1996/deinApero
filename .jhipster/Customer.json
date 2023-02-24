@@ -34,8 +34,7 @@
     },
     {
       "fieldName": "addressLine1",
-      "fieldType": "String",
-      "fieldValidateRules": ["required"]
+      "fieldType": "String"
     },
     {
       "fieldName": "addressLine2",
@@ -43,35 +42,18 @@
     },
     {
       "fieldName": "zip",
-      "fieldType": "Long",
-      "fieldValidateRules": ["required"]
+      "fieldType": "Long"
     },
     {
       "fieldName": "city",
-      "fieldType": "String",
-      "fieldValidateRules": ["required"]
+      "fieldType": "String"
     }
   ],
   "fluentMethods": true,
   "jpaMetamodelFiltering": false,
   "name": "Customer",
-  "pagination": "pagination",
+  "pagination": "no",
   "readOnly": false,
-  "relationships": [
-    {
-      "otherEntityField": "login",
-      "otherEntityName": "user",
-      "ownerSide": true,
-      "relationshipName": "user",
-      "relationshipType": "one-to-one",
-      "relationshipValidateRules": "required"
-    },
-    {
-      "otherEntityName": "order",
-      "otherEntityRelationshipName": "customer",
-      "relationshipName": "order",
-      "relationshipType": "one-to-many"
-    }
-  ],
+  "relationships": [],
   "service": "serviceClass"
 }

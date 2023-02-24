@@ -6,9 +6,7 @@ import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.*;
 
 import ch.meinapero.IntegrationTest;
-import ch.meinapero.domain.Customer;
 import ch.meinapero.domain.Order;
-import ch.meinapero.domain.User;
 import ch.meinapero.domain.enumeration.OrderStatus;
 import ch.meinapero.repository.OrderRepository;
 import ch.meinapero.service.OrderService;
@@ -76,15 +74,6 @@ class OrderResourceIT {
      */
     public static Order createEntity() {
         Order order = new Order().placedDate(DEFAULT_PLACED_DATE).status(DEFAULT_STATUS).code(DEFAULT_CODE);
-        // Add required entity
-        User user = UserResourceIT.createEntity();
-        user.setId("fixed-id-for-tests");
-        order.setUser(user);
-        // Add required entity
-        Customer customer;
-        customer = CustomerResourceIT.createEntity();
-        customer.setId("fixed-id-for-tests");
-        order.setCustomer(customer);
         return order;
     }
 
@@ -96,15 +85,6 @@ class OrderResourceIT {
      */
     public static Order createUpdatedEntity() {
         Order order = new Order().placedDate(UPDATED_PLACED_DATE).status(UPDATED_STATUS).code(UPDATED_CODE);
-        // Add required entity
-        User user = UserResourceIT.createEntity();
-        user.setId("fixed-id-for-tests");
-        order.setUser(user);
-        // Add required entity
-        Customer customer;
-        customer = CustomerResourceIT.createUpdatedEntity();
-        customer.setId("fixed-id-for-tests");
-        order.setCustomer(customer);
         return order;
     }
 
@@ -219,6 +199,34 @@ class OrderResourceIT {
 
         List<Order> orderList = orderRepository.findAll().collectList().block();
         assertThat(orderList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    void getAllOrdersAsStream() {
+        // Initialize the database
+        orderRepository.save(order).block();
+
+        List<Order> orderList = webTestClient
+            .get()
+            .uri(ENTITY_API_URL)
+            .accept(MediaType.APPLICATION_NDJSON)
+            .exchange()
+            .expectStatus()
+            .isOk()
+            .expectHeader()
+            .contentTypeCompatibleWith(MediaType.APPLICATION_NDJSON)
+            .returnResult(Order.class)
+            .getResponseBody()
+            .filter(order::equals)
+            .collectList()
+            .block(Duration.ofSeconds(5));
+
+        assertThat(orderList).isNotNull();
+        assertThat(orderList).hasSize(1);
+        Order testOrder = orderList.get(0);
+        assertThat(testOrder.getPlacedDate()).isEqualTo(DEFAULT_PLACED_DATE);
+        assertThat(testOrder.getStatus()).isEqualTo(DEFAULT_STATUS);
+        assertThat(testOrder.getCode()).isEqualTo(DEFAULT_CODE);
     }
 
     @Test

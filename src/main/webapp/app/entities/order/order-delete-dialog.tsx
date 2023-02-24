@@ -25,7 +25,7 @@ export const OrderDeleteDialog = () => {
   const updateSuccess = useAppSelector(state => state.order.updateSuccess);
 
   const handleClose = () => {
-    navigate('/order' + location.search);
+    navigate('/order');
   };
 
   useEffect(() => {

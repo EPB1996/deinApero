@@ -25,14 +25,14 @@
   "fluentMethods": true,
   "jpaMetamodelFiltering": false,
   "name": "Order",
-  "pagination": "pagination",
+  "pagination": "no",
   "readOnly": false,
   "relationships": [
     {
-      "otherEntityField": "name",
-      "otherEntityName": "packageType",
+      "otherEntityField": "email",
+      "otherEntityName": "customer",
       "ownerSide": true,
-      "relationshipName": "packageType",
+      "relationshipName": "customer",
       "relationshipType": "one-to-one"
     },
     {
@@ -40,21 +40,6 @@
       "otherEntityRelationshipName": "order",
       "relationshipName": "orderItem",
       "relationshipType": "one-to-many"
-    },
-    {
-      "otherEntityField": "login",
-      "otherEntityName": "user",
-      "relationshipName": "user",
-      "relationshipType": "many-to-one",
-      "relationshipValidateRules": "required"
-    },
-    {
-      "otherEntityField": "email",
-      "otherEntityName": "customer",
-      "otherEntityRelationshipName": "order",
-      "relationshipName": "customer",
-      "relationshipType": "many-to-one",
-      "relationshipValidateRules": "required"
     }
   ],
   "service": "serviceClass"

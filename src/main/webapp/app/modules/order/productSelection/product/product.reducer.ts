@@ -40,10 +40,8 @@ export const ProductSlice = createSlice({
         }
       }
     },
-    reset(state) {
-      Object.keys(state).map(key => {
-        state[key] = [];
-      });
+    reset() {
+      return initialState;
     },
   },
 });

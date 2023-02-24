@@ -8,12 +8,9 @@ import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateT
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
-import { IPackageTemplate } from 'app/shared/model/package-template.model';
-import { getEntities as getPackageTemplates } from 'app/entities/package-template/package-template.reducer';
 import { IProductCategory } from 'app/shared/model/product-category.model';
 import { getEntities as getProductCategories } from 'app/entities/product-category/product-category.reducer';
 import { IProduct } from 'app/shared/model/product.model';
-import { Size } from 'app/shared/model/enumerations/size.model';
 import { getEntity, updateEntity, createEntity, reset } from './product.reducer';
 
 export const ProductUpdate = () => {
@@ -24,16 +21,14 @@ export const ProductUpdate = () => {
   const { id } = useParams<'id'>();
   const isNew = id === undefined;
 
-  const packageTemplates = useAppSelector(state => state.packageTemplate.entities);
   const productCategories = useAppSelector(state => state.productCategory.entities);
   const productEntity = useAppSelector(state => state.product.entity);
   const loading = useAppSelector(state => state.product.loading);
   const updating = useAppSelector(state => state.product.updating);
   const updateSuccess = useAppSelector(state => state.product.updateSuccess);
-  const sizeValues = Object.keys(Size);
 
   const handleClose = () => {
-    navigate('/product' + location.search);
+    navigate('/product');
   };
 
   useEffect(() => {
@@ -43,7 +38,6 @@ export const ProductUpdate = () => {
       dispatch(getEntity(id));
     }
 
-    dispatch(getPackageTemplates({}));
     dispatch(getProductCategories({}));
   }, []);
 
@@ -70,7 +64,6 @@ export const ProductUpdate = () => {
     isNew
       ? {}
       : {
-          productSize: 'S',
           ...productEntity,
         };
 
@@ -128,19 +121,6 @@ export const ProductUpdate = () => {
                   validate: v => isNumber(v) || translate('entity.validation.number'),
                 }}
               />
-              <ValidatedField
-                label={translate('meinAperoApp.product.productSize')}
-                id="product-productSize"
-                name="productSize"
-                data-cy="productSize"
-                type="select"
-              >
-                {sizeValues.map(size => (
-                  <option value={size} key={size}>
-                    {translate('meinAperoApp.Size.' + size)}
-                  </option>
-                ))}
-              </ValidatedField>
               <ValidatedBlobField
                 label={translate('meinAperoApp.product.image')}
                 id="product-image"

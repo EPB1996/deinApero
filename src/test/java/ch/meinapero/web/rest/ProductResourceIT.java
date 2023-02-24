@@ -7,7 +7,6 @@ import static org.hamcrest.Matchers.is;
 
 import ch.meinapero.IntegrationTest;
 import ch.meinapero.domain.Product;
-import ch.meinapero.domain.enumeration.Size;
 import ch.meinapero.repository.ProductRepository;
 import java.math.BigDecimal;
 import java.time.Duration;
@@ -39,9 +38,6 @@ class ProductResourceIT {
     private static final BigDecimal DEFAULT_PRICE = new BigDecimal(0);
     private static final BigDecimal UPDATED_PRICE = new BigDecimal(1);
 
-    private static final Size DEFAULT_PRODUCT_SIZE = Size.S;
-    private static final Size UPDATED_PRODUCT_SIZE = Size.M;
-
     private static final byte[] DEFAULT_IMAGE = TestUtil.createByteArray(1, "0");
     private static final byte[] UPDATED_IMAGE = TestUtil.createByteArray(1, "1");
     private static final String DEFAULT_IMAGE_CONTENT_TYPE = "image/jpg";
@@ -69,7 +65,6 @@ class ProductResourceIT {
             .name(DEFAULT_NAME)
             .description(DEFAULT_DESCRIPTION)
             .price(DEFAULT_PRICE)
-            .productSize(DEFAULT_PRODUCT_SIZE)
             .image(DEFAULT_IMAGE)
             .imageContentType(DEFAULT_IMAGE_CONTENT_TYPE);
         return product;
@@ -86,7 +81,6 @@ class ProductResourceIT {
             .name(UPDATED_NAME)
             .description(UPDATED_DESCRIPTION)
             .price(UPDATED_PRICE)
-            .productSize(UPDATED_PRODUCT_SIZE)
             .image(UPDATED_IMAGE)
             .imageContentType(UPDATED_IMAGE_CONTENT_TYPE);
         return product;
@@ -118,7 +112,6 @@ class ProductResourceIT {
         assertThat(testProduct.getName()).isEqualTo(DEFAULT_NAME);
         assertThat(testProduct.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
         assertThat(testProduct.getPrice()).isEqualByComparingTo(DEFAULT_PRICE);
-        assertThat(testProduct.getProductSize()).isEqualTo(DEFAULT_PRODUCT_SIZE);
         assertThat(testProduct.getImage()).isEqualTo(DEFAULT_IMAGE);
         assertThat(testProduct.getImageContentType()).isEqualTo(DEFAULT_IMAGE_CONTENT_TYPE);
     }
@@ -188,24 +181,33 @@ class ProductResourceIT {
     }
 
     @Test
-    void checkProductSizeIsRequired() throws Exception {
-        int databaseSizeBeforeTest = productRepository.findAll().collectList().block().size();
-        // set the field null
-        product.setProductSize(null);
+    void getAllProductsAsStream() {
+        // Initialize the database
+        productRepository.save(product).block();
 
-        // Create the Product, which fails.
-
-        webTestClient
-            .post()
+        List<Product> productList = webTestClient
+            .get()
             .uri(ENTITY_API_URL)
-            .contentType(MediaType.APPLICATION_JSON)
-            .bodyValue(TestUtil.convertObjectToJsonBytes(product))
+            .accept(MediaType.APPLICATION_NDJSON)
             .exchange()
             .expectStatus()
-            .isBadRequest();
+            .isOk()
+            .expectHeader()
+            .contentTypeCompatibleWith(MediaType.APPLICATION_NDJSON)
+            .returnResult(Product.class)
+            .getResponseBody()
+            .filter(product::equals)
+            .collectList()
+            .block(Duration.ofSeconds(5));
 
-        List<Product> productList = productRepository.findAll().collectList().block();
-        assertThat(productList).hasSize(databaseSizeBeforeTest);
+        assertThat(productList).isNotNull();
+        assertThat(productList).hasSize(1);
+        Product testProduct = productList.get(0);
+        assertThat(testProduct.getName()).isEqualTo(DEFAULT_NAME);
+        assertThat(testProduct.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
+        assertThat(testProduct.getPrice()).isEqualByComparingTo(DEFAULT_PRICE);
+        assertThat(testProduct.getImage()).isEqualTo(DEFAULT_IMAGE);
+        assertThat(testProduct.getImageContentType()).isEqualTo(DEFAULT_IMAGE_CONTENT_TYPE);
     }
 
     @Test
@@ -232,8 +234,6 @@ class ProductResourceIT {
             .value(hasItem(DEFAULT_DESCRIPTION))
             .jsonPath("$.[*].price")
             .value(hasItem(sameNumber(DEFAULT_PRICE)))
-            .jsonPath("$.[*].productSize")
-            .value(hasItem(DEFAULT_PRODUCT_SIZE.toString()))
             .jsonPath("$.[*].imageContentType")
             .value(hasItem(DEFAULT_IMAGE_CONTENT_TYPE))
             .jsonPath("$.[*].image")
@@ -264,8 +264,6 @@ class ProductResourceIT {
             .value(is(DEFAULT_DESCRIPTION))
             .jsonPath("$.price")
             .value(is(sameNumber(DEFAULT_PRICE)))
-            .jsonPath("$.productSize")
-            .value(is(DEFAULT_PRODUCT_SIZE.toString()))
             .jsonPath("$.imageContentType")
             .value(is(DEFAULT_IMAGE_CONTENT_TYPE))
             .jsonPath("$.image")
@@ -297,7 +295,6 @@ class ProductResourceIT {
             .name(UPDATED_NAME)
             .description(UPDATED_DESCRIPTION)
             .price(UPDATED_PRICE)
-            .productSize(UPDATED_PRODUCT_SIZE)
             .image(UPDATED_IMAGE)
             .imageContentType(UPDATED_IMAGE_CONTENT_TYPE);
 
@@ -317,7 +314,6 @@ class ProductResourceIT {
         assertThat(testProduct.getName()).isEqualTo(UPDATED_NAME);
         assertThat(testProduct.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
         assertThat(testProduct.getPrice()).isEqualByComparingTo(UPDATED_PRICE);
-        assertThat(testProduct.getProductSize()).isEqualTo(UPDATED_PRODUCT_SIZE);
         assertThat(testProduct.getImage()).isEqualTo(UPDATED_IMAGE);
         assertThat(testProduct.getImageContentType()).isEqualTo(UPDATED_IMAGE_CONTENT_TYPE);
     }
@@ -393,8 +389,6 @@ class ProductResourceIT {
         Product partialUpdatedProduct = new Product();
         partialUpdatedProduct.setId(product.getId());
 
-        partialUpdatedProduct.image(UPDATED_IMAGE).imageContentType(UPDATED_IMAGE_CONTENT_TYPE);
-
         webTestClient
             .patch()
             .uri(ENTITY_API_URL_ID, partialUpdatedProduct.getId())
@@ -411,9 +405,8 @@ class ProductResourceIT {
         assertThat(testProduct.getName()).isEqualTo(DEFAULT_NAME);
         assertThat(testProduct.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
         assertThat(testProduct.getPrice()).isEqualByComparingTo(DEFAULT_PRICE);
-        assertThat(testProduct.getProductSize()).isEqualTo(DEFAULT_PRODUCT_SIZE);
-        assertThat(testProduct.getImage()).isEqualTo(UPDATED_IMAGE);
-        assertThat(testProduct.getImageContentType()).isEqualTo(UPDATED_IMAGE_CONTENT_TYPE);
+        assertThat(testProduct.getImage()).isEqualTo(DEFAULT_IMAGE);
+        assertThat(testProduct.getImageContentType()).isEqualTo(DEFAULT_IMAGE_CONTENT_TYPE);
     }
 
     @Test
@@ -431,7 +424,6 @@ class ProductResourceIT {
             .name(UPDATED_NAME)
             .description(UPDATED_DESCRIPTION)
             .price(UPDATED_PRICE)
-            .productSize(UPDATED_PRODUCT_SIZE)
             .image(UPDATED_IMAGE)
             .imageContentType(UPDATED_IMAGE_CONTENT_TYPE);
 
@@ -451,7 +443,6 @@ class ProductResourceIT {
         assertThat(testProduct.getName()).isEqualTo(UPDATED_NAME);
         assertThat(testProduct.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
         assertThat(testProduct.getPrice()).isEqualByComparingTo(UPDATED_PRICE);
-        assertThat(testProduct.getProductSize()).isEqualTo(UPDATED_PRODUCT_SIZE);
         assertThat(testProduct.getImage()).isEqualTo(UPDATED_IMAGE);
         assertThat(testProduct.getImageContentType()).isEqualTo(UPDATED_IMAGE_CONTENT_TYPE);
     }

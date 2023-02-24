@@ -2,6 +2,7 @@ package ch.meinapero.service;
 
 import ch.meinapero.domain.OrderItem;
 import ch.meinapero.repository.OrderItemRepository;
+import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Pageable;
@@ -72,12 +73,11 @@ public class OrderItemService {
     /**
      * Get all the orderItems.
      *
-     * @param pageable the pagination information.
      * @return the list of entities.
      */
-    public Flux<OrderItem> findAll(Pageable pageable) {
+    public Flux<OrderItem> findAll() {
         log.debug("Request to get all OrderItems");
-        return orderItemRepository.findAllBy(pageable);
+        return orderItemRepository.findAll();
     }
 
     /**

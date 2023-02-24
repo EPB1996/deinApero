@@ -21,9 +21,7 @@
       "name": "Name",
       "description": "Description",
       "price": "Price",
-      "productSize": "Product Size",
       "image": "Image",
-      "packageTemplate": "Package Template",
       "productCategory": "Product Category"
     }
   }

@@ -29,7 +29,10 @@ const ProductItem = props => {
 
   const [modal, setModal] = useState(false);
 
-  const toggle = () => setModal(!modal);
+  const toggle = () => {
+    console.log(product);
+    setModal(!modal);
+  };
 
   const dispatch = useAppDispatch();
 
@@ -50,7 +53,6 @@ const ProductItem = props => {
           <div className="ribbon ribbon-orange ribbon-small ">
             <div className="banner">
               <div className="text">
-                {' '}
                 <Translate contentKey={`custom.productItem.added`}> Added</Translate>
               </div>
             </div>
