@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import reactor.core.publisher.Flux;
@@ -55,6 +56,7 @@ public class ProductCategoryResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/product-categories")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public Mono<ResponseEntity<ProductCategory>> createProductCategory(@Valid @RequestBody ProductCategory productCategory)
         throws URISyntaxException {
         log.debug("REST request to save ProductCategory : {}", productCategory);
@@ -86,6 +88,7 @@ public class ProductCategoryResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/product-categories/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public Mono<ResponseEntity<ProductCategory>> updateProductCategory(
         @PathVariable(value = "id", required = false) final String id,
         @Valid @RequestBody ProductCategory productCategory
@@ -129,6 +132,7 @@ public class ProductCategoryResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PatchMapping(value = "/product-categories/{id}", consumes = { "application/json", "application/merge-patch+json" })
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public Mono<ResponseEntity<ProductCategory>> partialUpdateProductCategory(
         @PathVariable(value = "id", required = false) final String id,
         @NotNull @RequestBody ProductCategory productCategory
@@ -203,6 +207,7 @@ public class ProductCategoryResource {
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/product-categories/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public Mono<ResponseEntity<Void>> deleteProductCategory(@PathVariable String id) {
         log.debug("REST request to delete ProductCategory : {}", id);
         return productCategoryService

@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import reactor.core.publisher.Flux;
@@ -85,6 +86,7 @@ public class OrderResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/orders/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public Mono<ResponseEntity<Order>> updateOrder(
         @PathVariable(value = "id", required = false) final String id,
         @Valid @RequestBody Order order
@@ -128,6 +130,7 @@ public class OrderResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PatchMapping(value = "/orders/{id}", consumes = { "application/json", "application/merge-patch+json" })
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public Mono<ResponseEntity<Order>> partialUpdateOrder(
         @PathVariable(value = "id", required = false) final String id,
         @NotNull @RequestBody Order order
@@ -167,6 +170,7 @@ public class OrderResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of orders in body.
      */
     @GetMapping("/orders")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public Mono<List<Order>> getAllOrders(@RequestParam(required = false, defaultValue = "false") boolean eagerload) {
         log.debug("REST request to get all Orders");
         return orderService.findAll().collectList();
@@ -177,6 +181,7 @@ public class OrderResource {
      * @return the {@link Flux} of orders.
      */
     @GetMapping(value = "/orders", produces = MediaType.APPLICATION_NDJSON_VALUE)
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public Flux<Order> getAllOrdersAsStream() {
         log.debug("REST request to get all Orders as a stream");
         return orderService.findAll();
@@ -189,6 +194,7 @@ public class OrderResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the order, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/orders/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public Mono<ResponseEntity<Order>> getOrder(@PathVariable String id) {
         log.debug("REST request to get Order : {}", id);
         Mono<Order> order = orderService.findOne(id);
@@ -202,6 +208,7 @@ public class OrderResource {
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/orders/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public Mono<ResponseEntity<Void>> deleteOrder(@PathVariable String id) {
         log.debug("REST request to delete Order : {}", id);
         return orderService

@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import reactor.core.publisher.Flux;
@@ -55,6 +56,7 @@ public class ProductResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/products")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public Mono<ResponseEntity<Product>> createProduct(@Valid @RequestBody Product product) throws URISyntaxException {
         log.debug("REST request to save Product : {}", product);
         if (product.getId() != null) {
@@ -85,6 +87,7 @@ public class ProductResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/products/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public Mono<ResponseEntity<Product>> updateProduct(
         @PathVariable(value = "id", required = false) final String id,
         @Valid @RequestBody Product product
@@ -128,6 +131,7 @@ public class ProductResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PatchMapping(value = "/products/{id}", consumes = { "application/json", "application/merge-patch+json" })
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public Mono<ResponseEntity<Product>> partialUpdateProduct(
         @PathVariable(value = "id", required = false) final String id,
         @NotNull @RequestBody Product product
@@ -201,6 +205,7 @@ public class ProductResource {
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/products/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public Mono<ResponseEntity<Void>> deleteProduct(@PathVariable String id) {
         log.debug("REST request to delete Product : {}", id);
         return productService

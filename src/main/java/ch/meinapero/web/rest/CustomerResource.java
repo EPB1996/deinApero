@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import reactor.core.publisher.Flux;
@@ -85,6 +86,7 @@ public class CustomerResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/customers/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public Mono<ResponseEntity<Customer>> updateCustomer(
         @PathVariable(value = "id", required = false) final String id,
         @Valid @RequestBody Customer customer
@@ -128,6 +130,7 @@ public class CustomerResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PatchMapping(value = "/customers/{id}", consumes = { "application/json", "application/merge-patch+json" })
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public Mono<ResponseEntity<Customer>> partialUpdateCustomer(
         @PathVariable(value = "id", required = false) final String id,
         @NotNull @RequestBody Customer customer
@@ -166,6 +169,7 @@ public class CustomerResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of customers in body.
      */
     @GetMapping("/customers")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public Mono<List<Customer>> getAllCustomers() {
         log.debug("REST request to get all Customers");
         return customerService.findAll().collectList();
@@ -176,6 +180,7 @@ public class CustomerResource {
      * @return the {@link Flux} of customers.
      */
     @GetMapping(value = "/customers", produces = MediaType.APPLICATION_NDJSON_VALUE)
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public Flux<Customer> getAllCustomersAsStream() {
         log.debug("REST request to get all Customers as a stream");
         return customerService.findAll();
@@ -188,6 +193,7 @@ public class CustomerResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the customer, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/customers/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public Mono<ResponseEntity<Customer>> getCustomer(@PathVariable String id) {
         log.debug("REST request to get Customer : {}", id);
         Mono<Customer> customer = customerService.findOne(id);
@@ -201,6 +207,7 @@ public class CustomerResource {
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/customers/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public Mono<ResponseEntity<Void>> deleteCustomer(@PathVariable String id) {
         log.debug("REST request to delete Customer : {}", id);
         return customerService

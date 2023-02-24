@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import reactor.core.publisher.Flux;
@@ -85,6 +86,7 @@ public class OrderItemResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/order-items/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public Mono<ResponseEntity<OrderItem>> updateOrderItem(
         @PathVariable(value = "id", required = false) final String id,
         @Valid @RequestBody OrderItem orderItem
@@ -128,6 +130,7 @@ public class OrderItemResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PatchMapping(value = "/order-items/{id}", consumes = { "application/json", "application/merge-patch+json" })
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public Mono<ResponseEntity<OrderItem>> partialUpdateOrderItem(
         @PathVariable(value = "id", required = false) final String id,
         @NotNull @RequestBody OrderItem orderItem
@@ -167,6 +170,7 @@ public class OrderItemResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of orderItems in body.
      */
     @GetMapping("/order-items")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public Mono<List<OrderItem>> getAllOrderItems(@RequestParam(required = false, defaultValue = "false") boolean eagerload) {
         log.debug("REST request to get all OrderItems");
         return orderItemService.findAll().collectList();
@@ -177,6 +181,7 @@ public class OrderItemResource {
      * @return the {@link Flux} of orderItems.
      */
     @GetMapping(value = "/order-items", produces = MediaType.APPLICATION_NDJSON_VALUE)
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public Flux<OrderItem> getAllOrderItemsAsStream() {
         log.debug("REST request to get all OrderItems as a stream");
         return orderItemService.findAll();
@@ -189,6 +194,7 @@ public class OrderItemResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the orderItem, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/order-items/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public Mono<ResponseEntity<OrderItem>> getOrderItem(@PathVariable String id) {
         log.debug("REST request to get OrderItem : {}", id);
         Mono<OrderItem> orderItem = orderItemService.findOne(id);
@@ -202,6 +208,7 @@ public class OrderItemResource {
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/order-items/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public Mono<ResponseEntity<Void>> deleteOrderItem(@PathVariable String id) {
         log.debug("REST request to delete OrderItem : {}", id);
         return orderItemService

@@ -17,7 +17,7 @@ import { hasAnyAuthority } from 'app/shared/auth/private-route';
 import ErrorBoundary from 'app/shared/error/error-boundary';
 import { AUTHORITIES } from 'app/config/constants';
 import AppRoutes from 'app/routes';
-import { getEntities as getPackageCategories } from './entities/product-category/product-category.reducer';
+import { getEntities as getProductCategories } from './entities/product-category/product-category.reducer';
 import { getEntities as getProducts } from './entities/product/product.reducer';
 import { getEntities as getCustomersInfo } from './entities/customer/customer.reducer';
 import { getEntities as getOrders } from './entities/order/order.reducer';
@@ -28,13 +28,13 @@ export const App = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    /*  dispatch(getSession()); */
+    dispatch(getSession());
     dispatch(getProfile());
     /* dispatch(getPackageTemplates({})); */
     /* dispatch(getPackageTypes({})); */
     /* dispatch(getCustomersInfo({}));
     dispatch(getOrders({})); */
-    dispatch(getPackageCategories({}));
+    dispatch(getProductCategories({}));
     dispatch(getProducts({}));
   }, []);
 
