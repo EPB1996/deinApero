@@ -1,0 +1,688 @@
+[
+  {
+    "_id": {
+      "$oid": "63ea50e67fcf581c4fae436e"
+    },
+    "name": "Telmont Réserve Brut",
+    "description": "",
+    "price": "105",
+    "product_size": "S",
+    "packageTemplates": [],
+    "productCategories": [],
+    "_class": "ch.meinapero.domain.Product"
+  },
+  {
+    "_id": {
+      "$oid": "63ea51dc7fcf581c4fae436f"
+    },
+    "name": "Telmont Réserve Rosé",
+    "description": "",
+    "price": "119",
+    "product_size": "S",
+    "packageTemplates": [],
+    "productCategories": [],
+    "_class": "ch.meinapero.domain.Product"
+  },
+  {
+    "_id": {
+      "$oid": "63ea52197fcf581c4fae4370"
+    },
+    "name": "Telmont Blanc de noirs ",
+    "description": "",
+    "price": "235",
+    "product_size": "S",
+    "packageTemplates": [],
+    "productCategories": [],
+    "_class": "ch.meinapero.domain.Product"
+  },
+  {
+    "_id": {
+      "$oid": "63ea52527fcf581c4fae4371"
+    },
+    "name": "Telmont Réserve de la terre",
+    "description": "",
+    "price": "135",
+    "product_size": "S",
+    "packageTemplates": [],
+    "productCategories": [],
+    "_class": "ch.meinapero.domain.Product"
+  },
+  {
+    "_id": {
+      "$oid": "63ea52887fcf581c4fae4372"
+    },
+    "name": "Telmont Rare Vinotheque 1996 (Auf Anfrage)",
+    "description": "",
+    "price": "599",
+    "product_size": "S",
+    "packageTemplates": [],
+    "productCategories": [],
+    "_class": "ch.meinapero.domain.Product"
+  },
+  {
+    "_id": {
+      "$oid": "63ea52e97fcf581c4fae4373"
+    },
+    "name": "Telmont Rare Vinotheque 1990 (Auf Anfrage)",
+    "description": "",
+    "price": "649",
+    "product_size": "S",
+    "packageTemplates": [],
+    "productCategories": [],
+    "_class": "ch.meinapero.domain.Product"
+  },
+  {
+    "_id": {
+      "$oid": "63ea52fc7fcf581c4fae4374"
+    },
+    "name": "Telmont Rare Vinotheque 1985 (Auf Anfrage)",
+    "description": "",
+    "price": "699",
+    "product_size": "S",
+    "packageTemplates": [],
+    "productCategories": [],
+    "_class": "ch.meinapero.domain.Product"
+  },
+  {
+    "_id": {
+      "$oid": "63ea53797fcf581c4fae4375"
+    },
+    "name": "C.H Piconnet Blanc de noirs",
+    "description": "",
+    "price": "119",
+    "product_size": "S",
+    "packageTemplates": [],
+    "productCategories": [],
+    "_class": "ch.meinapero.domain.Product"
+  },
+  {
+    "_id": {
+      "$oid": "63ea53a07fcf581c4fae4376"
+    },
+    "name": "C.H Piconnet Rosé",
+    "description": "",
+    "price": "155",
+    "product_size": "S",
+    "packageTemplates": [],
+    "productCategories": [],
+    "_class": "ch.meinapero.domain.Product"
+  },
+  {
+    "_id": {
+      "$oid": "63ea53d97fcf581c4fae4377"
+    },
+    "name": "C.H Piconnet, Les Val Mentra, Blanc de Blancs",
+    "description": "",
+    "price": "179",
+    "product_size": "S",
+    "packageTemplates": [],
+    "productCategories": [],
+    "_class": "ch.meinapero.domain.Product"
+  },
+  {
+    "_id": {
+      "$oid": "63ea54117fcf581c4fae4378"
+    },
+    "name": "André Jacquart Vertus Expérience",
+    "description": "",
+    "price": "109",
+    "product_size": "S",
+    "packageTemplates": [],
+    "productCategories": [],
+    "_class": "ch.meinapero.domain.Product"
+  },
+  {
+    "_id": {
+      "$oid": "63ea542c7fcf581c4fae4379"
+    },
+    "name": "André Jacquart Extra Brut",
+    "description": "",
+    "price": "129",
+    "product_size": "S",
+    "packageTemplates": [],
+    "productCategories": [],
+    "_class": "ch.meinapero.domain.Product"
+  },
+  {
+    "_id": {
+      "$oid": "63ea544f7fcf581c4fae437a"
+    },
+    "name": "André Jacquart Rosé Expérience",
+    "description": "",
+    "price": "135",
+    "product_size": "S",
+    "packageTemplates": [],
+    "productCategories": [],
+    "_class": "ch.meinapero.domain.Product"
+  },
+  {
+    "_id": {
+      "$oid": "63ea548d7fcf581c4fae437b"
+    },
+    "name": "André Jacquart, Solera, Réserve Perpétuelle",
+    "description": "",
+    "price": "299",
+    "product_size": "S",
+    "packageTemplates": [],
+    "productCategories": [],
+    "_class": "ch.meinapero.domain.Product"
+  },
+  {
+    "_id": {
+      "$oid": "63ea54c77fcf581c4fae437c"
+    },
+    "name": "Elise Bougy Le Mont Chainqueux",
+    "description": "",
+    "price": "149",
+    "product_size": "S",
+    "packageTemplates": [],
+    "productCategories": [],
+    "_class": "ch.meinapero.domain.Product"
+  },
+  {
+    "_id": {
+      "$oid": "63ea54fa7fcf581c4fae437d"
+    },
+    "name": "Elise Bougy, Le Chétillon de Haut ",
+    "description": "",
+    "price": "189",
+    "product_size": "S",
+    "packageTemplates": [],
+    "productCategories": [],
+    "_class": "ch.meinapero.domain.Product"
+  },
+  {
+    "_id": {
+      "$oid": "63ea551e7fcf581c4fae437e"
+    },
+    "name": "Champagne Crucifix Père et Fils, Grand Réserve ",
+    "description": "",
+    "price": "105",
+    "product_size": "S",
+    "packageTemplates": [],
+    "productCategories": [],
+    "_class": "ch.meinapero.domain.Product"
+  },
+  {
+    "_id": {
+      "$oid": "63ea554d7fcf581c4fae437f"
+    },
+    "name": "Champagne Crucifix Père et Fils, Blancs de Blanc",
+    "description": "",
+    "price": "109",
+    "product_size": "S",
+    "packageTemplates": [],
+    "productCategories": [],
+    "_class": "ch.meinapero.domain.Product"
+  },
+  {
+    "_id": {
+      "$oid": "63ea558e7fcf581c4fae4380"
+    },
+    "name": "Champagne Jestin ",
+    "description": "",
+    "price": "379",
+    "product_size": "S",
+    "packageTemplates": [],
+    "productCategories": [],
+    "_class": "ch.meinapero.domain.Product"
+  },
+  {
+    "_id": {
+      "$oid": "63ea55a57fcf581c4fae4381"
+    },
+    "name": "Champagne Jestin, Clos de Cumières",
+    "description": "",
+    "price": "599",
+    "product_size": "S",
+    "packageTemplates": [],
+    "productCategories": [],
+    "_class": "ch.meinapero.domain.Product"
+  },
+  {
+    "_id": {
+      "$oid": "63ea57497fcf581c4fae4382"
+    },
+    "name": "Marennes-Oléron Nr2, Creuses Fines de Claires, 25 Stück",
+    "description": "",
+    "price": "135",
+    "product_size": "S",
+    "packageTemplates": [],
+    "productCategories": [],
+    "_class": "ch.meinapero.domain.Product"
+  },
+  {
+    "_id": {
+      "$oid": "63ea576c7fcf581c4fae4383"
+    },
+    "name": "Marennes-Oléron Nr2, Creuses Fines de Claires, 50 Stück",
+    "description": "",
+    "price": "249",
+    "product_size": "S",
+    "packageTemplates": [],
+    "productCategories": [],
+    "_class": "ch.meinapero.domain.Product"
+  },
+  {
+    "_id": {
+      "$oid": "63ea57e67fcf581c4fae4384"
+    },
+    "name": "MöR, Irish Oysters Nr2, 12 Stück",
+    "description": "",
+    "price": "115",
+    "product_size": "S",
+    "packageTemplates": [],
+    "productCategories": [],
+    "_class": "ch.meinapero.domain.Product"
+  },
+  {
+    "_id": {
+      "$oid": "63ea58067fcf581c4fae4385"
+    },
+    "name": "MöR, Irish Oysters Nr2, 24 Stück",
+    "description": "",
+    "price": "209",
+    "product_size": "S",
+    "packageTemplates": [],
+    "productCategories": [],
+    "_class": "ch.meinapero.domain.Product"
+  },
+  {
+    "_id": {
+      "$oid": "63ea58187fcf581c4fae4386"
+    },
+    "name": "MöR, Irish Oysters Nr2, 48 Stück",
+    "description": "",
+    "price": "385",
+    "product_size": "S",
+    "packageTemplates": [],
+    "productCategories": [],
+    "_class": "ch.meinapero.domain.Product"
+  },
+  {
+    "_id": {
+      "$oid": "63ea5adced52874e2a6b9b7a"
+    },
+    "name": "Oona Kaviar, Schweizer Zucht, 30g",
+    "description": "",
+    "price": "179",
+    "product_size": "S",
+    "packageTemplates": [],
+    "productCategories": [],
+    "_class": "ch.meinapero.domain.Product"
+  },
+  {
+    "_id": {
+      "$oid": "63ea5b25ed52874e2a6b9b7f"
+    },
+    "name": "Oona Kaviar, Schweizer Zucht, 50g",
+    "description": "",
+    "price": "289",
+    "product_size": "S",
+    "packageTemplates": [],
+    "productCategories": [],
+    "_class": "ch.meinapero.domain.Product"
+  },
+  {
+    "_id": {
+      "$oid": "63ea5b3eed52874e2a6b9b80"
+    },
+    "name": "Oona Kaviar, Schweizer Zucht, 125g",
+    "description": "",
+    "price": "669",
+    "product_size": "S",
+    "packageTemplates": [],
+    "productCategories": [],
+    "_class": "ch.meinapero.domain.Product"
+  },
+  {
+    "_id": {
+      "$oid": "63ea5ba3ed52874e2a6b9b81"
+    },
+    "name": "Beluga Kaviar, 30g ",
+    "description": "",
+    "price": "219",
+    "product_size": "S",
+    "packageTemplates": [],
+    "productCategories": [],
+    "_class": "ch.meinapero.domain.Product"
+  },
+  {
+    "_id": {
+      "$oid": "63ea5bb3ed52874e2a6b9b82"
+    },
+    "name": "Beluga Kaviar, 50g ",
+    "description": "",
+    "price": "339",
+    "product_size": "S",
+    "packageTemplates": [],
+    "productCategories": [],
+    "_class": "ch.meinapero.domain.Product"
+  },
+  {
+    "_id": {
+      "$oid": "63ea5bcbed52874e2a6b9b83"
+    },
+    "name": "Beluga Kaviar, 100g",
+    "description": "",
+    "price": "669",
+    "product_size": "S",
+    "packageTemplates": [],
+    "productCategories": [],
+    "_class": "ch.meinapero.domain.Product"
+  },
+  {
+    "_id": {
+      "$oid": "63ea5bdaed52874e2a6b9b84"
+    },
+    "name": "Beluga Kaviar, 200g",
+    "description": "",
+    "price": "1299",
+    "product_size": "S",
+    "image": {
+      "$binary": {
+        "base64": "",
+        "subType": "00"
+      }
+    },
+    "image_content_type": "",
+    "packageTemplates": [],
+    "productCategories": [],
+    "_class": "ch.meinapero.domain.Product"
+  },
+  {
+    "_id": {
+      "$oid": "63ea5bf0ed52874e2a6b9b85"
+    },
+    "name": "Beluga Kaviar, 500g",
+    "description": "",
+    "price": "3249",
+    "product_size": "S",
+    "packageTemplates": [],
+    "productCategories": [],
+    "_class": "ch.meinapero.domain.Product"
+  },
+  {
+    "_id": {
+      "$oid": "63ea5c23ed52874e2a6b9b86"
+    },
+    "name": "Beluga Kaviar, 1Kg",
+    "description": "",
+    "price": "6390",
+    "product_size": "S",
+    "packageTemplates": [],
+    "productCategories": [],
+    "_class": "ch.meinapero.domain.Product"
+  },
+  {
+    "_id": {
+      "$oid": "63ea5c43ed52874e2a6b9b87"
+    },
+    "name": "Ocietra Kaviar, 30g",
+    "description": "",
+    "price": "139",
+    "product_size": "S",
+    "packageTemplates": [],
+    "productCategories": [],
+    "_class": "ch.meinapero.domain.Product"
+  },
+  {
+    "_id": {
+      "$oid": "63ea5c56ed52874e2a6b9b88"
+    },
+    "name": "Ocietra Kaviar, 50g",
+    "description": "",
+    "price": "239",
+    "product_size": "S",
+    "packageTemplates": [],
+    "productCategories": [],
+    "_class": "ch.meinapero.domain.Product"
+  },
+  {
+    "_id": {
+      "$oid": "63ea5c68ed52874e2a6b9b89"
+    },
+    "name": "Ocietra Kaviar, 100g",
+    "description": "",
+    "price": "459",
+    "product_size": "S",
+    "packageTemplates": [],
+    "productCategories": [],
+    "_class": "ch.meinapero.domain.Product"
+  },
+  {
+    "_id": {
+      "$oid": "63ea5c76ed52874e2a6b9b8a"
+    },
+    "name": "Ocietra Kaviar, 200g",
+    "description": "",
+    "price": "889",
+    "product_size": "S",
+    "packageTemplates": [],
+    "productCategories": [],
+    "_class": "ch.meinapero.domain.Product"
+  },
+  {
+    "_id": {
+      "$oid": "63ea5c85ed52874e2a6b9b8b"
+    },
+    "name": "Ocietra Kaviar, 500g",
+    "description": "",
+    "price": "2250",
+    "product_size": "S",
+    "packageTemplates": [],
+    "productCategories": [],
+    "_class": "ch.meinapero.domain.Product"
+  },
+  {
+    "_id": {
+      "$oid": "63ea5c94ed52874e2a6b9b8c"
+    },
+    "name": "Ocietra Kaviar, 1Kg",
+    "description": "",
+    "price": "4390",
+    "product_size": "S",
+    "packageTemplates": [],
+    "productCategories": [],
+    "_class": "ch.meinapero.domain.Product"
+  },
+  {
+    "_id": {
+      "$oid": "63ea5caaed52874e2a6b9b8d"
+    },
+    "name": "Royal Premium Gold Kaviar, 30g",
+    "description": "",
+    "price": "155",
+    "product_size": "S",
+    "packageTemplates": [],
+    "productCategories": [],
+    "_class": "ch.meinapero.domain.Product"
+  },
+  {
+    "_id": {
+      "$oid": "63ea5cbaed52874e2a6b9b8e"
+    },
+    "name": "Royal Premium Gold Kaviar, 50g",
+    "description": "",
+    "price": "259",
+    "product_size": "S",
+    "packageTemplates": [],
+    "productCategories": [],
+    "_class": "ch.meinapero.domain.Product"
+  },
+  {
+    "_id": {
+      "$oid": "63ea5cc7ed52874e2a6b9b8f"
+    },
+    "name": "Royal Premium Gold Kaviar, 100g",
+    "description": "",
+    "price": "499",
+    "product_size": "S",
+    "packageTemplates": [],
+    "productCategories": [],
+    "_class": "ch.meinapero.domain.Product"
+  },
+  {
+    "_id": {
+      "$oid": "63ea5cd5ed52874e2a6b9b90"
+    },
+    "name": "Royal Premium Gold Kaviar, 200g",
+    "description": "",
+    "price": "969",
+    "product_size": "S",
+    "image": {
+      "$binary": {
+        "base64": "",
+        "subType": "00"
+      }
+    },
+    "image_content_type": "",
+    "packageTemplates": [],
+    "productCategories": [],
+    "_class": "ch.meinapero.domain.Product"
+  },
+  {
+    "_id": {
+      "$oid": "63ea5ce4ed52874e2a6b9b91"
+    },
+    "name": "Royal Premium Gold Kaviar, 500g",
+    "description": "",
+    "price": "2550",
+    "product_size": "S",
+    "packageTemplates": [],
+    "productCategories": [],
+    "_class": "ch.meinapero.domain.Product"
+  },
+  {
+    "_id": {
+      "$oid": "63ea5cf5ed52874e2a6b9b92"
+    },
+    "name": "Royal Premium Gold Kaviar, 1Kg",
+    "description": "",
+    "price": "4850",
+    "product_size": "S",
+    "packageTemplates": [],
+    "productCategories": [],
+    "_class": "ch.meinapero.domain.Product"
+  },
+  {
+    "_id": {
+      "$oid": "63ea5d74ed52874e2a6b9b93"
+    },
+    "name": "Kalte Fleischspezialitäten",
+    "description": "",
+    "price": "12",
+    "product_size": "S",
+    "packageTemplates": [],
+    "productCategories": [],
+    "_class": "ch.meinapero.domain.Product"
+  },
+  {
+    "_id": {
+      "$oid": "63ea5d93ed52874e2a6b9b94"
+    },
+    "name": "Kalte Fischspezialitäten",
+    "description": "",
+    "price": "9",
+    "product_size": "S",
+    "packageTemplates": [],
+    "productCategories": [],
+    "_class": "ch.meinapero.domain.Product"
+  },
+  {
+    "_id": {
+      "$oid": "63ea5dc2ed52874e2a6b9b95"
+    },
+    "name": "Käsespezialitäten",
+    "description": "",
+    "price": "15",
+    "product_size": "S",
+    "packageTemplates": [],
+    "productCategories": [],
+    "_class": "ch.meinapero.domain.Product"
+  },
+  {
+    "_id": {
+      "$oid": "63ea5e9ced52874e2a6b9b96"
+    },
+    "name": "Gemüse Crudités",
+    "description": "Saisonale Gemüses mit verschiedenen Saucen",
+    "price": "3",
+    "product_size": "S",
+    "packageTemplates": [],
+    "productCategories": [],
+    "_class": "ch.meinapero.domain.Product"
+  },
+  {
+    "_id": {
+      "$oid": "63ea5f01ed52874e2a6b9b97"
+    },
+    "name": "Vegirolle",
+    "description": "Rucola, Dörrtomate & Ricotta",
+    "price": "4",
+    "product_size": "S",
+    "packageTemplates": [],
+    "productCategories": [],
+    "_class": "ch.meinapero.domain.Product"
+  },
+  {
+    "_id": {
+      "$oid": "63ea5f5aed52874e2a6b9b98"
+    },
+    "name": "Saisonale Suppe",
+    "description": "Kalt oder warm",
+    "price": "3",
+    "product_size": "S",
+    "packageTemplates": [],
+    "productCategories": [],
+    "_class": "ch.meinapero.domain.Product"
+  },
+  {
+    "_id": {
+      "$oid": "63ea5f98ed52874e2a6b9b99"
+    },
+    "name": "Pulled Mushroom Sandwich",
+    "description": "Gezupfter Pilzaufstrich auf einem Roggenbrot ",
+    "price": "6",
+    "product_size": "S",
+    "packageTemplates": [],
+    "productCategories": [],
+    "_class": "ch.meinapero.domain.Product"
+  },
+  {
+    "_id": {
+      "$oid": "63ea5fdaed52874e2a6b9b9a"
+    },
+    "name": "Brotdips",
+    "description": "Brot mit verschiedenen Saucen zum selber schöpfen",
+    "price": "10",
+    "product_size": "S",
+    "packageTemplates": [],
+    "productCategories": [],
+    "_class": "ch.meinapero.domain.Product"
+  },
+  {
+    "_id": {
+      "$oid": "63ea6018ed52874e2a6b9b9b"
+    },
+    "name": "Pastrami Sandwich",
+    "description": "Sauerteigbrot mit sanftem Senf, Sauerkraut und Pastrami",
+    "price": "6",
+    "product_size": "S",
+    "packageTemplates": [],
+    "productCategories": [],
+    "_class": "ch.meinapero.domain.Product"
+  },
+  {
+    "_id": {
+      "$oid": "63ea6060ed52874e2a6b9b9c"
+    },
+    "name": "Roandbeef Sandwiche",
+    "description": "Roggenbrot mit auf den Punkt gegartem Roandbeef und Tartarsauce",
+    "price": "6",
+    "product_size": "S",
+    "packageTemplates": [],
+    "productCategories": [],
+    "_class": "ch.meinapero.domain.Product"
+  }
+]

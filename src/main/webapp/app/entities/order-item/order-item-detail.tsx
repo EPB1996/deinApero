@@ -45,15 +45,13 @@ export const OrderItemDetail = () => {
           </dt>
           <dd>{orderItemEntity.totalPrice}</dd>
           <dt>
-            <span id="status">
-              <Translate contentKey="meinAperoApp.orderItem.status">Status</Translate>
-            </span>
-          </dt>
-          <dd>{orderItemEntity.status}</dd>
-          <dt>
             <Translate contentKey="meinAperoApp.orderItem.product">Product</Translate>
           </dt>
           <dd>{orderItemEntity.product ? orderItemEntity.product.name : ''}</dd>
+          <dt>
+            <Translate contentKey="meinAperoApp.orderItem.user">User</Translate>
+          </dt>
+          <dd>{orderItemEntity.user ? orderItemEntity.user.login : ''}</dd>
           <dt>
             <Translate contentKey="meinAperoApp.orderItem.order">Order</Translate>
           </dt>

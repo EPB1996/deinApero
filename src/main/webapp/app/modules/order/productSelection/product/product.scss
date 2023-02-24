@@ -1,34 +1,39 @@
+@import '../../../../styles/ribbon.css';
+
 .hidden {
   display: none;
-  padding: 20px 0 20px 20px !important;
+  padding: 5px;
 }
 
 .show {
   display: block;
-  padding: 20px 0 20px 20px !important;
+  padding: 5px;
 }
-.productRibbon {
-  background-color: rgba(6, 120, 28, 0.5);
-  left: -5em;
-  -moz-transform: rotate(-45deg);
-  -ms-transform: rotate(-45deg);
-  -o-transform: rotate(-45deg);
-  -webkit-transform: rotate(-45deg);
-  transform: rotate(-45deg);
-  overflow: hidden;
-  position: absolute;
-  top: 20px;
-  white-space: nowrap;
-  width: 15em;
-  pointer-events: none;
-  opacity: 0.75;
-  span {
-    color: #fff;
-    display: block;
-    font-weight: 400;
-    text-align: center;
-    text-decoration: none;
-    text-shadow: 0 0 5px #444;
-    pointer-events: none;
+
+.modal-backdrop {
+  --bs-backdrop-opacity: 0.7;
+}
+
+.overlay {
+  animation-duration: 0.25s;
+  animation-iteration-count: 3;
+  transform-origin: center;
+  transition: font-size 3s;
+}
+
+.overlay:hover {
+  cursor: pointer;
+  animation-name: bounce;
+  animation-timing-function: ease;
+}
+@keyframes bounce {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(-10px);
+  }
+  100% {
+    transform: translateX(0);
   }
 }

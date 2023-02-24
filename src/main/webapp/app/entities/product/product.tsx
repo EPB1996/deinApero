@@ -120,9 +120,6 @@ export const Product = () => {
                 <th className="hand" onClick={sort('image')}>
                   <Translate contentKey="meinAperoApp.product.image">Image</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
-                <th>
-                  <Translate contentKey="meinAperoApp.product.productCategory">Product Category</Translate> <FontAwesomeIcon icon="sort" />
-                </th>
                 <th />
               </tr>
             </thead>
@@ -154,13 +151,6 @@ export const Product = () => {
                         </span>
                       </div>
                     ) : null}
-                  </td>
-                  <td>
-                    {product.productCategory ? (
-                      <Link to={`/product-category/${product.productCategory.id}`}>{product.productCategory.name}</Link>
-                    ) : (
-                      ''
-                    )}
                   </td>
                   <td className="text-end">
                     <div className="btn-group flex-btn-group-container">

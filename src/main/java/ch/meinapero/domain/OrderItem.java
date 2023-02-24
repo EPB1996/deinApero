@@ -1,6 +1,5 @@
 package ch.meinapero.domain;
 
-import ch.meinapero.domain.enumeration.OrderItemStatus;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -31,16 +30,15 @@ public class OrderItem implements Serializable {
     @Field("total_price")
     private BigDecimal totalPrice;
 
-    @NotNull(message = "must not be null")
-    @Field("status")
-    private OrderItemStatus status;
-
     @Field("product")
-    @JsonIgnoreProperties(value = { "productCategory", "packageTemplates" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "packageTemplates", "productCategories" }, allowSetters = true)
     private Product product;
 
+    @Field("user")
+    private User user;
+
     @Field("order")
-    @JsonIgnoreProperties(value = { "packageType", "orderItems", "customer" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "packageType", "orderItems", "user", "customer" }, allowSetters = true)
     private Order order;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
@@ -84,19 +82,6 @@ public class OrderItem implements Serializable {
         this.totalPrice = totalPrice;
     }
 
-    public OrderItemStatus getStatus() {
-        return this.status;
-    }
-
-    public OrderItem status(OrderItemStatus status) {
-        this.setStatus(status);
-        return this;
-    }
-
-    public void setStatus(OrderItemStatus status) {
-        this.status = status;
-    }
-
     public Product getProduct() {
         return this.product;
     }
@@ -107,6 +92,19 @@ public class OrderItem implements Serializable {
 
     public OrderItem product(Product product) {
         this.setProduct(product);
+        return this;
+    }
+
+    public User getUser() {
+        return this.user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public OrderItem user(User user) {
+        this.setUser(user);
         return this;
     }
 
@@ -149,7 +147,6 @@ public class OrderItem implements Serializable {
             "id=" + getId() +
             ", quantity=" + getQuantity() +
             ", totalPrice=" + getTotalPrice() +
-            ", status='" + getStatus() + "'" +
             "}";
     }
 }

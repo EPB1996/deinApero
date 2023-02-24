@@ -2,13 +2,19 @@ import { createSlice } from '@reduxjs/toolkit';
 import { IProduct } from 'app/shared/model/product.model';
 
 export interface ProductObject {
-  wein: Array<string>;
-  kaviar: Array<string>;
+  Champagne: {};
+  Austern: {};
+  Kaviar: {};
+  Platten: {};
+  Vegetarisch: {};
 }
 
 const initialState: ProductObject = {
-  wein: [],
-  kaviar: [],
+  Champagne: {},
+  Austern: {},
+  Kaviar: {},
+  Platten: {},
+  Vegetarisch: {},
 };
 
 export const ProductSlice = createSlice({
@@ -16,28 +22,32 @@ export const ProductSlice = createSlice({
   initialState,
   reducers: {
     addProduct(state, data) {
-      if (data.payload.productCategory.name === 'Wein' && !state.wein.includes(data.payload.id)) {
-        state.wein.push(data.payload.id);
-      } else if (data.payload.productCategory.name === 'Kaviar' && !state.kaviar.includes(data.payload.id)) {
-        state.kaviar.push(data.payload.id);
+      const addedProductIds = Object.keys(state[data.payload.productCategory]);
+      if (addedProductIds.includes(data.payload.product.id)) {
+        state[data.payload.productCategory][data.payload.product.id].amount += 1;
+      } else {
+        const firstTimeAdd = { amount: 1, product: data.payload.product };
+        state[data.payload.productCategory][data.payload.product.id] = firstTimeAdd;
       }
     },
     removeProduct(state, data) {
-      if (data.payload.productCategory.name === 'Wein' && state.wein.includes(data.payload.id)) {
-        const index = state.wein.indexOf(data.payload.id);
-        if (index > -1) {
-          state.wein.splice(index, 1);
-        }
-      } else if (data.payload.productCategory.name === 'Kaviar' && state.kaviar.includes(data.payload.id)) {
-        const index = state.kaviar.indexOf(data.payload.id);
-        if (index > -1) {
-          state.kaviar.splice(index, 1);
+      const addedProductIds = Object.keys(state[data.payload.productCategory]);
+      if (addedProductIds.includes(data.payload.product.id)) {
+        if (state[data.payload.productCategory][data.payload.product.id].amount === 1) {
+          delete state[data.payload.productCategory][data.payload.product.id];
+        } else {
+          state[data.payload.productCategory][data.payload.product.id].amount -= 1;
         }
       }
+    },
+    reset(state) {
+      Object.keys(state).map(key => {
+        state[key] = [];
+      });
     },
   },
 });
 
-export const { addProduct, removeProduct } = ProductSlice.actions;
+export const { addProduct, removeProduct, reset } = ProductSlice.actions;
 
 export default ProductSlice.reducer;

@@ -1,6 +1,7 @@
 package ch.meinapero.repository;
 
 import ch.meinapero.domain.Customer;
+import ch.meinapero.domain.User;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.data.mongodb.repository.ReactiveMongoRepository;

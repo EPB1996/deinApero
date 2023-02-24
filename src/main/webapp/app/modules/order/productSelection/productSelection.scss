@@ -1,8 +1,33 @@
-/* .productItem {
-  padding: 20px 0 20px 20px !important;
-}
- */
-
 .productItem {
-  padding: 20px 0 20px 20px !important;
+  display: flex;
+  padding-bottom: 10px;
+}
+
+#carousel.show {
+  visibility: 1;
+}
+
+#carousel.hidden {
+  opacity: 0;
+}
+
+#carousel {
+  opacity: 1;
+  transition: opacity 6s;
+}
+
+.product-scrolling {
+  overflow-x: hidden;
+  overflow-y: auto;
+  height: 100%;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.product-scrolling::-webkit-scrollbar {
+  display: none;
+}
+
+.productRow {
+  padding-bottom: 5px;
 }

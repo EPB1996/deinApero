@@ -10,6 +10,8 @@ import { useAppDispatch, useAppSelector } from 'app/config/store';
 
 import { IPackageType } from 'app/shared/model/package-type.model';
 import { getEntities as getPackageTypes } from 'app/entities/package-type/package-type.reducer';
+import { IUser } from 'app/shared/model/user.model';
+import { getUsers } from 'app/modules/administration/user-management/user-management.reducer';
 import { ICustomer } from 'app/shared/model/customer.model';
 import { getEntities as getCustomers } from 'app/entities/customer/customer.reducer';
 import { IOrder } from 'app/shared/model/order.model';
@@ -25,6 +27,7 @@ export const OrderUpdate = () => {
   const isNew = id === undefined;
 
   const packageTypes = useAppSelector(state => state.packageType.entities);
+  const users = useAppSelector(state => state.userManagement.users);
   const customers = useAppSelector(state => state.customer.entities);
   const orderEntity = useAppSelector(state => state.order.entity);
   const loading = useAppSelector(state => state.order.loading);
@@ -44,6 +47,7 @@ export const OrderUpdate = () => {
     }
 
     dispatch(getPackageTypes({}));
+    dispatch(getUsers({}));
     dispatch(getCustomers({}));
   }, []);
 
@@ -60,6 +64,7 @@ export const OrderUpdate = () => {
       ...orderEntity,
       ...values,
       packageType: packageTypes.find(it => it.id.toString() === values.packageType.toString()),
+      user: users.find(it => it.id.toString() === values.user.toString()),
       customer: customers.find(it => it.id.toString() === values.customer.toString()),
     };
 
@@ -80,6 +85,7 @@ export const OrderUpdate = () => {
           ...orderEntity,
           placedDate: convertDateTimeFromServer(orderEntity.placedDate),
           packageType: orderEntity?.packageType?.id,
+          user: orderEntity?.user?.id,
           customer: orderEntity?.customer?.id,
         };
 
@@ -137,13 +143,6 @@ export const OrderUpdate = () => {
                 }}
               />
               <ValidatedField
-                label={translate('meinAperoApp.order.invoiceId')}
-                id="order-invoiceId"
-                name="invoiceId"
-                data-cy="invoiceId"
-                type="text"
-              />
-              <ValidatedField
                 id="order-packageType"
                 name="packageType"
                 data-cy="packageType"
@@ -159,6 +158,26 @@ export const OrderUpdate = () => {
                     ))
                   : null}
               </ValidatedField>
+              <ValidatedField
+                id="order-user"
+                name="user"
+                data-cy="user"
+                label={translate('meinAperoApp.order.user')}
+                type="select"
+                required
+              >
+                <option value="" key="0" />
+                {users
+                  ? users.map(otherEntity => (
+                      <option value={otherEntity.id} key={otherEntity.id}>
+                        {otherEntity.login}
+                      </option>
+                    ))
+                  : null}
+              </ValidatedField>
+              <FormText>
+                <Translate contentKey="entity.validation.required">This field is required.</Translate>
+              </FormText>
               <ValidatedField
                 id="order-customer"
                 name="customer"

@@ -1,0 +1,40 @@
+{
+  "custom": {
+    "orderCard": {
+      "title": "Platzieren Sie ihre Bestellung",
+      "description": "Wähle von verschiednen Produkten und beginne die Party!",
+      "order": "Bestellen"
+    },
+    "stepper": {
+      "guestLabel": "Gäste",
+      "productSelectionLabel": "Auswahl",
+      "overviewLabel": "Checkout"
+    },
+    "guest": {
+      "title": "Anzahl Gäste",
+      "confirmation": "Bestätigen"
+    },
+    "productCategory": {
+      "Champagne": "Champagne",
+      "Austern": "Austern",
+      "Kaviar": "Kaviar",
+      "Platten": "Platten",
+      "Vegetarisch": "Vegetarisch"
+    },
+    "productItem": {
+      "added": "Hinzugefügt",
+      "add": "Hinzfügen",
+      "remove": "Entfernen"
+    },
+    "overview": {
+      "name": "Name",
+      "address": "Adresse",
+      "contact": "Kontakt",
+      "changeButton": "Ändere Information",
+      "submitButton": "Bestellen",
+      "selectionTitle": "Auswahl",
+      "total": "Total",
+      "totalPerPerson": "Total pro Person"
+    }
+  }
+}

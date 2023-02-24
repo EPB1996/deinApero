@@ -1,10 +1,13 @@
 package ch.meinapero.service;
 
 import ch.meinapero.domain.Customer;
+import ch.meinapero.domain.User;
 import ch.meinapero.repository.CustomerRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -78,11 +81,11 @@ public class CustomerService {
                 if (customer.getAddressLine2() != null) {
                     existingCustomer.setAddressLine2(customer.getAddressLine2());
                 }
+                if (customer.getZip() != null) {
+                    existingCustomer.setZip(customer.getZip());
+                }
                 if (customer.getCity() != null) {
                     existingCustomer.setCity(customer.getCity());
-                }
-                if (customer.getCountry() != null) {
-                    existingCustomer.setCountry(customer.getCountry());
                 }
 
                 return existingCustomer;
@@ -127,6 +130,7 @@ public class CustomerService {
      */
     public Mono<Customer> findOne(String id) {
         log.debug("Request to get Customer : {}", id);
+
         return customerRepository.findOneWithEagerRelationships(id);
     }
 

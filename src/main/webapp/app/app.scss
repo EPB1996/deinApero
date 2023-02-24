@@ -5,6 +5,9 @@
 @import '~bootswatch/dist/quartz/bootswatch';
 body {
   margin: 0;
+  height: 100vh;
+
+  background-image: linear-gradient(90deg, #c19b6a, #dfbd6e, #c19b6a) !important;
 }
 
 a {
@@ -24,20 +27,24 @@ a {
 
 .app-container {
   box-sizing: border-box;
+  height: 100vh;
   .view-container {
     width: 100%;
-    height: calc(100% - 40px);
+    height: calc(100%);
     overflow-y: auto;
     overflow-x: hidden;
-    padding: 1rem;
+    padding: 0 !important;
+    /*  padding: 1rem; */
     .card {
+      box-shadow: none;
       padding: 1rem;
     }
     .view-routes {
       height: 100%;
-      > div {
+
+      /*  > div {
         height: 100%;
-      }
+      } */
     }
   }
 }
@@ -95,7 +102,7 @@ Generic styles
 /* other generic styles */
 
 .title {
-  font-size: 1.25em;
+  font-size: 2rem;
   margin: 1px 10px 1px 10px;
 }
 

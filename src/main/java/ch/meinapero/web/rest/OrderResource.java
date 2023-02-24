@@ -2,6 +2,7 @@ package ch.meinapero.web.rest;
 
 import ch.meinapero.domain.Order;
 import ch.meinapero.repository.OrderRepository;
+import ch.meinapero.security.AuthoritiesConstants;
 import ch.meinapero.service.OrderService;
 import ch.meinapero.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
@@ -23,6 +24,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.server.reactive.ServerHttpRequest;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.CurrentSecurityContext;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -178,6 +181,7 @@ public class OrderResource {
      */
     @GetMapping("/orders")
     public Mono<ResponseEntity<List<Order>>> getAllOrders(
+        @CurrentSecurityContext(expression = "authentication") Authentication authentication,
         @org.springdoc.api.annotations.ParameterObject Pageable pageable,
         ServerHttpRequest request,
         @RequestParam(required = false, defaultValue = "false") boolean eagerload
@@ -185,7 +189,20 @@ public class OrderResource {
         log.debug("REST request to get a page of Orders");
         return orderService
             .countAll()
-            .zipWith(orderService.findAll(pageable).collectList())
+            .zipWith(
+                orderService
+                    .findAll(pageable)
+                    .filter(order -> {
+                        System.out.println(order);
+                        System.out.println(authentication);
+                        if (authentication.getAuthorities().stream().anyMatch(ga -> ga.getAuthority().equals(AuthoritiesConstants.ADMIN))) {
+                            return true;
+                        } else {
+                            return order.getCustomer().getUser().getLogin().equals(authentication.getName());
+                        }
+                    })
+                    .collectList()
+            )
             .map(countWithEntities ->
                 ResponseEntity
                     .ok()

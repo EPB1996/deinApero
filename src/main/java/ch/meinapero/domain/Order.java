@@ -35,15 +35,15 @@ public class Order implements Serializable {
     @Field("code")
     private String code;
 
-    @Field("invoice_id")
-    private Long invoiceId;
-
     @Field("packageType")
     private PackageType packageType;
 
     @Field("orderItem")
-    @JsonIgnoreProperties(value = { "product", "order" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "product", "user", "order" }, allowSetters = true)
     private Set<OrderItem> orderItems = new HashSet<>();
+
+    @Field("user")
+    private User user;
 
     @Field("customer")
     @JsonIgnoreProperties(value = { "user", "orders" }, allowSetters = true)
@@ -103,19 +103,6 @@ public class Order implements Serializable {
         this.code = code;
     }
 
-    public Long getInvoiceId() {
-        return this.invoiceId;
-    }
-
-    public Order invoiceId(Long invoiceId) {
-        this.setInvoiceId(invoiceId);
-        return this;
-    }
-
-    public void setInvoiceId(Long invoiceId) {
-        this.invoiceId = invoiceId;
-    }
-
     public PackageType getPackageType() {
         return this.packageType;
     }
@@ -160,6 +147,19 @@ public class Order implements Serializable {
         return this;
     }
 
+    public User getUser() {
+        return this.user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Order user(User user) {
+        this.setUser(user);
+        return this;
+    }
+
     public Customer getCustomer() {
         return this.customer;
     }
@@ -200,7 +200,6 @@ public class Order implements Serializable {
             ", placedDate='" + getPlacedDate() + "'" +
             ", status='" + getStatus() + "'" +
             ", code='" + getCode() + "'" +
-            ", invoiceId=" + getInvoiceId() +
             "}";
     }
 }

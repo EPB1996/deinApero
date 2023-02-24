@@ -42,12 +42,12 @@
       "fieldType": "String"
     },
     {
-      "fieldName": "city",
-      "fieldType": "String",
+      "fieldName": "zip",
+      "fieldType": "Long",
       "fieldValidateRules": ["required"]
     },
     {
-      "fieldName": "country",
+      "fieldName": "city",
       "fieldType": "String",
       "fieldValidateRules": ["required"]
     }

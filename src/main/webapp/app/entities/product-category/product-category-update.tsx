@@ -8,6 +8,8 @@ import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateT
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
+import { IProduct } from 'app/shared/model/product.model';
+import { getEntities as getProducts } from 'app/entities/product/product.reducer';
 import { IProductCategory } from 'app/shared/model/product-category.model';
 import { getEntity, updateEntity, createEntity, reset } from './product-category.reducer';
 
@@ -19,6 +21,7 @@ export const ProductCategoryUpdate = () => {
   const { id } = useParams<'id'>();
   const isNew = id === undefined;
 
+  const products = useAppSelector(state => state.product.entities);
   const productCategoryEntity = useAppSelector(state => state.productCategory.entity);
   const loading = useAppSelector(state => state.productCategory.loading);
   const updating = useAppSelector(state => state.productCategory.updating);
@@ -34,6 +37,8 @@ export const ProductCategoryUpdate = () => {
     } else {
       dispatch(getEntity(id));
     }
+
+    dispatch(getProducts({}));
   }, []);
 
   useEffect(() => {
@@ -46,6 +51,9 @@ export const ProductCategoryUpdate = () => {
     const entity = {
       ...productCategoryEntity,
       ...values,
+      products: products.filter((product: IProduct) => {
+        return Array.from(values.products).includes(product.id);
+      }),
     };
 
     if (isNew) {
@@ -60,6 +68,7 @@ export const ProductCategoryUpdate = () => {
       ? {}
       : {
           ...productCategoryEntity,
+          products: productCategoryEntity?.products?.map(e => e.id.toString()),
         };
 
   return (
@@ -104,6 +113,23 @@ export const ProductCategoryUpdate = () => {
                 data-cy="description"
                 type="text"
               />
+              <ValidatedField
+                label={translate('meinAperoApp.productCategory.product')}
+                id="product-category-product"
+                data-cy="product"
+                type="select"
+                multiple
+                name="products"
+              >
+                <option value="" key="0" />
+                {products
+                  ? products.map(otherEntity => (
+                      <option value={otherEntity.id} key={otherEntity.id}>
+                        {otherEntity.name}
+                      </option>
+                    ))
+                  : null}
+              </ValidatedField>
               <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/product-category" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;

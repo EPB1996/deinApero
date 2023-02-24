@@ -8,10 +8,10 @@ import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateT
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
-import { IProductCategory } from 'app/shared/model/product-category.model';
-import { getEntities as getProductCategories } from 'app/entities/product-category/product-category.reducer';
 import { IPackageTemplate } from 'app/shared/model/package-template.model';
 import { getEntities as getPackageTemplates } from 'app/entities/package-template/package-template.reducer';
+import { IProductCategory } from 'app/shared/model/product-category.model';
+import { getEntities as getProductCategories } from 'app/entities/product-category/product-category.reducer';
 import { IProduct } from 'app/shared/model/product.model';
 import { Size } from 'app/shared/model/enumerations/size.model';
 import { getEntity, updateEntity, createEntity, reset } from './product.reducer';
@@ -24,8 +24,8 @@ export const ProductUpdate = () => {
   const { id } = useParams<'id'>();
   const isNew = id === undefined;
 
-  const productCategories = useAppSelector(state => state.productCategory.entities);
   const packageTemplates = useAppSelector(state => state.packageTemplate.entities);
+  const productCategories = useAppSelector(state => state.productCategory.entities);
   const productEntity = useAppSelector(state => state.product.entity);
   const loading = useAppSelector(state => state.product.loading);
   const updating = useAppSelector(state => state.product.updating);
@@ -43,8 +43,8 @@ export const ProductUpdate = () => {
       dispatch(getEntity(id));
     }
 
-    dispatch(getProductCategories({}));
     dispatch(getPackageTemplates({}));
+    dispatch(getProductCategories({}));
   }, []);
 
   useEffect(() => {
@@ -57,7 +57,6 @@ export const ProductUpdate = () => {
     const entity = {
       ...productEntity,
       ...values,
-      productCategory: productCategories.find(it => it.id.toString() === values.productCategory.toString()),
     };
 
     if (isNew) {
@@ -73,7 +72,6 @@ export const ProductUpdate = () => {
       : {
           productSize: 'S',
           ...productEntity,
-          productCategory: productEntity?.productCategory?.id,
         };
 
   return (
@@ -151,22 +149,6 @@ export const ProductUpdate = () => {
                 isImage
                 accept="image/*"
               />
-              <ValidatedField
-                id="product-productCategory"
-                name="productCategory"
-                data-cy="productCategory"
-                label={translate('meinAperoApp.product.productCategory')}
-                type="select"
-              >
-                <option value="" key="0" />
-                {productCategories
-                  ? productCategories.map(otherEntity => (
-                      <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.name}
-                      </option>
-                    ))
-                  : null}
-              </ValidatedField>
               <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/product" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;

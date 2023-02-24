@@ -20,10 +20,6 @@
       "fieldName": "code",
       "fieldType": "String",
       "fieldValidateRules": ["required"]
-    },
-    {
-      "fieldName": "invoiceId",
-      "fieldType": "Long"
     }
   ],
   "fluentMethods": true,
@@ -44,6 +40,13 @@
       "otherEntityRelationshipName": "order",
       "relationshipName": "orderItem",
       "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityField": "login",
+      "otherEntityName": "user",
+      "relationshipName": "user",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
     },
     {
       "otherEntityField": "email",

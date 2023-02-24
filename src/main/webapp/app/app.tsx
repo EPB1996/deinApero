@@ -19,6 +19,10 @@ import { AUTHORITIES } from 'app/config/constants';
 import AppRoutes from 'app/routes';
 import { getEntities as getPackageTemplates } from './entities/package-template/package-template.reducer';
 import { getEntities as getPackageTypes } from './entities/package-type/package-type.reducer';
+import { getEntities as getPackageCategories } from './entities/product-category/product-category.reducer';
+import { getEntities as getProducts } from './entities/product/product.reducer';
+import { getEntities as getCustomersInfo } from './entities/customer/customer.reducer';
+import { getEntities as getOrders } from './entities/order/order.reducer';
 
 const baseHref = document.querySelector('base').getAttribute('href').replace(/\/$/, '');
 
@@ -26,10 +30,14 @@ export const App = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(getSession());
+    /*  dispatch(getSession()); */
     dispatch(getProfile());
-    dispatch(getPackageTemplates({}));
-    dispatch(getPackageTypes({}));
+    /* dispatch(getPackageTemplates({})); */
+    /* dispatch(getPackageTypes({})); */
+    /* dispatch(getCustomersInfo({}));
+    dispatch(getOrders({})); */
+    dispatch(getPackageCategories({}));
+    dispatch(getProducts({}));
   }, []);
 
   const currentLocale = useAppSelector(state => state.locale.currentLocale);
@@ -44,6 +52,7 @@ export const App = () => {
     <BrowserRouter basename={baseHref}>
       <div className="app-container" style={{ paddingTop }}>
         <ToastContainer position={toast.POSITION.TOP_LEFT} className="toastify-container" toastClassName="toastify-toast" />
+
         <ErrorBoundary>
           <Header
             isAuthenticated={isAuthenticated}
@@ -54,6 +63,7 @@ export const App = () => {
             isOpenAPIEnabled={isOpenAPIEnabled}
           />
         </ErrorBoundary>
+
         <div className="container-fluid view-container" id="app-view-container">
           <ErrorBoundary>
             <AppRoutes />

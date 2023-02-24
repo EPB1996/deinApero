@@ -4,6 +4,7 @@ import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { login } from 'app/shared/reducers/authentication';
 import LoginModal from './login-modal';
+import { getEntities as getOrdersOfCustomer } from 'app/entities/order/order.reducer';
 
 export const Login = () => {
   const dispatch = useAppDispatch();
@@ -18,11 +19,12 @@ export const Login = () => {
     setShowModal(true);
   }, []);
 
-  const handleLogin = (username, password, rememberMe = false) => dispatch(login(username, password, rememberMe));
+  const handleLogin = (username, password, rememberMe = false) => {
+    dispatch(login(username, password, rememberMe));
+  };
 
   const handleClose = () => {
     setShowModal(false);
-    navigate('/');
   };
 
   const { from } = (location.state as any) || { from: { pathname: '/', search: location.search } };

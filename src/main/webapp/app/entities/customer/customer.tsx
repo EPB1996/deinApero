@@ -126,11 +126,11 @@ export const Customer = () => {
                 <th className="hand" onClick={sort('addressLine2')}>
                   <Translate contentKey="meinAperoApp.customer.addressLine2">Address Line 2</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
+                <th className="hand" onClick={sort('zip')}>
+                  <Translate contentKey="meinAperoApp.customer.zip">Zip</Translate> <FontAwesomeIcon icon="sort" />
+                </th>
                 <th className="hand" onClick={sort('city')}>
                   <Translate contentKey="meinAperoApp.customer.city">City</Translate> <FontAwesomeIcon icon="sort" />
-                </th>
-                <th className="hand" onClick={sort('country')}>
-                  <Translate contentKey="meinAperoApp.customer.country">Country</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
                 <th>
                   <Translate contentKey="meinAperoApp.customer.user">User</Translate> <FontAwesomeIcon icon="sort" />
@@ -155,8 +155,8 @@ export const Customer = () => {
                   <td>{customer.phone}</td>
                   <td>{customer.addressLine1}</td>
                   <td>{customer.addressLine2}</td>
+                  <td>{customer.zip}</td>
                   <td>{customer.city}</td>
-                  <td>{customer.country}</td>
                   <td>{customer.user ? customer.user.login : ''}</td>
                   <td className="text-end">
                     <div className="btn-group flex-btn-group-container">

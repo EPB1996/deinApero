@@ -75,17 +75,17 @@ export const CustomerDetail = () => {
           </dt>
           <dd>{customerEntity.addressLine2}</dd>
           <dt>
+            <span id="zip">
+              <Translate contentKey="meinAperoApp.customer.zip">Zip</Translate>
+            </span>
+          </dt>
+          <dd>{customerEntity.zip}</dd>
+          <dt>
             <span id="city">
               <Translate contentKey="meinAperoApp.customer.city">City</Translate>
             </span>
           </dt>
           <dd>{customerEntity.city}</dd>
-          <dt>
-            <span id="country">
-              <Translate contentKey="meinAperoApp.customer.country">Country</Translate>
-            </span>
-          </dt>
-          <dd>{customerEntity.country}</dd>
           <dt>
             <Translate contentKey="meinAperoApp.customer.user">User</Translate>
           </dt>

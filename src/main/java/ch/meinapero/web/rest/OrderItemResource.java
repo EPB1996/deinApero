@@ -2,6 +2,7 @@ package ch.meinapero.web.rest;
 
 import ch.meinapero.domain.OrderItem;
 import ch.meinapero.repository.OrderItemRepository;
+import ch.meinapero.security.AuthoritiesConstants;
 import ch.meinapero.service.OrderItemService;
 import ch.meinapero.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
@@ -23,6 +24,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.server.reactive.ServerHttpRequest;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.CurrentSecurityContext;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -178,6 +181,7 @@ public class OrderItemResource {
      */
     @GetMapping("/order-items")
     public Mono<ResponseEntity<List<OrderItem>>> getAllOrderItems(
+        @CurrentSecurityContext(expression = "authentication") Authentication authentication,
         @org.springdoc.api.annotations.ParameterObject Pageable pageable,
         ServerHttpRequest request,
         @RequestParam(required = false, defaultValue = "false") boolean eagerload
@@ -185,7 +189,18 @@ public class OrderItemResource {
         log.debug("REST request to get a page of OrderItems");
         return orderItemService
             .countAll()
-            .zipWith(orderItemService.findAll(pageable).collectList())
+            .zipWith(
+                orderItemService
+                    .findAll(pageable)
+                    .filter(orderItem -> {
+                        if (authentication.getAuthorities().stream().anyMatch(ga -> ga.getAuthority().equals(AuthoritiesConstants.ADMIN))) {
+                            return true;
+                        } else {
+                            return orderItem.getUser().getLogin().equals(authentication.getName());
+                        }
+                    })
+                    .collectList()
+            )
             .map(countWithEntities ->
                 ResponseEntity
                     .ok()

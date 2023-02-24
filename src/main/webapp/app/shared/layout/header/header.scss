@@ -5,7 +5,7 @@ $header-color-hover: darken($header-color, 20%);
 /* ==========================================================================
 Developement Ribbon
 ========================================================================== */
-.ribbon {
+/* .ribbon {
   background-color: rgba(170, 0, 0, 0.5);
   left: -3.5em;
   -moz-transform: rotate(-45deg);
@@ -32,7 +32,7 @@ Developement Ribbon
     text-shadow: 0 0 5px #444;
     pointer-events: none;
   }
-}
+} */
 
 /* ==========================================================================
 Navbar styles
@@ -53,6 +53,7 @@ Navbar styles
 }
 
 .brand-logo {
+  background-color: transparent;
   &:hover {
     text-decoration: none;
   }
@@ -67,11 +68,19 @@ Navbar styles
 }
 
 .brand-title {
-  font-size: 24px;
-  color: $header-color;
+  font-size: 3rem;
+  text-transform: uppercase;
+  font-family: 'Gambetta', serif;
+  letter-spacing: -3px;
+  transition: 700ms ease;
+  font-variation-settings: 'wght' 311;
+  margin-bottom: 0.8rem;
+  color: PaleGoldenRod;
+  outline: none;
+  text-align: center;
   &:hover {
-    color: $header-color-hover;
-    text-decoration: none;
+    font-variation-settings: 'wght' 582;
+    letter-spacing: 1px;
   }
 }
 

@@ -89,16 +89,7 @@ public class ProductService {
      */
     public Flux<Product> findAll(Pageable pageable) {
         log.debug("Request to get all Products");
-        return productRepository.findAllBy(pageable);
-    }
-
-    /**
-     * Get all the products with eager load of many-to-many relationships.
-     *
-     * @return the list of entities.
-     */
-    public Flux<Product> findAllWithEagerRelationships(Pageable pageable) {
-        return productRepository.findAllWithEagerRelationships(pageable);
+        return productRepository.findAll();
     }
 
     /**
@@ -118,7 +109,7 @@ public class ProductService {
      */
     public Mono<Product> findOne(String id) {
         log.debug("Request to get Product : {}", id);
-        return productRepository.findOneWithEagerRelationships(id);
+        return productRepository.findById(id);
     }
 
     /**

@@ -66,9 +66,6 @@ public class OrderService {
                 if (order.getCode() != null) {
                     existingOrder.setCode(order.getCode());
                 }
-                if (order.getInvoiceId() != null) {
-                    existingOrder.setInvoiceId(order.getInvoiceId());
-                }
 
                 return existingOrder;
             })

@@ -10,7 +10,7 @@ import ch.meinapero.IntegrationTest;
 import ch.meinapero.domain.Order;
 import ch.meinapero.domain.OrderItem;
 import ch.meinapero.domain.Product;
-import ch.meinapero.domain.enumeration.OrderItemStatus;
+import ch.meinapero.domain.User;
 import ch.meinapero.repository.OrderItemRepository;
 import ch.meinapero.service.OrderItemService;
 import java.math.BigDecimal;
@@ -48,9 +48,6 @@ class OrderItemResourceIT {
     private static final BigDecimal DEFAULT_TOTAL_PRICE = new BigDecimal(0);
     private static final BigDecimal UPDATED_TOTAL_PRICE = new BigDecimal(1);
 
-    private static final OrderItemStatus DEFAULT_STATUS = OrderItemStatus.AVAILABLE;
-    private static final OrderItemStatus UPDATED_STATUS = OrderItemStatus.OUT_OF_STOCK;
-
     private static final String ENTITY_API_URL = "/api/order-items";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
 
@@ -75,12 +72,16 @@ class OrderItemResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static OrderItem createEntity() {
-        OrderItem orderItem = new OrderItem().quantity(DEFAULT_QUANTITY).totalPrice(DEFAULT_TOTAL_PRICE).status(DEFAULT_STATUS);
+        OrderItem orderItem = new OrderItem().quantity(DEFAULT_QUANTITY).totalPrice(DEFAULT_TOTAL_PRICE);
         // Add required entity
         Product product;
         product = ProductResourceIT.createEntity();
         product.setId("fixed-id-for-tests");
         orderItem.setProduct(product);
+        // Add required entity
+        User user = UserResourceIT.createEntity();
+        user.setId("fixed-id-for-tests");
+        orderItem.setUser(user);
         // Add required entity
         Order order;
         order = OrderResourceIT.createEntity();
@@ -96,12 +97,16 @@ class OrderItemResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static OrderItem createUpdatedEntity() {
-        OrderItem orderItem = new OrderItem().quantity(UPDATED_QUANTITY).totalPrice(UPDATED_TOTAL_PRICE).status(UPDATED_STATUS);
+        OrderItem orderItem = new OrderItem().quantity(UPDATED_QUANTITY).totalPrice(UPDATED_TOTAL_PRICE);
         // Add required entity
         Product product;
         product = ProductResourceIT.createUpdatedEntity();
         product.setId("fixed-id-for-tests");
         orderItem.setProduct(product);
+        // Add required entity
+        User user = UserResourceIT.createEntity();
+        user.setId("fixed-id-for-tests");
+        orderItem.setUser(user);
         // Add required entity
         Order order;
         order = OrderResourceIT.createUpdatedEntity();
@@ -135,7 +140,6 @@ class OrderItemResourceIT {
         OrderItem testOrderItem = orderItemList.get(orderItemList.size() - 1);
         assertThat(testOrderItem.getQuantity()).isEqualTo(DEFAULT_QUANTITY);
         assertThat(testOrderItem.getTotalPrice()).isEqualByComparingTo(DEFAULT_TOTAL_PRICE);
-        assertThat(testOrderItem.getStatus()).isEqualTo(DEFAULT_STATUS);
     }
 
     @Test
@@ -203,27 +207,6 @@ class OrderItemResourceIT {
     }
 
     @Test
-    void checkStatusIsRequired() throws Exception {
-        int databaseSizeBeforeTest = orderItemRepository.findAll().collectList().block().size();
-        // set the field null
-        orderItem.setStatus(null);
-
-        // Create the OrderItem, which fails.
-
-        webTestClient
-            .post()
-            .uri(ENTITY_API_URL)
-            .contentType(MediaType.APPLICATION_JSON)
-            .bodyValue(TestUtil.convertObjectToJsonBytes(orderItem))
-            .exchange()
-            .expectStatus()
-            .isBadRequest();
-
-        List<OrderItem> orderItemList = orderItemRepository.findAll().collectList().block();
-        assertThat(orderItemList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
     void getAllOrderItems() {
         // Initialize the database
         orderItemRepository.save(orderItem).block();
@@ -244,9 +227,7 @@ class OrderItemResourceIT {
             .jsonPath("$.[*].quantity")
             .value(hasItem(DEFAULT_QUANTITY))
             .jsonPath("$.[*].totalPrice")
-            .value(hasItem(sameNumber(DEFAULT_TOTAL_PRICE)))
-            .jsonPath("$.[*].status")
-            .value(hasItem(DEFAULT_STATUS.toString()));
+            .value(hasItem(sameNumber(DEFAULT_TOTAL_PRICE)));
     }
 
     @SuppressWarnings({ "unchecked" })
@@ -287,9 +268,7 @@ class OrderItemResourceIT {
             .jsonPath("$.quantity")
             .value(is(DEFAULT_QUANTITY))
             .jsonPath("$.totalPrice")
-            .value(is(sameNumber(DEFAULT_TOTAL_PRICE)))
-            .jsonPath("$.status")
-            .value(is(DEFAULT_STATUS.toString()));
+            .value(is(sameNumber(DEFAULT_TOTAL_PRICE)));
     }
 
     @Test
@@ -313,7 +292,7 @@ class OrderItemResourceIT {
 
         // Update the orderItem
         OrderItem updatedOrderItem = orderItemRepository.findById(orderItem.getId()).block();
-        updatedOrderItem.quantity(UPDATED_QUANTITY).totalPrice(UPDATED_TOTAL_PRICE).status(UPDATED_STATUS);
+        updatedOrderItem.quantity(UPDATED_QUANTITY).totalPrice(UPDATED_TOTAL_PRICE);
 
         webTestClient
             .put()
@@ -330,7 +309,6 @@ class OrderItemResourceIT {
         OrderItem testOrderItem = orderItemList.get(orderItemList.size() - 1);
         assertThat(testOrderItem.getQuantity()).isEqualTo(UPDATED_QUANTITY);
         assertThat(testOrderItem.getTotalPrice()).isEqualByComparingTo(UPDATED_TOTAL_PRICE);
-        assertThat(testOrderItem.getStatus()).isEqualTo(UPDATED_STATUS);
     }
 
     @Test
@@ -404,7 +382,7 @@ class OrderItemResourceIT {
         OrderItem partialUpdatedOrderItem = new OrderItem();
         partialUpdatedOrderItem.setId(orderItem.getId());
 
-        partialUpdatedOrderItem.quantity(UPDATED_QUANTITY).status(UPDATED_STATUS);
+        partialUpdatedOrderItem.quantity(UPDATED_QUANTITY);
 
         webTestClient
             .patch()
@@ -421,7 +399,6 @@ class OrderItemResourceIT {
         OrderItem testOrderItem = orderItemList.get(orderItemList.size() - 1);
         assertThat(testOrderItem.getQuantity()).isEqualTo(UPDATED_QUANTITY);
         assertThat(testOrderItem.getTotalPrice()).isEqualByComparingTo(DEFAULT_TOTAL_PRICE);
-        assertThat(testOrderItem.getStatus()).isEqualTo(UPDATED_STATUS);
     }
 
     @Test
@@ -435,7 +412,7 @@ class OrderItemResourceIT {
         OrderItem partialUpdatedOrderItem = new OrderItem();
         partialUpdatedOrderItem.setId(orderItem.getId());
 
-        partialUpdatedOrderItem.quantity(UPDATED_QUANTITY).totalPrice(UPDATED_TOTAL_PRICE).status(UPDATED_STATUS);
+        partialUpdatedOrderItem.quantity(UPDATED_QUANTITY).totalPrice(UPDATED_TOTAL_PRICE);
 
         webTestClient
             .patch()
@@ -452,7 +429,6 @@ class OrderItemResourceIT {
         OrderItem testOrderItem = orderItemList.get(orderItemList.size() - 1);
         assertThat(testOrderItem.getQuantity()).isEqualTo(UPDATED_QUANTITY);
         assertThat(testOrderItem.getTotalPrice()).isEqualByComparingTo(UPDATED_TOTAL_PRICE);
-        assertThat(testOrderItem.getStatus()).isEqualTo(UPDATED_STATUS);
     }
 
     @Test

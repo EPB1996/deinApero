@@ -19,7 +19,7 @@ const apiUrl = 'api/package-templates';
 // Actions
 
 export const getEntities = createAsyncThunk('packageTemplate/fetch_entity_list', async ({ page, size, sort }: IQueryParams) => {
-  const requestUrl = `${apiUrl}`;
+  const requestUrl = `${apiUrl}?cacheBuster=${new Date().getTime()}`;
   return axios.get<IPackageTemplate[]>(requestUrl);
 });
 
@@ -91,7 +91,7 @@ export const PackageTemplateSlice = createEntitySlice({
       })
       .addMatcher(isFulfilled(getEntities), (state, action) => {
         const { data } = action.payload;
-        console.log(data);
+
         return {
           ...state,
           loading: false,

@@ -16,12 +16,6 @@
       "fieldType": "BigDecimal",
       "fieldValidateRules": ["required", "min"],
       "fieldValidateRulesMin": "0"
-    },
-    {
-      "fieldName": "status",
-      "fieldType": "OrderItemStatus",
-      "fieldValidateRules": ["required"],
-      "fieldValues": "AVAILABLE,OUT_OF_STOCK,BACK_ORDER"
     }
   ],
   "fluentMethods": true,
@@ -34,6 +28,13 @@
       "otherEntityField": "name",
       "otherEntityName": "product",
       "relationshipName": "product",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    },
+    {
+      "otherEntityField": "login",
+      "otherEntityName": "user",
+      "relationshipName": "user",
       "relationshipType": "many-to-one",
       "relationshipValidateRules": "required"
     },

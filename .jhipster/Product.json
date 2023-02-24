@@ -41,19 +41,19 @@
   "relationships": [
     {
       "otherEntityField": "name",
-      "otherEntityName": "productCategory",
-      "otherEntityRelationshipName": "product",
-      "relationshipName": "productCategory",
-      "relationshipType": "many-to-one"
-    },
-    {
-      "otherEntityField": "name",
       "otherEntityName": "packageTemplate",
       "otherEntityRelationshipName": "product",
       "ownerSide": false,
       "relationshipName": "packageTemplate",
-      "relationshipType": "many-to-many",
-      "relationshipValidateRules": "required"
+      "relationshipType": "many-to-many"
+    },
+    {
+      "otherEntityField": "name",
+      "otherEntityName": "productCategory",
+      "otherEntityRelationshipName": "product",
+      "ownerSide": false,
+      "relationshipName": "productCategory",
+      "relationshipType": "many-to-many"
     }
   ],
   "service": "serviceClass"

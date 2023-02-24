@@ -111,11 +111,11 @@ export const OrderItem = () => {
                 <th className="hand" onClick={sort('totalPrice')}>
                   <Translate contentKey="meinAperoApp.orderItem.totalPrice">Total Price</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
-                <th className="hand" onClick={sort('status')}>
-                  <Translate contentKey="meinAperoApp.orderItem.status">Status</Translate> <FontAwesomeIcon icon="sort" />
-                </th>
                 <th>
                   <Translate contentKey="meinAperoApp.orderItem.product">Product</Translate> <FontAwesomeIcon icon="sort" />
+                </th>
+                <th>
+                  <Translate contentKey="meinAperoApp.orderItem.user">User</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
                 <th>
                   <Translate contentKey="meinAperoApp.orderItem.order">Order</Translate> <FontAwesomeIcon icon="sort" />
@@ -133,10 +133,8 @@ export const OrderItem = () => {
                   </td>
                   <td>{orderItem.quantity}</td>
                   <td>{orderItem.totalPrice}</td>
-                  <td>
-                    <Translate contentKey={`meinAperoApp.OrderItemStatus.${orderItem.status}`} />
-                  </td>
                   <td>{orderItem.product ? <Link to={`/product/${orderItem.product.id}`}>{orderItem.product.name}</Link> : ''}</td>
+                  <td>{orderItem.user ? orderItem.user.login : ''}</td>
                   <td>{orderItem.order ? <Link to={`/order/${orderItem.order.id}`}>{orderItem.order.code}</Link> : ''}</td>
                   <td className="text-end">
                     <div className="btn-group flex-btn-group-container">

@@ -47,13 +47,13 @@ public class Product implements Serializable {
     @Field("image_content_type")
     private String imageContentType;
 
-    @Field("productCategory")
-    @JsonIgnoreProperties(value = { "products" }, allowSetters = true)
-    private ProductCategory productCategory;
-
     @Field("packageTemplates")
     @JsonIgnoreProperties(value = { "products" }, allowSetters = true)
     private Set<PackageTemplate> packageTemplates = new HashSet<>();
+
+    @Field("productCategories")
+    @JsonIgnoreProperties(value = { "products" }, allowSetters = true)
+    private Set<ProductCategory> productCategories = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -148,19 +148,6 @@ public class Product implements Serializable {
         this.imageContentType = imageContentType;
     }
 
-    public ProductCategory getProductCategory() {
-        return this.productCategory;
-    }
-
-    public void setProductCategory(ProductCategory productCategory) {
-        this.productCategory = productCategory;
-    }
-
-    public Product productCategory(ProductCategory productCategory) {
-        this.setProductCategory(productCategory);
-        return this;
-    }
-
     public Set<PackageTemplate> getPackageTemplates() {
         return this.packageTemplates;
     }
@@ -189,6 +176,37 @@ public class Product implements Serializable {
     public Product removePackageTemplate(PackageTemplate packageTemplate) {
         this.packageTemplates.remove(packageTemplate);
         packageTemplate.getProducts().remove(this);
+        return this;
+    }
+
+    public Set<ProductCategory> getProductCategories() {
+        return this.productCategories;
+    }
+
+    public void setProductCategories(Set<ProductCategory> productCategories) {
+        if (this.productCategories != null) {
+            this.productCategories.forEach(i -> i.removeProduct(this));
+        }
+        if (productCategories != null) {
+            productCategories.forEach(i -> i.addProduct(this));
+        }
+        this.productCategories = productCategories;
+    }
+
+    public Product productCategories(Set<ProductCategory> productCategories) {
+        this.setProductCategories(productCategories);
+        return this;
+    }
+
+    public Product addProductCategory(ProductCategory productCategory) {
+        this.productCategories.add(productCategory);
+        productCategory.getProducts().add(this);
+        return this;
+    }
+
+    public Product removeProductCategory(ProductCategory productCategory) {
+        this.productCategories.remove(productCategory);
+        productCategory.getProducts().remove(this);
         return this;
     }
 
