@@ -19,12 +19,6 @@ const EntitiesMenu = () => {
       <MenuItem icon="asterisk" to="/order">
         <Translate contentKey="global.menu.entities.order" />
       </MenuItem>
-      <MenuItem icon="asterisk" to="/package-type">
-        <Translate contentKey="global.menu.entities.packageType" />
-      </MenuItem>
-      <MenuItem icon="asterisk" to="/package-template">
-        <Translate contentKey="global.menu.entities.packageTemplate" />
-      </MenuItem>
       <MenuItem icon="asterisk" to="/order-item">
         <Translate contentKey="global.menu.entities.orderItem" />
       </MenuItem>

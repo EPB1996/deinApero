@@ -17,8 +17,6 @@ import { hasAnyAuthority } from 'app/shared/auth/private-route';
 import ErrorBoundary from 'app/shared/error/error-boundary';
 import { AUTHORITIES } from 'app/config/constants';
 import AppRoutes from 'app/routes';
-import { getEntities as getPackageTemplates } from './entities/package-template/package-template.reducer';
-import { getEntities as getPackageTypes } from './entities/package-type/package-type.reducer';
 import { getEntities as getPackageCategories } from './entities/product-category/product-category.reducer';
 import { getEntities as getProducts } from './entities/product/product.reducer';
 import { getEntities as getCustomersInfo } from './entities/customer/customer.reducer';

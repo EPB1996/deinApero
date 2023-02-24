@@ -11,8 +11,6 @@
         "productCategory": "Product Category",
         "customer": "Customer",
         "order": "Order",
-        "packageType": "Package Type",
-        "packageTemplate": "Package Template",
         "orderItem": "Order Item",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },

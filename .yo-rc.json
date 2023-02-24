@@ -19,7 +19,7 @@
     "enableHibernateCache": false,
     "enableSwaggerCodegen": false,
     "enableTranslation": true,
-    "entities": ["Product", "ProductCategory", "Customer", "Order", "PackageType", "PackageTemplate", "OrderItem"],
+    "entities": ["Product", "ProductCategory", "Customer", "Order", "OrderItem"],
     "entitySuffix": "",
     "jhiPrefix": "jhi",
     "jhipsterVersion": "7.9.3",
