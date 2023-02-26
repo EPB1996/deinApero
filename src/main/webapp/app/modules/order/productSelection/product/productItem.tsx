@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import Zoom from 'react-medium-image-zoom';
 import './product.scss';
 import {
   Button,
