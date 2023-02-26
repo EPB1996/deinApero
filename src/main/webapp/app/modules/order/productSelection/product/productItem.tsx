@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Zoom from 'react-medium-image-zoom';
 import './product.scss';
 import {
   Button,
@@ -23,6 +24,7 @@ import { Slide } from 'react-awesome-reveal';
 import { IProduct } from 'app/shared/model/product.model';
 import { update } from 'lodash';
 import { Translate } from 'react-jhipster';
+import ImageMagnifier from './magnifier';
 const ProductItem = props => {
   const { product, productCategory, disabled = false } = props;
   const { name, description, price, productSize, image } = product;
@@ -65,10 +67,15 @@ const ProductItem = props => {
             {productSize} {price}
           </CardSubtitle>
         </CardImgOverlay>
-        <Modal isOpen={modal} toggle={toggle}>
+        <Modal isOpen={modal} toggle={toggle} size={'lg'}>
           <ModalHeader toggle={toggle}>{name}</ModalHeader>
           <ModalBody>
-            {description}
+            <Row>
+              <Col md={6}>
+                <ImageMagnifier width="200px" src={`data:image/jpeg;base64,${image}`}></ImageMagnifier>
+              </Col>
+              <Col md={6}>{description}</Col>
+            </Row>
             <Row style={{ paddingTop: '5px' }}>
               <Col style={{ padding: '1px' }} md={6} sm={6} xs={12}>
                 <Button style={{ width: '100%' }} onClick={handleAddProduct}>
