@@ -7,6 +7,7 @@
     },
     "stepper": {
       "guestLabel": "Gäste",
+      "dateSelectionLabel": "Datum",
       "productSelectionLabel": "Auswahl",
       "overviewLabel": "Checkout"
     },

@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import Zoom from 'react-medium-image-zoom';
 import './product.scss';
 import {
   Button,
@@ -9,20 +8,16 @@ import {
   CardImg,
   CardImgOverlay,
   CardSubtitle,
-  CardText,
   CardTitle,
   Col,
   Modal,
   ModalBody,
-  ModalFooter,
   ModalHeader,
   Row,
 } from 'reactstrap';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { addProduct, removeProduct } from './product.reducer';
 import { Slide } from 'react-awesome-reveal';
-import { IProduct } from 'app/shared/model/product.model';
-import { update } from 'lodash';
 import { Translate } from 'react-jhipster';
 import ImageMagnifier from './magnifier';
 const ProductItem = props => {
@@ -32,7 +27,6 @@ const ProductItem = props => {
   const [modal, setModal] = useState(false);
 
   const toggle = () => {
-    console.log(product);
     setModal(!modal);
   };
 

@@ -16,12 +16,12 @@ import LeftArrow from './arrows/leftArrow';
 import RightArrow from './arrows/rightArrow';
 import Login from 'app/modules/login/login';
 import { translate } from 'react-jhipster';
+import DateSelection from '../dateSelection/dateSelection';
 
 const OrderStepper = () => {
   const dispatch = useAppDispatch();
   const { activeStep, showSideBar, overViewExpand, finished } = useAppSelector(state => state.orderStepper);
   const account = useAppSelector(state => state.authentication.account);
-  console.log(account);
 
   const handleNext = () => {
     if (!finished) dispatch(nextStep());
@@ -40,8 +40,10 @@ const OrderStepper = () => {
       case 0:
         return <Guests></Guests>;
       case 1:
-        return <ProductSelection></ProductSelection>;
+        return <DateSelection></DateSelection>;
       case 2:
+        return <ProductSelection></ProductSelection>;
+      case 3:
         return <CustomerInfo></CustomerInfo>;
       default:
         return 'Something went wrong';
@@ -71,15 +73,21 @@ const OrderStepper = () => {
                 }}
               />
               <Step
-                label={translate('custom.stepper.productSelectionLabel')}
+                label={translate('custom.stepper.dateSelectionLabel')}
                 onClick={() => {
                   handleSetStep(1);
                 }}
               />
               <Step
-                label={translate('custom.stepper.overviewLabel')}
+                label={translate('custom.stepper.productSelectionLabel')}
                 onClick={() => {
                   handleSetStep(2);
+                }}
+              />
+              <Step
+                label={translate('custom.stepper.overviewLabel')}
+                onClick={() => {
+                  handleSetStep(3);
                 }}
               />
             </Stepper>
