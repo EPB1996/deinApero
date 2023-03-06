@@ -1,15 +1,16 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import React, { useEffect, useState } from 'react';
 import './productSelection.scss';
-import { Col, Row, Accordion, AccordionBody, AccordionHeader, AccordionItem, Button, UncontrolledAccordion } from 'reactstrap';
+import { Col, Row, Accordion, AccordionBody, AccordionHeader, AccordionItem, Button, UncontrolledAccordion, Container } from 'reactstrap';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { IProduct } from 'app/shared/model/product.model';
 import ProductItem from './product/productItem';
-import Carousel from 'react-multi-carousel';
 import { Fade, Slide } from 'react-awesome-reveal';
 import { nextStep } from '../stepper/stepper.reducer';
 import { IProductCategory } from 'app/shared/model/product-category.model';
 import { Translate } from 'react-jhipster';
+import Carousel from 'react-spring-3d-carousel';
+import Carroussel from './carousel/Carrousel';
 
 const responsive = {
   superLargeDesktop: {
@@ -45,92 +46,143 @@ const ProductSelection = () => {
   };
 
   return (
-    <div style={{ height: '100%' }}>
+    <Container style={{ height: '100%' }}>
       {productCategories && (
         <Row style={{ height: '100%' }}>
-          <Col md={12} sm={12} lg={2}>
-            <Row>
-              <div>
-                {productCategories.map((productCategory: IProductCategory, i) => (
-                  <Slide className="productItem" key={i} direction="left" duration={1500} triggerOnce>
-                    <Button onClick={() => toggle(productCategory.name)} style={{ width: '100%' }}>
-                      <Slide key={i} direction="left" duration={1500}>
-                        <p>
-                          <Translate contentKey={`custom.productCategory.${productCategory.name}`}> {productCategory.name}</Translate>
-                        </p>
-                      </Slide>
-                    </Button>
+          <Col md={2} sm={12} lg={2}>
+            {productCategories.map((productCategory: IProductCategory, i) => (
+              <Slide key={i} direction="left" duration={1500} triggerOnce>
+                <Button onClick={() => toggle(productCategory.name)} style={{ width: '100%' }}>
+                  <Slide key={i} direction="left" duration={1500}>
+                    <p>
+                      <Translate contentKey={`custom.productCategory.${productCategory.name}`}> {productCategory.name}</Translate>
+                    </p>
                   </Slide>
-                ))}
-              </div>
-            </Row>
+                </Button>
+              </Slide>
+            ))}
           </Col>
 
-          <Col className="product-scrolling">
+          <Col md={10} sm={12} lg={10} className="product-scrolling">
             {open === 'Champagne' && (
-              <Slide className="productItem" direction="right" duration={200} triggerOnce cascade>
-                <Row>
-                  {productCategories.filter((productCategory: IProductCategory) => productCategory.name === open)[0] &&
+              <Row style={{ height: '100%', width: '100%' }}>
+                <Carroussel
+                  cards={
+                    productCategories.filter((productCategory: IProductCategory) => productCategory.name === open)[0] &&
                     productCategories
                       .filter((productCategory: IProductCategory) => productCategory.name === open)[0]
-                      .products.map((product: IProduct, index) => (
-                        <ProductItem key={index} product={product} productCategory={open}></ProductItem>
-                      ))}
-                </Row>
-              </Slide>
+                      .products.map((product: IProduct, index) => {
+                        const t = {
+                          key: index,
+                          content: <ProductItem key={index} product={product} productCategory={open}></ProductItem>,
+                        };
+                        return t;
+                      })
+                  }
+                  height="100%"
+                  width="100%"
+                  margin="0 auto"
+                  offset={2}
+                  showArrows={false}
+                />
+              </Row>
             )}
             {open === 'Kaviar' && (
-              <Slide className="productItem" direction="right" duration={200} triggerOnce cascade>
-                <Row>
-                  {productCategories.filter((productCategory: IProductCategory) => productCategory.name === open)[0] &&
+              <Row style={{ height: '100%', width: '100%' }}>
+                <Carroussel
+                  cards={
+                    productCategories.filter((productCategory: IProductCategory) => productCategory.name === open)[0] &&
                     productCategories
                       .filter((productCategory: IProductCategory) => productCategory.name === open)[0]
-                      .products.map((product: IProduct, index) => (
-                        <ProductItem key={index} product={product} productCategory={open}></ProductItem>
-                      ))}
-                </Row>
-              </Slide>
+                      .products.map((product: IProduct, index) => {
+                        const t = {
+                          key: index,
+                          content: <ProductItem key={index} product={product} productCategory={open}></ProductItem>,
+                        };
+                        return t;
+                      })
+                  }
+                  height="100%"
+                  width="100%"
+                  margin="0 auto"
+                  offset={2}
+                  showArrows={false}
+                />
+              </Row>
             )}
             {open === 'Austern' && (
-              <Slide className="productItem" direction="right" duration={200} triggerOnce cascade>
-                <Row>
-                  {productCategories.filter((productCategory: IProductCategory) => productCategory.name === open)[0] &&
+              <Row style={{ height: '100%', width: '100%' }}>
+                <Carroussel
+                  cards={
+                    productCategories.filter((productCategory: IProductCategory) => productCategory.name === open)[0] &&
                     productCategories
                       .filter((productCategory: IProductCategory) => productCategory.name === open)[0]
-                      .products.map((product: IProduct, index) => (
-                        <ProductItem key={index} product={product} productCategory={open}></ProductItem>
-                      ))}
-                </Row>
-              </Slide>
+                      .products.map((product: IProduct, index) => {
+                        const t = {
+                          key: index,
+                          content: <ProductItem key={index} product={product} productCategory={open}></ProductItem>,
+                        };
+                        return t;
+                      })
+                  }
+                  height="100%"
+                  width="100%"
+                  margin="0 auto"
+                  offset={2}
+                  showArrows={false}
+                />
+              </Row>
             )}
             {open === 'Platten' && (
-              <Slide className="productItem" direction="right" duration={200} triggerOnce cascade>
-                <Row>
-                  {productCategories.filter((productCategory: IProductCategory) => productCategory.name === open)[0] &&
+              <Row style={{ height: '100%', width: '100%' }}>
+                <Carroussel
+                  cards={
+                    productCategories.filter((productCategory: IProductCategory) => productCategory.name === open)[0] &&
                     productCategories
                       .filter((productCategory: IProductCategory) => productCategory.name === open)[0]
-                      .products.map((product: IProduct, index) => (
-                        <ProductItem key={index} product={product} productCategory={open}></ProductItem>
-                      ))}
-                </Row>
-              </Slide>
+                      .products.map((product: IProduct, index) => {
+                        const t = {
+                          key: index,
+                          content: <ProductItem key={index} product={product} productCategory={open}></ProductItem>,
+                        };
+                        return t;
+                      })
+                  }
+                  height="100%"
+                  width="100%"
+                  margin="0 auto"
+                  offset={2}
+                  showArrows={false}
+                />
+              </Row>
             )}
             {open === 'Vegetarisch' && (
-              <Slide className="productItem" direction="right" duration={200} triggerOnce cascade>
-                <Row>
-                  {productCategories.filter((productCategory: IProductCategory) => productCategory.name === open)[0] &&
+              <Row style={{ height: '100%', width: '100%' }}>
+                <Carroussel
+                  cards={
+                    productCategories.filter((productCategory: IProductCategory) => productCategory.name === open)[0] &&
                     productCategories
                       .filter((productCategory: IProductCategory) => productCategory.name === open)[0]
-                      .products.map((product: IProduct, index) => (
-                        <ProductItem key={index} product={product} productCategory={open}></ProductItem>
-                      ))}
-                </Row>
-              </Slide>
+                      .products.map((product: IProduct, index) => {
+                        const t = {
+                          key: index,
+                          content: <ProductItem key={index} product={product} productCategory={open}></ProductItem>,
+                        };
+                        return t;
+                      })
+                  }
+                  height="100%"
+                  width="100%"
+                  margin="0 auto"
+                  offset={2}
+                  showArrows={false}
+                />
+              </Row>
             )}
           </Col>
         </Row>
       )}
-    </div>
+    </Container>
   );
 };
 

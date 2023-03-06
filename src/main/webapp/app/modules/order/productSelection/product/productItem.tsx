@@ -21,6 +21,7 @@ import { addProduct, removeProduct } from './product.reducer';
 import { Slide } from 'react-awesome-reveal';
 import { Translate } from 'react-jhipster';
 import ImageMagnifier from './magnifier';
+import { animated, useSpring } from '@react-spring/web';
 const ProductItem = props => {
   const { product, productCategory, disabled = false } = props;
   const { name, description, price, productSize, image } = product;
@@ -53,122 +54,59 @@ const ProductItem = props => {
     dispatch(removeProduct({ product, productCategory }));
   };
 
-  return (
+  const [show, setShown] = useState(false);
+
+  const props3 = useSpring({
+    /* transform: show ? 'scale(1.03)' : 'scale(1)', */
+    boxShadow: show ? '0 20px 25px rgb(0 0 0 / 25%)' : '0 2px 10px rgb(0 0 0 / 8%)',
+  });
+
+  /*  return (
     <Col md={12} style={{ paddingBottom: '5px' }}>
-      <Card
-        onClick={toggle}
-        /* onMouseOver={handleMouseOver}
-        onMouseOut={handleMouseOut}
-      */ outline
-        /* style={{ position: 'relative', padding: 0, width: '100%' }} */
-      >
-        {addedProducts && addedProducts[product.id] && (
-          <div className="ribbon ribbon-orange ribbon-small ">
-            <div className="banner">
-              <div className="text">
-                <Translate contentKey={`custom.productItem.added`}> Added</Translate>
-              </div>
-            </div>
+      <animated.div className="card" style={props3} onMouseEnter={() => setShown(true)} onMouseLeave={() => setShown(false)}>
+        <div style={{display:"flex", justifyContent:"center"}}>
+        <img  src={`data:image/jpeg;base64,${image}`}></img>
+        </div>
+        <h5>{name}</h5>
+        <p>{description}</p>
+      </animated.div>
+    </Col>
+  ); */
+
+  return (
+    <Card
+      className={` card ${!modal ? 'cardProduct' : 'cardProductInfo'}`}
+      /*  style={props3} */ onMouseEnter={() => setShown(true)}
+      onMouseLeave={() => setShown(false)}
+    >
+      <Row>
+        {!modal && (
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <img className="productImage" src={`data:image/jpeg;base64,${image}`}></img>
           </div>
         )}
-        <CardTitle tag="h5">{name}</CardTitle>
+        <CardTitle tag="h5">
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <div>{name}</div>
+            <div>
+              <Button onClick={handleAddProduct}>+</Button>
+            </div>
+          </div>
+        </CardTitle>
         <CardSubtitle className="mb-2 text-muted" tag="h6">
           {productSize} {price}
         </CardSubtitle>
-        {/*  <CardImg alt="Card image cap" src="https://picsum.photos/900/300?grayscale" />
-        <CardImgOverlay className="overlay"  style={{ height: '100%' }}>
-          <CardTitle tag="h5">{name}</CardTitle>
-          <CardSubtitle className="mb-2 text-muted" tag="h6">
-            {productSize} {price}
-          </CardSubtitle>
-        </CardImgOverlay> */}
+        <Button onClick={toggle}>Mehr informationen</Button>
         <Collapse isOpen={modal}>
-          <CardBody>
-            <Row>
-              <Col md={6}>
-                <ImageMagnifier width="200px" src={`data:image/jpeg;base64,${image}`}></ImageMagnifier>
-              </Col>
-              <Col md={6}>{description}</Col>
-            </Row>
-            <Row style={{ paddingTop: '5px' }}>
-              <Col style={{ padding: '1px' }} md={6} sm={6} xs={12}>
-                <Button style={{ width: '100%' }} onClick={handleAddProduct}>
-                  <Translate contentKey={`custom.productItem.add`}> Add</Translate>
-                </Button>
-              </Col>
-              <Col style={{ padding: '1px' }} md={6} sm={6} xs={12}>
-                <Button style={{ width: '100%' }} onClick={handleRemoveProduct}>
-                  <Translate contentKey={`custom.productItem.remove`}> Remove</Translate>
-                </Button>
-              </Col>
-            </Row>
-          </CardBody>
-        </Collapse>
-
-        {/* <Modal isOpen={modal} size={'lg'}>
-          <ModalHeader>{name}</ModalHeader>
-          <ModalBody onMouseOut={handleMouseOut}>
-            <Row>
-              <Col md={6}>
-                <ImageMagnifier width="200px" src={`data:image/jpeg;base64,${image}`}></ImageMagnifier>
-              </Col>
-              <Col md={6}>{description}</Col>
-            </Row>
-            <Row style={{ paddingTop: '5px' }}>
-              <Col style={{ padding: '1px' }} md={6} sm={6} xs={12}>
-                <Button style={{ width: '100%' }} onClick={handleAddProduct}>
-                  <Translate contentKey={`custom.productItem.add`}> Add</Translate>
-                </Button>
-              </Col>
-              <Col style={{ padding: '1px' }} md={6} sm={6} xs={12}>
-                <Button style={{ width: '100%' }} onClick={handleRemoveProduct}>
-                  <Translate contentKey={`custom.productItem.remove`}> Remove</Translate>
-                </Button>
-              </Col>
-            </Row>
-          </ModalBody>
-        </Modal> */}
-        {/*
-        {!disabled && (
-          <CardFooter style={{ zIndex: 100 }}>
-            <Row>
-              <Col style={{ padding: '1px' }} md={6} sm={6} xs={12}>
-                <Button style={{ width: '100%' }} onClick={handleAddProduct}>
-                  <Translate contentKey={`custom.productItem.add`}> Add</Translate>
-                </Button>
-              </Col>
-              <Col style={{ padding: '1px' }} md={6} sm={6} xs={12}>
-                <Button style={{ width: '100%' }} onClick={handleRemoveProduct}>
-                  <Translate contentKey={`custom.productItem.remove`}> Remove</Translate>
-                </Button>
-              </Col>
-            </Row>
-          </CardFooter>
-        )}
-        */}
-
-        {/* <Card className={`${showInfo} productItemInfo`} onMouseOut={handleMouseOut}>
           <Row>
             <Col md={6}>
               <ImageMagnifier width="200px" src={`data:image/jpeg;base64,${image}`}></ImageMagnifier>
             </Col>
             <Col md={6}>{description}</Col>
           </Row>
-          <Row style={{ paddingTop: '5px' }}>
-            <Col style={{ padding: '1px' }} md={6} sm={6} xs={12}>
-              <Button style={{ width: '100%' }} onClick={handleAddProduct}>
-                <Translate contentKey={`custom.productItem.add`}> Add</Translate>
-              </Button>
-            </Col>
-            <Col style={{ padding: '1px' }} md={6} sm={6} xs={12}>
-              <Button style={{ width: '100%' }} onClick={handleRemoveProduct}>
-                <Translate contentKey={`custom.productItem.remove`}> Remove</Translate>
-              </Button>
-            </Col>
-          </Row>
-        </Card> */}
-      </Card>
-    </Col>
+        </Collapse>
+      </Row>
+    </Card>
   );
 };
 
