@@ -21,11 +21,11 @@
   transition: font-size 3s;
 }
 
-.overlay:hover {
+/* .overlay:hover {
   cursor: pointer;
   animation-name: bounce;
   animation-timing-function: ease;
-}
+} */
 @keyframes bounce {
   0% {
     transform: translateX(0);
@@ -36,4 +36,21 @@
   100% {
     transform: translateX(0);
   }
+}
+
+.showInfo {
+  display: fixed;
+  opacity: 1;
+  z-index: 100;
+}
+.hideInfo {
+  display: none;
+}
+
+.productItemInfo {
+  position: absolute;
+  z-index: 10;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
