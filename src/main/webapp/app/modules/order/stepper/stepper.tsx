@@ -104,17 +104,15 @@ const OrderStepper = () => {
           </div>
         </Col>
       </Row>
-      <Row style={{ height: '80%' }}>
+      <Row style={{ overflowY: 'auto', overflowX: 'hidden', height: '80%' }}>
+        {showSideBar && (
+          <Col style={{ height: '100%', paddingBottom: '10px' }} className={overViewExpand ? 'side-by-side' : ''}>
+            <OverviewSidebar overViewExpand={overViewExpand}></OverviewSidebar>
+          </Col>
+        )}
         <Col style={{ height: '100%', paddingBottom: '10px' }} className={overViewExpand ? 'side-by-side' : 'sidebar'}>
           {renderStep(activeStep)}
         </Col>
-        {/* {showSideBar && (
-          <Col style={{ height: '100%', paddingBottom: '10px' }} className={overViewExpand ? 'side-by-side' : ''}>
-            <Slide className="h-100" direction="right" duration={1500} triggerOnce>
-              <OverviewSidebar overViewExpand={overViewExpand}></OverviewSidebar>
-            </Slide>
-          </Col>
-        )} */}
       </Row>
     </Container>
   );

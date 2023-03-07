@@ -52,7 +52,9 @@
 
 .cardProduct {
   width: 20rem;
-  height: 70%;
+  height: fit-content;
+  min-height: 70%;
+  background-image: linear-gradient(220deg, rgb(205, 133, 63, 0.4), rgb(139, 69, 19, 1) 75%);
 
   -webkit-transition: width 1s ease-in-out, height 1s ease-in-out;
   -moz-transition: width 1s ease-in-out, height 1s ease-in-out;
@@ -63,7 +65,7 @@
 .cardProductInfo {
   width: 70vw;
   height: 50vh;
-
+  background-image: linear-gradient(220deg, rgb(205, 133, 63, 0.4), rgb(139, 69, 19, 1) 75%);
   -webkit-transition: width 1s ease-in-out, height 1s ease-in-out;
   -moz-transition: width 1s ease-in-out, height 1s ease-in-out;
   -o-transition: width 1s ease-in-out, height 1s ease-in-out;

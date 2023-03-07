@@ -24,7 +24,7 @@ import ImageMagnifier from './magnifier';
 import { animated, useSpring } from '@react-spring/web';
 const ProductItem = props => {
   const { product, productCategory, disabled = false } = props;
-  const { name, description, price, productSize, image } = product;
+  const { id, name, description, price, productSize, image } = product;
 
   const [modal, setModal] = useState(false);
   const [highlight, setHighlight] = useState(false);
@@ -78,18 +78,34 @@ const ProductItem = props => {
           <img className="productImage" src={`data:image/jpeg;base64,${image}`}></img>
         </div>
       )}
+      {addedProducts && addedProducts[id] && (
+        <div className="ribbon ribbon-orange ribbon-small ">
+          <div className="banner">
+            <div className="text">
+              <Translate contentKey={`custom.productItem.added`}> Added</Translate>
+            </div>
+          </div>
+        </div>
+      )}
+
       <CardTitle tag="h5">
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
           <div>{name}</div>
-          <div>
-            <Button onClick={handleAddProduct}>+</Button>
-          </div>
+          <div>{price}.-</div>
         </div>
       </CardTitle>
+
       <CardSubtitle className="mb-2 text-muted" tag="h6">
-        {productSize} {price}
+        <div style={{ width: '50%', display: 'flex', justifyContent: 'center', margin: '0 auto' }}>
+          <Button onClick={handleRemoveProduct}>-</Button>
+          <div style={{ margin: 'auto 5px' }}>
+            {' '}
+            {addedProducts && addedProducts[id] && addedProducts[id] ? addedProducts[id].amount : 0}
+          </div>
+          <Button onClick={handleAddProduct}>+</Button>
+        </div>
       </CardSubtitle>
-      <Button onClick={toggle}>Mehr informationen</Button>
+      <Button onClick={toggle}>Produktbeschreibung</Button>
       <Collapse className="productBody" isOpen={modal}>
         <CardBody>
           <Row>

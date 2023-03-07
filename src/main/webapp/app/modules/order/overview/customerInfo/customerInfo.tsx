@@ -40,62 +40,60 @@ export const CustomerInfo = () => {
   };
 
   return (
-    <Slide direction="left" duration={1500} triggerOnce>
+    <Slide direction="right" duration={1500} triggerOnce>
       <Card>
         {customerInfo.step === 0 && (
-          <Slide direction="left" duration={1500} triggerOnce>
-            <ValidatedForm defaultValues={defaultValues()} onSubmit={nextStep}>
-              <ValidatedField
-                label={translate('meinAperoApp.customer.firstName')}
-                id="customer-firstName"
-                name="firstName"
-                data-cy="firstName"
-                type="text"
-              />
-              <ValidatedField
-                label={translate('meinAperoApp.customer.lastName')}
-                id="customer-lastName"
-                name="lastName"
-                data-cy="lastName"
-                type="text"
-              />
-              <ValidatedField
-                label={translate('meinAperoApp.customer.gender')}
-                id="customer-gender"
-                name="gender"
-                data-cy="gender"
-                type="select"
+          <ValidatedForm defaultValues={defaultValues()} onSubmit={nextStep}>
+            <ValidatedField
+              label={translate('meinAperoApp.customer.firstName')}
+              id="customer-firstName"
+              name="firstName"
+              data-cy="firstName"
+              type="text"
+            />
+            <ValidatedField
+              label={translate('meinAperoApp.customer.lastName')}
+              id="customer-lastName"
+              name="lastName"
+              data-cy="lastName"
+              type="text"
+            />
+            <ValidatedField
+              label={translate('meinAperoApp.customer.gender')}
+              id="customer-gender"
+              name="gender"
+              data-cy="gender"
+              type="select"
+            >
+              {genderValues.map(gender => (
+                <option value={gender} key={gender}>
+                  {translate('meinAperoApp.Gender.' + gender)}
+                </option>
+              ))}
+            </ValidatedField>
+            <ValidatedField label="step" id="step" name="step" data-cy="step" type="number" hidden></ValidatedField>
+
+            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+              <Button
+                disabled={customerInfo.step === 0}
+                color="primary"
+                id="save-entity"
+                data-cy="entityCreateSaveButton"
+                onClick={() => {
+                  previousStep();
+                }}
               >
-                {genderValues.map(gender => (
-                  <option value={gender} key={gender}>
-                    {translate('meinAperoApp.Gender.' + gender)}
-                  </option>
-                ))}
-              </ValidatedField>
-              <ValidatedField label="step" id="step" name="step" data-cy="step" type="number" hidden></ValidatedField>
+                Previous
+              </Button>
 
-              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <Button
-                  disabled={customerInfo.step === 0}
-                  color="primary"
-                  id="save-entity"
-                  data-cy="entityCreateSaveButton"
-                  onClick={() => {
-                    previousStep();
-                  }}
-                >
-                  Previous
-                </Button>
-
-                <Button color="primary" id="save-entity" data-cy="entityCreateSaveButton" type="submit">
-                  Next
-                </Button>
-              </div>
-            </ValidatedForm>
-          </Slide>
+              <Button color="primary" id="save-entity" data-cy="entityCreateSaveButton" type="submit">
+                Next
+              </Button>
+            </div>
+          </ValidatedForm>
         )}
         {customerInfo.step === 1 && (
-          <Slide direction="left" duration={1500} triggerOnce>
+          <Slide direction="right" duration={1500} triggerOnce>
             <ValidatedForm defaultValues={defaultValues()} onSubmit={nextStep}>
               <ValidatedField
                 label={translate('meinAperoApp.customer.addressLine1')}
@@ -135,7 +133,7 @@ export const CustomerInfo = () => {
           </Slide>
         )}
         {customerInfo.step === 2 && (
-          <Slide direction="left" duration={1500} triggerOnce>
+          <Slide direction="right" duration={1500} triggerOnce>
             <ValidatedForm defaultValues={defaultValues()} onSubmit={nextStep}>
               <ValidatedField
                 label={translate('meinAperoApp.customer.email')}
