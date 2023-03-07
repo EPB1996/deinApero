@@ -27,19 +27,11 @@ const ProductItem = props => {
   const { name, description, price, productSize, image } = product;
 
   const [modal, setModal] = useState(false);
-  const [showInfo, setShowInfo] = useState('hideInfo');
+  const [highlight, setHighlight] = useState(false);
 
   const toggle = () => {
     setModal(!modal);
-  };
-  const handleMouseOver = () => {
-    setShowInfo('showInfo');
-    setModal(true);
-  };
-
-  const handleMouseOut = () => {
-    setShowInfo('hideInfo');
-    setModal(false);
+    !modal && setHighlight(false);
   };
 
   const dispatch = useAppDispatch();
@@ -54,11 +46,8 @@ const ProductItem = props => {
     dispatch(removeProduct({ product, productCategory }));
   };
 
-  const [show, setShown] = useState(false);
-
   const props3 = useSpring({
-    /* transform: show ? 'scale(1.03)' : 'scale(1)', */
-    boxShadow: show ? '0 20px 25px rgb(0 0 0 / 25%)' : '0 2px 10px rgb(0 0 0 / 8%)',
+    boxShadow: highlight ? '0 20px 25px rgb(0 0 0 / 25%)' : '0 2px 10px rgb(0 0 0 / 8%)',
   });
 
   /*  return (
@@ -74,39 +63,44 @@ const ProductItem = props => {
   ); */
 
   return (
-    <Card
-      className={` card ${!modal ? 'cardProduct' : 'cardProductInfo'}`}
-      /*  style={props3} */ onMouseEnter={() => setShown(true)}
-      onMouseLeave={() => setShown(false)}
+    <animated.div
+      style={props3}
+      className={`card  ${!modal ? 'cardProduct' : 'cardProductInfo'}`}
+      /*  style={props3} */ onMouseEnter={() => {
+        !modal && setHighlight(true);
+      }}
+      onMouseLeave={() => {
+        !modal && setHighlight(false);
+      }}
     >
-      <Row>
-        {!modal && (
-          <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <img className="productImage" src={`data:image/jpeg;base64,${image}`}></img>
+      {!modal && (
+        <div style={{ display: 'flex', justifyContent: 'center' }}>
+          <img className="productImage" src={`data:image/jpeg;base64,${image}`}></img>
+        </div>
+      )}
+      <CardTitle tag="h5">
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <div>{name}</div>
+          <div>
+            <Button onClick={handleAddProduct}>+</Button>
           </div>
-        )}
-        <CardTitle tag="h5">
-          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-            <div>{name}</div>
-            <div>
-              <Button onClick={handleAddProduct}>+</Button>
-            </div>
-          </div>
-        </CardTitle>
-        <CardSubtitle className="mb-2 text-muted" tag="h6">
-          {productSize} {price}
-        </CardSubtitle>
-        <Button onClick={toggle}>Mehr informationen</Button>
-        <Collapse isOpen={modal}>
+        </div>
+      </CardTitle>
+      <CardSubtitle className="mb-2 text-muted" tag="h6">
+        {productSize} {price}
+      </CardSubtitle>
+      <Button onClick={toggle}>Mehr informationen</Button>
+      <Collapse className="productBody" isOpen={modal}>
+        <CardBody>
           <Row>
             <Col md={6}>
-              <ImageMagnifier width="200px" src={`data:image/jpeg;base64,${image}`}></ImageMagnifier>
+              <ImageMagnifier width="50%" src={`data:image/jpeg;base64,${image}`}></ImageMagnifier>
             </Col>
             <Col md={6}>{description}</Col>
           </Row>
-        </Collapse>
-      </Row>
-    </Card>
+        </CardBody>
+      </Collapse>
+    </animated.div>
   );
 };
 

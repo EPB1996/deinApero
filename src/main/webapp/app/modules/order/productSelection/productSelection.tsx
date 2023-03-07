@@ -46,143 +46,140 @@ const ProductSelection = () => {
   };
 
   return (
-    <Container style={{ height: '100%' }}>
-      {productCategories && (
-        <Row style={{ height: '100%' }}>
-          <Col md={2} sm={12} lg={2}>
-            {productCategories.map((productCategory: IProductCategory, i) => (
+    productCategories && (
+      <>
+        <Row style={{ justifyContent: 'center' }}>
+          {productCategories.map((productCategory: IProductCategory, i) => (
+            <Col key={i} md={2} sm={4} xs={4} lg={2}>
               <Slide key={i} direction="left" duration={1500} triggerOnce>
-                <Button onClick={() => toggle(productCategory.name)} style={{ width: '100%' }}>
+                <div onClick={() => toggle(productCategory.name)} style={{ width: '100%' }}>
                   <Slide key={i} direction="left" duration={1500}>
                     <p>
                       <Translate contentKey={`custom.productCategory.${productCategory.name}`}> {productCategory.name}</Translate>
                     </p>
                   </Slide>
-                </Button>
+                </div>
               </Slide>
-            ))}
-          </Col>
-
-          <Col md={10} sm={12} lg={10} className="product-scrolling">
-            {open === 'Champagne' && (
-              <Row style={{ height: '100%', width: '100%' }}>
-                <Carroussel
-                  cards={
-                    productCategories.filter((productCategory: IProductCategory) => productCategory.name === open)[0] &&
-                    productCategories
-                      .filter((productCategory: IProductCategory) => productCategory.name === open)[0]
-                      .products.map((product: IProduct, index) => {
-                        const t = {
-                          key: index,
-                          content: <ProductItem key={index} product={product} productCategory={open}></ProductItem>,
-                        };
-                        return t;
-                      })
-                  }
-                  height="100%"
-                  width="100%"
-                  margin="0 auto"
-                  offset={2}
-                  showArrows={false}
-                />
-              </Row>
-            )}
-            {open === 'Kaviar' && (
-              <Row style={{ height: '100%', width: '100%' }}>
-                <Carroussel
-                  cards={
-                    productCategories.filter((productCategory: IProductCategory) => productCategory.name === open)[0] &&
-                    productCategories
-                      .filter((productCategory: IProductCategory) => productCategory.name === open)[0]
-                      .products.map((product: IProduct, index) => {
-                        const t = {
-                          key: index,
-                          content: <ProductItem key={index} product={product} productCategory={open}></ProductItem>,
-                        };
-                        return t;
-                      })
-                  }
-                  height="100%"
-                  width="100%"
-                  margin="0 auto"
-                  offset={2}
-                  showArrows={false}
-                />
-              </Row>
-            )}
-            {open === 'Austern' && (
-              <Row style={{ height: '100%', width: '100%' }}>
-                <Carroussel
-                  cards={
-                    productCategories.filter((productCategory: IProductCategory) => productCategory.name === open)[0] &&
-                    productCategories
-                      .filter((productCategory: IProductCategory) => productCategory.name === open)[0]
-                      .products.map((product: IProduct, index) => {
-                        const t = {
-                          key: index,
-                          content: <ProductItem key={index} product={product} productCategory={open}></ProductItem>,
-                        };
-                        return t;
-                      })
-                  }
-                  height="100%"
-                  width="100%"
-                  margin="0 auto"
-                  offset={2}
-                  showArrows={false}
-                />
-              </Row>
-            )}
-            {open === 'Platten' && (
-              <Row style={{ height: '100%', width: '100%' }}>
-                <Carroussel
-                  cards={
-                    productCategories.filter((productCategory: IProductCategory) => productCategory.name === open)[0] &&
-                    productCategories
-                      .filter((productCategory: IProductCategory) => productCategory.name === open)[0]
-                      .products.map((product: IProduct, index) => {
-                        const t = {
-                          key: index,
-                          content: <ProductItem key={index} product={product} productCategory={open}></ProductItem>,
-                        };
-                        return t;
-                      })
-                  }
-                  height="100%"
-                  width="100%"
-                  margin="0 auto"
-                  offset={2}
-                  showArrows={false}
-                />
-              </Row>
-            )}
-            {open === 'Vegetarisch' && (
-              <Row style={{ height: '100%', width: '100%' }}>
-                <Carroussel
-                  cards={
-                    productCategories.filter((productCategory: IProductCategory) => productCategory.name === open)[0] &&
-                    productCategories
-                      .filter((productCategory: IProductCategory) => productCategory.name === open)[0]
-                      .products.map((product: IProduct, index) => {
-                        const t = {
-                          key: index,
-                          content: <ProductItem key={index} product={product} productCategory={open}></ProductItem>,
-                        };
-                        return t;
-                      })
-                  }
-                  height="100%"
-                  width="100%"
-                  margin="0 auto"
-                  offset={2}
-                  showArrows={false}
-                />
-              </Row>
-            )}
-          </Col>
+            </Col>
+          ))}
         </Row>
-      )}
-    </Container>
+        <Row className="product-scrolling" style={{ justifyContent: 'center', height: '80%' }}>
+          {open === 'Champagne' && (
+            <Carroussel
+              cards={
+                productCategories.filter((productCategory: IProductCategory) => productCategory.name === open)[0] &&
+                productCategories
+                  .filter((productCategory: IProductCategory) => productCategory.name === open)[0]
+                  .products.map((product: IProduct, index) => {
+                    const t = {
+                      key: index,
+                      content: <ProductItem key={index} product={product} productCategory={open}></ProductItem>,
+                    };
+                    return t;
+                  })
+              }
+              height="100%"
+              width="75%"
+              margin="0 auto"
+              offset={3}
+              showArrows={false}
+            />
+          )}
+          {open === 'Kaviar' && (
+            <Row style={{ height: '100%', width: '100%' }}>
+              <Carroussel
+                cards={
+                  productCategories.filter((productCategory: IProductCategory) => productCategory.name === open)[0] &&
+                  productCategories
+                    .filter((productCategory: IProductCategory) => productCategory.name === open)[0]
+                    .products.map((product: IProduct, index) => {
+                      const t = {
+                        key: index,
+                        content: <ProductItem key={index} product={product} productCategory={open}></ProductItem>,
+                      };
+                      return t;
+                    })
+                }
+                height="100%"
+                width="25%"
+                margin="0 auto"
+                offset={2}
+                showArrows={false}
+              />
+            </Row>
+          )}
+          {open === 'Austern' && (
+            <Row style={{ height: '100%', width: '100%' }}>
+              <Carroussel
+                cards={
+                  productCategories.filter((productCategory: IProductCategory) => productCategory.name === open)[0] &&
+                  productCategories
+                    .filter((productCategory: IProductCategory) => productCategory.name === open)[0]
+                    .products.map((product: IProduct, index) => {
+                      const t = {
+                        key: index,
+                        content: <ProductItem key={index} product={product} productCategory={open}></ProductItem>,
+                      };
+                      return t;
+                    })
+                }
+                height="100%"
+                width="25%"
+                margin="0 auto"
+                offset={2}
+                showArrows={false}
+              />
+            </Row>
+          )}
+          {open === 'Platten' && (
+            <Row style={{ height: '100%', width: '100%' }}>
+              <Carroussel
+                cards={
+                  productCategories.filter((productCategory: IProductCategory) => productCategory.name === open)[0] &&
+                  productCategories
+                    .filter((productCategory: IProductCategory) => productCategory.name === open)[0]
+                    .products.map((product: IProduct, index) => {
+                      const t = {
+                        key: index,
+                        content: <ProductItem key={index} product={product} productCategory={open}></ProductItem>,
+                      };
+                      return t;
+                    })
+                }
+                height="100%"
+                width="25%"
+                margin="0 auto"
+                offset={1}
+                showArrows={true}
+              />
+            </Row>
+          )}
+          {open === 'Vegetarisch' && (
+            <Row style={{ height: '100%', width: '100%' }}>
+              <Carroussel
+                cards={
+                  productCategories.filter((productCategory: IProductCategory) => productCategory.name === open)[0] &&
+                  productCategories
+                    .filter((productCategory: IProductCategory) => productCategory.name === open)[0]
+                    .products.map((product: IProduct, index) => {
+                      const t = {
+                        key: index,
+                        content: <ProductItem key={index} product={product} productCategory={open}></ProductItem>,
+                      };
+                      return t;
+                    })
+                }
+                height="100%"
+                width="25%"
+                margin="0 auto"
+                offset={2}
+                showArrows={false}
+              />
+            </Row>
+          )}
+        </Row>
+      </>
+    )
   );
 };
 

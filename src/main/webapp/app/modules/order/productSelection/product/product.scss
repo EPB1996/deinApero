@@ -45,33 +45,34 @@
 }
 
 .productImage {
-  background-color: antiquewhite;
   margin-top: -20%;
-  width: 20rem;
+  width: 60%;
   border-radius: 20px;
 }
 
 .cardProduct {
-  display: flex;
-  flex-direction: column;
-  /* align-items: center; */
-  justify-content: center;
+  width: 20rem;
+  height: 70%;
 
-  width: 25rem;
-  height: 40rem;
-
-  -webkit-transition: width 1s ease-in-out;
-  -moz-transition: width 1s ease-in-out;
-  -o-transition: width 1s ease-in-out;
-  transition: width 1s ease-in-out;
+  -webkit-transition: width 1s ease-in-out, height 1s ease-in-out;
+  -moz-transition: width 1s ease-in-out, height 1s ease-in-out;
+  -o-transition: width 1s ease-in-out, height 1s ease-in-out;
+  transition: width 1s ease-in-out, height 1s ease-in-out;
 }
 
 .cardProductInfo {
-  width: 40rem;
-  background-color: antiquewhite;
+  width: 70vw;
+  height: 50vh;
 
-  -webkit-transition: width 1s ease-in-out;
-  -moz-transition: width 1s ease-in-out;
-  -o-transition: width 1s ease-in-out;
-  transition: width 1s ease-in-out;
+  -webkit-transition: width 1s ease-in-out, height 1s ease-in-out;
+  -moz-transition: width 1s ease-in-out, height 1s ease-in-out;
+  -o-transition: width 1s ease-in-out, height 1s ease-in-out;
+  transition: width 1s ease-in-out, height 1s ease-in-out;
+}
+
+.productBody {
+  margin-top: 10px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  scrollbar-width: none;
 }

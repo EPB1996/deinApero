@@ -7,7 +7,7 @@ const ImageMagnifier = ({
   height,
   magnifierHeight = 500,
   magnifieWidth = 350,
-  zoomLevel = 5,
+  zoomLevel = 6,
 }: {
   src: string;
   width?: string;
