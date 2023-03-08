@@ -20,9 +20,9 @@ const Guests = () => {
   };
 
   return (
-    <Slide direction="left" duration={1500} triggerOnce>
-      <Row style={{ justifyContent: 'center' }}>
-        <Col md={6} style={{ display: 'flex', justifyContent: 'space-around', paddingTop: '10%' }}>
+    <Row style={{ justifyContent: 'center', height: '100%' }}>
+      <Col md={6} style={{ display: 'flex', justifyContent: 'space-around', height: '100%' }}>
+        <Slide direction="left" duration={1500} triggerOnce>
           <Card>
             <ValidatedForm defaultValues={defaultValues()} onSubmit={saveEntity}>
               <ValidatedField
@@ -39,10 +39,10 @@ const Guests = () => {
                 <Translate contentKey="custom.guest.confirmation">Confirm</Translate>
               </Button>
             </ValidatedForm>
-          </Card>
-        </Col>
-      </Row>
-    </Slide>
+          </Card>{' '}
+        </Slide>
+      </Col>
+    </Row>
   );
 };
 

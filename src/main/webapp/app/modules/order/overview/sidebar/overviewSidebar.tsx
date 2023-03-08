@@ -19,27 +19,7 @@ import { addProduct, removeProduct, reset as resetProductSelection } from '../..
 import { reset as resetOrderStepper } from '../../stepper/stepper.reducer';
 import { reset as resetGuests } from '../../guests/guests.reducer';
 
-const responsive = {
-  superLargeDesktop: {
-    // the naming can be any, depends on you.
-    breakpoint: { max: 4000, min: 3000 },
-    items: 4,
-  },
-  desktop: {
-    breakpoint: { max: 3000, min: 1024 },
-    items: 3,
-  },
-  tablet: {
-    breakpoint: { max: 1024, min: 464 },
-    items: 2,
-  },
-  mobile: {
-    breakpoint: { max: 464, min: 0 },
-    items: 1,
-  },
-};
-
-const OverviewSidebar = ({ overViewExpand }) => {
+const OverviewSidebar = () => {
   const [total, setTotal] = useState(0);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -118,83 +98,82 @@ const OverviewSidebar = ({ overViewExpand }) => {
   return (
     <Slide className="h-100" direction="left" duration={1500} triggerOnce>
       <Card className="h-100" style={{ overflowX: 'hidden' }}>
-        {overViewExpand && (
-          <div>
-            <Row>
-              <Col md={4}>
-                <h5>
-                  <Translate contentKey={`custom.overview.name`}> Name</Translate>:
-                </h5>
-              </Col>
-              <Col md={8}>
-                {(customerInfo.step === 1 || customerInfo.step === 2 || customerInfo.step === 3) && (
-                  <Slide direction="right" duration={1500} delay={1000} triggerOnce>
-                    <div style={{ display: 'inline-block' }}>
-                      {customerInfo.firstName} {customerInfo.lastName}
-                    </div>
-                  </Slide>
-                )}
-              </Col>
-            </Row>
-            <Row>
-              <Col md={4}>
-                <h5>
-                  <Translate contentKey={`custom.overview.address`}> Address</Translate>:
-                </h5>
-              </Col>
-              <Col md={8}>
-                {(customerInfo.step === 2 || customerInfo.step === 3) && (
-                  <Slide direction="right" duration={1500} delay={1000} triggerOnce>
-                    <div style={{ display: 'inline-block' }}>
-                      {customerInfo.addressLine1} {customerInfo.addressLine2}
-                    </div>
-                    <div>{customerInfo.city} </div>
-                    <div>{customerInfo.country}</div>
-                  </Slide>
-                )}
-              </Col>
-            </Row>
-            <Row>
-              <Col md={4}>
-                <h5>
-                  <Translate contentKey={`custom.overview.address`}> Contact</Translate>:
-                </h5>
-              </Col>
-              <Col md={8}>
-                {customerInfo.step === 3 && (
-                  <Slide direction="right" duration={1500} delay={1500} triggerOnce>
-                    <div>{customerInfo.email}</div>
-                    <div>{customerInfo.phone}</div>
-                  </Slide>
-                )}
-              </Col>
-            </Row>
-            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-              {customerInfo.step === 3 && (
-                <Slide style={{ width: '100%', padding: '1px' }} direction="right" duration={1500} triggerOnce>
-                  <Button
-                    style={{ width: '100%' }}
-                    color="primary"
-                    id="save-entity"
-                    data-cy="entityCreateSaveButton"
-                    onClick={() => resetCustomerInfoStep()}
-                  >
-                    <Translate contentKey={`custom.overview.changeButton`}> Change</Translate>
-                  </Button>
-                  <Button
-                    style={{ width: '100%' }}
-                    color="primary"
-                    id="save-entity"
-                    data-cy="entityCreateSaveButton"
-                    onClick={() => submitOrder()}
-                  >
-                    <Translate contentKey={`custom.overview.submitButton`}> Submit Order</Translate>
-                  </Button>
+        <div>
+          <Row>
+            <Col md={4}>
+              <h5>
+                <Translate contentKey={`custom.overview.name`}> Name</Translate>:
+              </h5>
+            </Col>
+            <Col md={8}>
+              {(customerInfo.step === 1 || customerInfo.step === 2 || customerInfo.step === 3) && (
+                <Slide direction="right" duration={1500} delay={1000} triggerOnce>
+                  <div style={{ display: 'inline-block' }}>
+                    {customerInfo.firstName} {customerInfo.lastName}
+                  </div>
                 </Slide>
               )}
-            </div>
+            </Col>
+          </Row>
+          <Row>
+            <Col md={4}>
+              <h5>
+                <Translate contentKey={`custom.overview.address`}> Address</Translate>:
+              </h5>
+            </Col>
+            <Col md={8}>
+              {(customerInfo.step === 2 || customerInfo.step === 3) && (
+                <Slide direction="right" duration={1500} delay={1000} triggerOnce>
+                  <div style={{ display: 'inline-block' }}>
+                    {customerInfo.addressLine1} {customerInfo.addressLine2}
+                  </div>
+                  <div>{customerInfo.city} </div>
+                  <div>{customerInfo.country}</div>
+                </Slide>
+              )}
+            </Col>
+          </Row>
+          <Row>
+            <Col md={4}>
+              <h5>
+                <Translate contentKey={`custom.overview.address`}> Contact</Translate>:
+              </h5>
+            </Col>
+            <Col md={8}>
+              {customerInfo.step === 3 && (
+                <Slide direction="right" duration={1500} delay={1500} triggerOnce>
+                  <div>{customerInfo.email}</div>
+                  <div>{customerInfo.phone}</div>
+                </Slide>
+              )}
+            </Col>
+          </Row>
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            {customerInfo.step === 3 && (
+              <Slide style={{ width: '100%', padding: '1px' }} direction="right" duration={1500} triggerOnce>
+                <Button
+                  style={{ width: '100%' }}
+                  color="primary"
+                  id="save-entity"
+                  data-cy="entityCreateSaveButton"
+                  onClick={() => resetCustomerInfoStep()}
+                >
+                  <Translate contentKey={`custom.overview.changeButton`}> Change</Translate>
+                </Button>
+                <Button
+                  style={{ width: '100%' }}
+                  color="primary"
+                  id="save-entity"
+                  data-cy="entityCreateSaveButton"
+                  onClick={() => submitOrder()}
+                >
+                  <Translate contentKey={`custom.overview.submitButton`}> Submit Order</Translate>
+                </Button>
+              </Slide>
+            )}
           </div>
-        )}
+        </div>
+
         <CardTitle tag={'h3'}>
           <Translate contentKey={`custom.overview.selectionTitle`}> Selection</Translate>
         </CardTitle>

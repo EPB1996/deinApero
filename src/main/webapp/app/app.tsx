@@ -45,22 +45,21 @@ export const App = () => {
   const isInProduction = useAppSelector(state => state.applicationProfile.inProduction);
   const isOpenAPIEnabled = useAppSelector(state => state.applicationProfile.isOpenAPIEnabled);
 
-  const paddingTop = '60px';
+  const paddingTop = '120px';
   return (
     <BrowserRouter basename={baseHref}>
+      <ErrorBoundary>
+        <Header
+          isAuthenticated={isAuthenticated}
+          isAdmin={isAdmin}
+          currentLocale={currentLocale}
+          ribbonEnv={ribbonEnv}
+          isInProduction={isInProduction}
+          isOpenAPIEnabled={isOpenAPIEnabled}
+        />
+      </ErrorBoundary>
       <div className="app-container" style={{ paddingTop }}>
         <ToastContainer position={toast.POSITION.TOP_LEFT} className="toastify-container" toastClassName="toastify-toast" />
-
-        <ErrorBoundary>
-          <Header
-            isAuthenticated={isAuthenticated}
-            isAdmin={isAdmin}
-            currentLocale={currentLocale}
-            ribbonEnv={ribbonEnv}
-            isInProduction={isInProduction}
-            isOpenAPIEnabled={isOpenAPIEnabled}
-          />
-        </ErrorBoundary>
 
         <div className="container-fluid view-container" id="app-view-container">
           <ErrorBoundary>
