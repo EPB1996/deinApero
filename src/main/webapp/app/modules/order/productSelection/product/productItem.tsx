@@ -98,10 +98,7 @@ const ProductItem = props => {
       <CardSubtitle className="mb-2 text-muted" tag="h6">
         <div style={{ width: '50%', display: 'flex', justifyContent: 'center', margin: '0 auto' }}>
           <Button onClick={handleRemoveProduct}>-</Button>
-          <div style={{ margin: 'auto 5px' }}>
-            {' '}
-            {addedProducts && addedProducts[id] && addedProducts[id] ? addedProducts[id].amount : 0}
-          </div>
+          <div style={{ margin: 'auto 5px' }}>{addedProducts && addedProducts[id] && addedProducts[id] ? addedProducts[id].amount : 0}</div>
           <Button onClick={handleAddProduct}>+</Button>
         </div>
       </CardSubtitle>

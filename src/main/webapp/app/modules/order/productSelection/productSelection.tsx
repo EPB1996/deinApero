@@ -25,6 +25,7 @@ import { IProductCategory } from 'app/shared/model/product-category.model';
 import { Translate } from 'react-jhipster';
 import Carousel from 'react-spring-3d-carousel';
 import Carroussel from './carousel/Carrousel';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 const responsive = {
   superLargeDesktop: {
@@ -49,15 +50,11 @@ const responsive = {
 const ProductSelection = ({ categoryName }) => {
   const dispatch = useAppDispatch();
   const productCategories = useAppSelector(state => state.productCategory.entities);
-  const [open, setOpen] = useState('Champagne');
   const [products, setProducts] = useState([]);
 
-  const toggle = id => {
-    setOpen(id);
-  };
-
-  const handleNext = () => {
-    dispatch(nextStep());
+  const getNumberOfCards = n => {
+    if (n <= 6) return 1;
+    else return 3;
   };
 
   useEffect(() => {
@@ -74,6 +71,59 @@ const ProductSelection = ({ categoryName }) => {
     );
     console.log(products);
   }, [categoryName]);
+
+  return (
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '100%',
+      }}
+    >
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          flexWrap: 'nowrap',
+          height: '100%',
+        }}
+      >
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+          }}
+        >
+          <TransitionGroup className="slide-group">
+            <CSSTransition classNames="slide" timeout={{ enter: 500, exit: 500 }} key={categoryName}>
+              <div style={{ height: '100%' }}>
+                <div
+                  style={{
+                    fontStyle: 'normal',
+                    width: '75vw',
+                  }}
+                ></div>
+
+                {products.length > 0 && (
+                  <Row className="product-scrolling" style={{ justifyContent: 'center', height: '80%' }}>
+                    <Carroussel
+                      cards={products}
+                      height="100%"
+                      width="75%"
+                      margin="0 auto"
+                      offset={getNumberOfCards(products.length)}
+                      showArrows={false}
+                    />
+                  </Row>
+                )}
+              </div>
+            </CSSTransition>
+          </TransitionGroup>
+        </div>
+      </div>
+    </div>
+  );
 
   return (
     products.length > 0 && (
