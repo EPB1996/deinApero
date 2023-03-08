@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  maxstep: 4,
+  maxstep: 8,
   activeStep: 0,
   showSideBar: false,
   overViewExpand: false,
@@ -24,6 +24,22 @@ const validateStep = (step: number, state) => {
     state.overViewExpand = false;
   }
   if (step === 3) {
+    state.showSideBar = false;
+    state.overViewExpand = false;
+  }
+  if (step === 4) {
+    state.showSideBar = false;
+    state.overViewExpand = false;
+  }
+  if (step === 5) {
+    state.showSideBar = false;
+    state.overViewExpand = false;
+  }
+  if (step === 6) {
+    state.showSideBar = false;
+    state.overViewExpand = false;
+  }
+  if (step === 7) {
     state.showSideBar = true;
     state.overViewExpand = true;
   }

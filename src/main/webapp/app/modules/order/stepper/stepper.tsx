@@ -17,11 +17,12 @@ import RightArrow from './arrows/rightArrow';
 import Login from 'app/modules/login/login';
 import { translate } from 'react-jhipster';
 import DateSelection from '../dateSelection/dateSelection';
+import { IProductCategory } from 'app/shared/model/product-category.model';
 
 const OrderStepper = () => {
   const dispatch = useAppDispatch();
   const { activeStep, showSideBar, overViewExpand, finished } = useAppSelector(state => state.orderStepper);
-  const account = useAppSelector(state => state.authentication.account);
+  const productCategories = useAppSelector(state => state.productCategory.entities);
 
   const handleNext = () => {
     if (!finished) dispatch(nextStep());
@@ -42,8 +43,16 @@ const OrderStepper = () => {
       case 1:
         return <DateSelection></DateSelection>;
       case 2:
-        return <ProductSelection></ProductSelection>;
+        return <ProductSelection categoryName={'Kaviar'}></ProductSelection>;
       case 3:
+        return <ProductSelection categoryName={'Champagne'}></ProductSelection>;
+      case 4:
+        return <ProductSelection categoryName={'Austern'}></ProductSelection>;
+      case 5:
+        return <ProductSelection categoryName={'Platten'}></ProductSelection>;
+      case 6:
+        return <ProductSelection categoryName={'Vegetarisch'}></ProductSelection>;
+      case 7:
         return <CustomerInfo></CustomerInfo>;
       default:
         return 'Something went wrong';
@@ -79,15 +88,39 @@ const OrderStepper = () => {
                 }}
               />
               <Step
-                label={translate('custom.stepper.productSelectionLabel')}
+                label={'Kaviar'}
                 onClick={() => {
                   handleSetStep(2);
                 }}
               />
               <Step
-                label={translate('custom.stepper.overviewLabel')}
+                label={'Champagne'}
                 onClick={() => {
                   handleSetStep(3);
+                }}
+              />
+              <Step
+                label={'Austern'}
+                onClick={() => {
+                  handleSetStep(4);
+                }}
+              />
+              <Step
+                label={'Platten'}
+                onClick={() => {
+                  handleSetStep(5);
+                }}
+              />
+              <Step
+                label={'Vegetarisch'}
+                onClick={() => {
+                  handleSetStep(6);
+                }}
+              />
+              <Step
+                label={translate('custom.stepper.overviewLabel')}
+                onClick={() => {
+                  handleSetStep(7);
                 }}
               />
             </Stepper>
