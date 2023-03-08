@@ -224,8 +224,12 @@ const OverviewSidebar = ({ overViewExpand }) => {
                     </Col>
                     <Col style={{ flexGrow: 2 }}>
                       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                        <Button onClick={() => handleRemoveProduct(product, category)}>-</Button>
-                        <Button onClick={() => handleAddProduct(product, category)}>+</Button>
+                        <Button style={{ margin: '1px' }} onClick={() => handleRemoveProduct(product, category)}>
+                          -
+                        </Button>
+                        <Button style={{ margin: '1px' }} onClick={() => handleAddProduct(product, category)}>
+                          +
+                        </Button>
                       </div>
                     </Col>
                     <Col style={{ flexGrow: 1 }}>
